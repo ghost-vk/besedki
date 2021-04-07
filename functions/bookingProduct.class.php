@@ -119,8 +119,9 @@ class bookingProduct {
 			case '3':
 				$end_datetime = $end_datetime->modify('+3 hour');
 				break;
-			case 'day': // TODO Set next day
-				$end_datetime = $end_datetime->setTime( 22, 0 ); // When day type reservation ends
+			case 'day':
+				$next_day = $end_datetime->modify('+1 day');
+				$end_datetime = $next_day->setTime( 4, 0 ); // When day type reservation ends
 				break;
 		}
 		
@@ -213,7 +214,7 @@ class bookingProduct {
 			return false;
 		}
 		
-		if ( $end_hour > 4 && $end_hour < 10 ) { // End hour between 4:00 and 10:00
+		if ( $end_hour > 5 && $end_hour < 10 ) { // End hour between 4:00 and 10:00
 			return false;
 		}
 		
