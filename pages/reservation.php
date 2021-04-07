@@ -67,9 +67,6 @@
                 </select>
             </div>
 		    <div class="col-12"></div>
-<!--            <div class="col-4">-->
-<!--                <button class="btn btn-secondary" id="getTimeBtn" data-product="--><?//= $product_id; ?><!--">Получить доступные дату и время</button>-->
-<!--            </div>-->
             
 		<?php endforeach; ?>
 		
@@ -80,13 +77,13 @@
         <div>
             <button class="btn btn-primary" id="rentSubmit">Забронировать</button>
         </div>
+        
+        
+        <!--   TESTING HERE     -->
+        <div>
+        </div>
 		
 		<?php wp_reset_postdata(); ?>
 	</div>
-    <div class="reservation">
-        <div class="reservation__title">
-            <h1>Тест карт</h1>
-        </div>
-        <div id="map"></div>
-    </div>
+ 
 </div>

@@ -389,15 +389,16 @@ class bookingProduct {
 	 */
 	public function get_available_time($date) {
 		$this->remove_outdated(); // Remove expires bookings, f.e +30 minutes after adding to cart
-		$need_datetime = \DateTime::createFromFormat('Y-m-d', $date);
-		if ( ! $need_datetime ) { // If not right date format
+		
+		$need_datetime = \DateTime::createFromFormat('Y-m-d', $date, new \DateTimeZone('Europe/Moscow'));
+		if ( ! $need_datetime ) { // If is not right date format
 			return;
 		}
 		$need_date = $need_datetime->format('Y-m-d');
 		
+		// 5:00 to 10:00 should be unavailable
 		$available_times = array(
 			'00:00', '01:00', '02:00', '03:00', '04:00',
-			'05:00', '06:00', '07:00', '08:00', '09:00',
 			'10:00', '11:00', '12:00', '13:00', '14:00',
 			'15:00', '16:00', '17:00', '18:00', '19:00',
 			'20:00', '21:00', '22:00', '23:00'
@@ -407,7 +408,7 @@ class bookingProduct {
 		$current_hour = $now_datetime->format('H:00');
 		
 		$is_today = $this->is_today($date . ' 12:00:00');
-		if ( $is_today === true ) { // If today - get only earlier current hours
+		if ( $is_today === true ) { // If today - get only later current hours
 			$length = 0;
 			foreach ( $available_times as $key => $time ) {
 				if ( $current_hour >= $time ) {
@@ -420,8 +421,8 @@ class bookingProduct {
 			}
 		}
 		
-		$loop_available_times = [];
-		$rent_periods = [];
+		$loop_available_times = array();
+		$rent_periods = array();
 		
 		if ( ! have_rows('rent_repeater', $this->id) ) { // If no rent records in product
 			return $available_times;
@@ -451,20 +452,36 @@ class bookingProduct {
 			$start_hour = (int)$rent_start->format('H');
 			$end_hour = (int)$rent_finish->format('H');
 			
-			if ( $start_date == $need_date ) {
+			// При прохождении цикла по записям бронирования всегда будет срабатывать только $start_date == $need_date
+			if ( $start_date == $need_date ) { // Find match : date which need to get available time is ...
 				if ( $start_hour > $end_hour ) { // If rent starts in one day, but ends the next day
 					$end_hour = 24;
+				} else { // Starts and ends the same day
+					$end_hour -= 1; // Rent starts just after ends previous booking
 				}
-				$rent_periods[] = [$start_hour, $end_hour];
+				$rent_periods[] = array(
+					'start' => $start_hour,
+					'end' => $end_hour,
+				);
 			} elseif ( $finish_date == $need_date ) {
-				$rent_periods[] = [0, $end_hour];
+				$rent_periods[] = array(
+					'start' => 0,
+					'end' => $end_hour - 1, // Rent starts just after ends previous booking
+				);
 			}
 		}
 		
 		if ( ! empty($rent_periods) ) { // If have rent records in needed day
-			$not_allowed_hours = array();
+			$not_allowed_hours = array( // This time is not available for booking
+				5,
+				6,
+				7,
+				8,
+				8,
+				9,
+			);
 			
-			// Exclude today before current hours
+			// Exclude hours before current time if today
 			if ( $is_today === true ) {
 				$now_datetime = new \DateTime('now', new \DateTimeZone('Europe/Moscow'));
 				$current_hour = (int)$now_datetime->format('H');
@@ -473,16 +490,13 @@ class bookingProduct {
 				}
 			}
 			
+			// Exclude hours which are already busy for booking
 			foreach ( $rent_periods as $period ) {
-				$hour_qty = $period[1] - $period[0];
+				$hour_qty = $period['end'] - $period['start'];
 				for ( $i = 0; $i <= $hour_qty; $i += 1 ) {
-					$not_allowed_hours[] = $period[0] + $i;
+					$not_allowed_hours[] = $period['start'] + $i;
 				}
 			}
-			
-//			echo "<br>not allowed : <br>";
-//			var_dump($not_allowed_hours);
-//			echo "<br>";
 			
 			for ( $i = 0; $i < 24; $i += 1 ) {
 				if ( ! in_array($i, $not_allowed_hours, true) ) { // If hour available
