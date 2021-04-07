@@ -1,0 +1,101 @@
+.documentPage__content {
+  padding: 65px 0;
+  padding-top: 65px;
+  padding-bottom: 65px;
+}
+@media (max-width: 1080px) {
+  .documentPage__content {
+    padding-top: calc(25px + 40 * ((100vw - 320px) / 760));
+  }
+}
+@media (max-width: 1080px) {
+  .documentPage__content {
+    padding-bottom: calc(25px + 40 * ((100vw - 320px) / 760));
+  }
+}
+.documentPage h1 {
+  font-size: 24px;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  padding: 0 30px;
+  margin-bottom: 50px;
+  margin-bottom: 50px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+@media (max-width: 1080px) {
+  .documentPage h1 {
+    font-size: calc(14px + 10 * ((100vw - 320px) / 760));
+  }
+}
+@media (max-width: 1080px) {
+  .documentPage h1 {
+    margin-bottom: calc(25px + 25 * ((100vw - 320px) / 760));
+  }
+}
+@media (max-width: 1080px) {
+  .documentPage h1 {
+    padding-left: calc(15px + 15 * ((100vw - 320px) / 760));
+  }
+}
+@media (max-width: 1080px) {
+  .documentPage h1 {
+    padding-right: calc(15px + 15 * ((100vw - 320px) / 760));
+  }
+}
+@media (max-width: 1024px) {
+  .documentPage h1 {
+    font-weight: 500;
+  }
+}
+.documentPage h2, .documentPage h3, .documentPage h4, .documentPage h5, .documentPage h6 {
+  font-size: 18px;
+  line-height: 150%;
+  margin-bottom: 30px;
+  text-align: center;
+  padding: 0 30px;
+  margin-bottom: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
+  font-size: 18px;
+}
+@media (max-width: 1080px) {
+  .documentPage h2, .documentPage h3, .documentPage h4, .documentPage h5, .documentPage h6 {
+    margin-bottom: calc(15px + 15 * ((100vw - 320px) / 760));
+  }
+}
+@media (max-width: 1080px) {
+  .documentPage h2, .documentPage h3, .documentPage h4, .documentPage h5, .documentPage h6 {
+    padding-left: calc(15px + 15 * ((100vw - 320px) / 760));
+  }
+}
+@media (max-width: 1080px) {
+  .documentPage h2, .documentPage h3, .documentPage h4, .documentPage h5, .documentPage h6 {
+    padding-right: calc(15px + 15 * ((100vw - 320px) / 760));
+  }
+}
+@media (max-width: 1080px) {
+  .documentPage h2, .documentPage h3, .documentPage h4, .documentPage h5, .documentPage h6 {
+    font-size: calc(10px + 8 * ((100vw - 320px) / 760));
+  }
+}
+.documentPage p {
+  font-size: 14px;
+  line-height: 130%;
+  margin-bottom: 15px;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+@media (max-width: 1080px) {
+  .documentPage p {
+    margin-bottom: calc(5px + 10 * ((100vw - 320px) / 760));
+  }
+}
+@media (max-width: 1080px) {
+  .documentPage p {
+    font-size: calc(10px + 4 * ((100vw - 320px) / 760));
+  }
+}
+
+/*# sourceMappingURL=page-document.css.map */

@@ -1,0 +1,128 @@
+.callback {
+  &__row {
+    padding: 15px 20px 40px 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    @media (max-width: 1024px) {
+      padding-top: 27px;
+    }
+  }
+  &__input {
+    flex: 0 0 30%;
+    margin-bottom: 17px;
+    @media (max-width: 1024px) {
+      flex: 0 0 100%;
+    }
+    input {
+      width: 100%;
+      padding: 19px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #797979;
+      display: block;
+      margin-bottom: 5px;
+      @include adaptive-value("padding-top", 19, 10, 1);
+      @include adaptive-value("padding-bottom", 19, 10, 1);
+      &::placeholder {
+        font-size: 16px;
+        color: #888787;
+      }
+      &:focus {
+        border: 1px solid #000000;
+      }
+    }
+    input.error-border {
+      border: 1px solid $error;
+    }
+    .callback__error {
+      padding-left: 19px;
+    }
+  }
+  &__btn {
+    flex: 0 0 325px;
+    @media (max-width: 1024px) {
+      flex: 0 0 100%;
+      order: 1;
+    }
+  }
+  &__check {
+    flex: 0 0 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    @media (max-width: 1024px) {
+      order: 0;
+      margin-bottom: 30px;
+    }
+    input {
+      width: 20px;
+      height: 20px;
+      position: static;
+      z-index: 2;
+      opacity: 0;
+    }
+    .callback__error {
+      position: absolute;
+      left: 0;
+      bottom: -23px;
+      @media (max-width: 1024px) {
+        bottom: -30px;
+      }
+    }
+  }
+  &__box {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    margin-right: 20px;
+    border: 1px solid #797979;
+    border-radius: 2px;
+    cursor: pointer;
+    background-color: #FFFFFF;
+    &:focus {
+      border: 1px solid #000000;
+    }
+    span {
+      display: block;
+      width: 200px;
+      cursor: default;
+    }
+  }
+  &__box.error-border {
+    border: 1px solid $error;
+  }
+  &__v {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity .1s ease;
+    pointer-events: none;
+    cursor: pointer;
+  }
+  &__box.active {
+    .callback__v {
+      opacity: 1;
+    }
+  }
+
+
+}
+
+.inputError {
+  font-size: 14px;
+  @include adaptive-value("font-size", 14, 10, 1);
+  font-weight: 700;
+  line-height: 130%;
+  color: $error;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .15s ease;
+}
+
+.inputError.active {
+  opacity: 1;
+  visibility: visible;
+}

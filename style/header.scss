@@ -1,0 +1,325 @@
+.preheader {
+  margin: 0 auto;
+  max-width: 1080px;
+  display: flex;
+  @media (max-width: 1200px) {
+    max-width: 960px;
+  }
+  @media (max-width: 1024px) {
+    display: none;
+  }
+  justify-content: space-between;
+  padding: 25px 0 5px 0;
+  a {
+    text-decoration: none;
+  }
+  &__iconbox {
+    display: flex;
+    flex: 0 0 300px;
+    justify-content: space-between;
+    svg path {
+      transition: fill .25s ease;
+    }
+    .instagram:hover path {
+      fill: #E69EE7;
+    }
+    .telegram:hover path {
+      fill: #2E99D4;
+    }
+    .vkontakte:hover path {
+      fill: #33B758;
+    }
+    .wa:hover path {
+      fill: #5695CF;
+    }
+    .youtube:hover path {
+      fill: #AC2E2E;
+    }
+  }
+  &__contacts {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: right;
+    a {
+      color: #000000!important;
+    }
+    .underline {
+      text-decoration: underline;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.header {
+  background-color: $light_green;
+  height: 75px;
+  padding: 12px 0;
+  overflow: hidden;
+  box-shadow: 0px 3px 10px 2px rgba(0, 0, 0, 0.25);
+  .c-container {
+    position: relative;
+    flex-direction: row!important;
+    justify-content: space-between!important;
+    height: 100%;
+  }
+  &__icon {
+    position: absolute;
+    left: -90px;
+    top: -7px;
+    @media (max-width: 1290px) {
+      display: none;
+    }
+  }
+  &__reservation {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  &__elements {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    ul {
+      list-style-type: none;
+      margin-bottom: 0!important;
+    }
+    ul li {
+      display: inline-block;
+      margin-right: 5px;
+      &:last-child {
+        margin-right: 0;
+      }
+      a {
+        padding: 10px 20px;
+        font-size: 18px;
+        border-radius: 4px;
+        border: solid 1px $dark_green;
+        text-decoration: none;
+        background-color: transparent;
+        transition: background-color .2s ease;
+        color: $dark_green!important;
+        &:hover {
+          background-color: #a4cbb1;
+        }
+      }
+    }
+  }
+}
+
+.homeTopReservation {
+  display: none;
+  @media (max-width: 1024px) {
+    display: block;
+    margin: 13px 0 9px 0;
+  }
+  &__row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+.headerMobile {
+  background-color: $light-green;
+  height: 136px;
+  position: relative;
+  box-shadow: 0px 3px 10px 2px rgba(0, 0, 0, 0.25);
+  &__icon {
+    position: absolute;
+    top: 5px;
+    left: calc(50%);
+    transform: translateX(-50%);
+    transition: opacity .2s ease;
+  }
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding: 10px;
+    height: 64px;
+  }
+  &__phone {
+    margin-right: 5px;
+  }
+  &__burger {
+    width: 40px;
+    height: 34px;
+    position: relative;
+    // Top bar
+    span {
+      position: relative;
+    }
+    span::after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: '';
+      background-color: $dark-green;
+      width: 40px;
+      height: 6px;
+      border-radius: 2px;
+      transition: opacity .2s ease;
+    }
+  }
+  &__burger::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    background-color: $dark-green;
+    width: 40px;
+    height: 6px;
+    border-radius: 2px;
+    transition: opacity .2s ease;
+  }
+  &__burger::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: $dark-green;
+    width: 40px;
+    height: 6px;
+    border-radius: 2px;
+    transition: opacity .2s ease;
+  }
+  &__alt {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    left: 50%;
+    top: 7px;
+    transform: translateX(-50%);
+    transition: opacity 2s ease;
+    img {
+      height: 50px;
+    }
+  }
+  &__address {
+    position: absolute;
+    bottom: -67px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    a {
+      color: #000000!important;
+      text-decoration: none;
+      font-size: 10px;
+    }
+  }
+  .headerMobile__menu {
+    position: absolute;
+    top: 100px;
+  }
+}
+
+.mobileMenu {
+  position: absolute;
+  top: 136px;
+  left: 0;
+  width: 100vw;
+  z-index: 1000;
+  pointer-events: none;
+  overflow: hidden;
+
+  &__wrapper {
+    width: 100%;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 10px;
+    margin-left: -100%;
+    transition: margin-left .3s ease;
+  }
+
+  &__reservation {
+    margin-bottom: 15px;
+    a {
+      line-height: 1.3;
+    }
+  }
+  &__elements {
+    width: 100%;
+    ul {
+      list-style-type: none;
+      width: 100%;
+      padding-left: 0!important;
+      li {
+        width: 100%;
+        margin-bottom: 15px;
+      }
+      a {
+        display: inline-block;
+        width: 100%;
+        border-radius: 4px;
+        border: 1px solid $dark_green;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-decoration: none;
+        text-align: center;
+        font-weight: 500;
+        color: $dark_green;
+        line-height: 1.3;
+      }
+    }
+  }
+  &__iconbox {
+    display: flex;
+    justify-content: center;
+    a {
+      text-decoration: none;
+      display: inline-block;
+      margin-right: 15px;
+      line-height: normal;
+      svg {
+        width: 27px;
+        height: 27px;
+        path {
+          transition: fill .2s ease;
+        }
+      }
+      .youtube {
+        height: 27px;
+        width: auto;
+      }
+    }
+    a:last-child {
+      margin-right: 0;
+    }
+    .instagram:hover path {
+      fill: #E69EE7;
+    }
+    .telegram:hover path {
+      fill: #2E99D4;
+    }
+    .vkontakte:hover path {
+      fill: #33B758;
+    }
+    .wa:hover path {
+      fill: #5695CF;
+    }
+    .youtube:hover path {
+      fill: #AC2E2E;
+    }
+  }
+}
+
+.mobileMenu.active {
+  z-index: 1000;
+  pointer-events: auto;
+  .mobileMenu__wrapper {
+    margin-left: 0;
+  }
+}

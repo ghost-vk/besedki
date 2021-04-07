@@ -1,0 +1,66 @@
+@import "templates";
+
+$primary: $dark_green;
+$secondary: #9ace9c;
+$light : #c6dec7;
+$warning : #e3f3e4;
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+@import "cart-body";
+
+.cartTitle {
+  margin-top: 60px;
+  @include adaptive-value("margin-top", 60, 45, 1);
+  margin-bottom: 60px;
+  @include adaptive-value("margin-bottom", 60, 45, 1);
+  text-align: center;
+  padding: 0 30px;
+}
+
+.cartBody {
+  &__empty {
+    text-align: center;
+    padding-bottom: 60px;
+    min-height: 50vh;
+    @include adaptive-value("min-height", 400, 200, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    h6 {
+      margin-bottom: 30px;
+      @include adaptive-value("margin-bottom", 30, 15, 1);
+    }
+    a {
+      width: fit-content;
+      margin: 0 auto;
+    }
+  }
+
+  .no-label {
+    label {
+      display: none!important;
+    }
+  }
+
+  .woocommerce-notices-wrapper {
+    display: none!important;
+  }
+}
+
+.woocommerce-input-wrapper input::placeholder {
+  color: #a7a5a5 !important;
+}
+
+.thankYou {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  h1 {
+    margin-bottom: 40px;
+  }
+  p {
+    margin-bottom: 20px;
+  }
+}

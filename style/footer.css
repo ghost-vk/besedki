@@ -1,0 +1,22 @@
+footer .prefooter {
+  display: flex;
+  width: 100vw;
+}
+@media (max-width: 1024px) {
+  footer .prefooter {
+    display: none;
+  }
+}
+footer .prefooter__item {
+  overflow: hidden;
+  position: relative;
+}
+footer .prefooter__item img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 100%;
+}
+
+/*# sourceMappingURL=footer.css.map */
