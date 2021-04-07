@@ -94,14 +94,16 @@ class bookingProduct {
 	
 	/**
 	 * Get array of DateTime objects from string datetime format
-	 * @param $start {String}
-	 * @param $duration {String}
-	 * @return array|void
+	 * @param $start {String} 'Y-m-d H:i:s'
+	 * @param $duration {String}, available values : '1', '2', '3', 'day'
+	 * @returns array - Keys:
+	 * 	'start_datetime' => DateTime
+	 * 	'end_datetime' => DateTime
 	 */
-	private function get_interval($start, $duration) {
+	public function get_interval($start, $duration) {
 		$start_datetime = \DateTime::createFromFormat('Y-m-d H:i:s', $start, new \DateTimeZone('Europe/Moscow'));
 		
-		if ( !$start_datetime ) {
+		if ( ! $start_datetime ) {
 			return;
 		}
 		
@@ -117,7 +119,7 @@ class bookingProduct {
 			case '3':
 				$end_datetime = $end_datetime->modify('+3 hour');
 				break;
-			case 'day':
+			case 'day': // TODO Set next day
 				$end_datetime = $end_datetime->setTime( 22, 0 ); // When day type reservation ends
 				break;
 		}
@@ -188,6 +190,38 @@ class bookingProduct {
 	
 	
 	/**
+	 * @param $need_interval {Array} - constructed by "get_interval"
+	 * @return {Boolean} if 5 - 9 o'clock returns false
+	 */
+	public function check_allowed_time($need_interval) {
+		if (
+			! $need_interval['start_datetime']
+			OR
+			! $need_interval['end_datetime']
+			OR
+			! $need_interval['start_datetime'] instanceof \DateTime
+			OR
+			! $need_interval['end_datetime'] instanceof \DateTime
+		) {
+			return false;
+		}
+		
+		$start_hour = (int)$need_interval['start_datetime']->format('H');
+		$end_hour = (int)$need_interval['end_datetime']->format('H');
+		
+		if ( $start_hour > 4 && $start_hour < 10 ) { // Start hour between 4:00 and 10:00
+			return false;
+		}
+		
+		if ( $end_hour > 4 && $end_hour < 10 ) { // End hour between 4:00 and 10:00
+			return false;
+		}
+		
+		return true;
+	}
+	
+	
+	/**
 	 * Check reservation period. If period is not intersects with exists returns false;
 	 * @param $data {Array} contains start datetime and duration
 	 * $data['start_datetime'] - a string time formated "Y-m-d H:i:s"
@@ -211,8 +245,9 @@ class bookingProduct {
 			$duration = get_sub_field('duration');
 			$exists_interval = $this->get_interval($start, $duration);
 			$is_vacant = $this->compare_intervals($need_interval, $exists_interval);
+			$is_allowed_time = $this->check_allowed_time($need_interval);
 			
-			if ( $is_vacant === true ) { // Not intersects
+			if ( $is_vacant === true && $is_allowed_time ) { // Not intersects and time not in 5:00 - 9:00
 				continue;
 			} else {
 				return true;
@@ -295,8 +330,6 @@ class bookingProduct {
 		) {
 			return;
 		}
-		
-//		do_action('store_user_key_in_cookie');
 		
 		$data['rent_status'] = $status;
 		$data['user_key'] = $_COOKIE['user_key'];
@@ -525,16 +558,16 @@ class bookingProduct {
 	 * @param $key {String} Booking key - every user has such key in cookie
 	 */
 	public function change_booking_status($status, $key) {
-		if ( have_rows('rent_repeater', $this->id) && isset($_COOKIE['user_key']) ) {
+		if ( have_rows('rent_repeater', $this->id) && isset($key) ) {
 			while ( have_rows('rent_repeater', $this->id) ) {
 				the_row();
 				$user_key = get_sub_field('user_key');
 				
-				if ( ! $user_key || $_COOKIE['user_key'] !== $user_key ) {
+				if ( ! $user_key || $key !== $user_key ) {
 					continue;
 				}
 				
-				$new_value = 'completed';
+				$new_value = $status;
 				update_sub_row('rent_status', 1, $new_value);
 			}
 		} else {
