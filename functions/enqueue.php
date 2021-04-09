@@ -43,10 +43,10 @@ function add_styles() {
 	
 	// Cart + checkout
 	if ( is_page(
-		[
+		array(
 			'cart',
 			'checkout',
-		]
+		)
 	) ) {
 		wp_enqueue_style( 'page-document', get_template_directory_uri() . '/style/cart.css' );
 	}

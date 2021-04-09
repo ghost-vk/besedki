@@ -35,5 +35,10 @@ function include_my_template( $template ) {
 	) ) {
 		return __DIR__ . '/../pages/document.php';
 	}
+	
+	
+	if ( is_page('test') ) {
+		return __DIR__ . '/../pages/test.php';
+	}
 	return $template;
 }

@@ -572,7 +572,7 @@ class bookingProduct {
 				update_sub_row('rent_status', 1, $new_value);
 			}
 		} else {
-			error_log('Не найдены строки бронирования в функции "change_booking_status"', 0);
+			error_log('Booking rows was not finded "change_booking_status"', 0);
 		}
 	}
 	
