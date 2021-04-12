@@ -52,3 +52,12 @@ function store_user_key_in_cookie () {
 		setcookie('user_key', $user_key, time() + 3600 * 24, '/', '', 0);
 	}
 }
+
+
+/**
+ * Let WordPress manage the document title.
+ * By adding theme support, we declare that this theme does not use a
+ * hard-coded <title> tag in the document head, and expect WordPress to
+ * provide it for us.
+ */
+add_theme_support( 'title-tag' );

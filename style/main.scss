@@ -76,7 +76,7 @@ section {
 
 // Typography
 
-p, a, span, h1, h2, h3, h4, h5, h6, li, pre, label, button, input, input::placeholder {
+p, a, span, h1, h2, h3, h4, h5, h6, li, pre, label, div, button, input, input::placeholder {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
   letter-spacing: 0.05em;
@@ -200,6 +200,29 @@ p, a, span, h1, h2, h3, h4, h5, h6, li, pre, label, button, input, input::placeh
   @media (max-width: 1024px) {
     width: 100%;
     padding: 20px 40px;
+  }
+}
+
+.showPoint {
+  a {
+    display: block;
+    color: #FFFFFF;
+    background-color: $dark_green;
+    transition: background-color .15s ease;
+    font-size: 16px;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 2px;
+    width: fit-content;
+    @media (max-width: 768px) {
+      font-size: 14px;
+    }
+    span {
+      color: #ffffff;
+    }
+    &:hover {
+      background-color: $bright_green;
+    }
   }
 }
 

@@ -1,6 +1,11 @@
 <?php
 namespace BESEDKA;
 
+/**
+ * Class BookingFilter
+ * Used for filtering booking products
+ * @package BESEDKA
+ */
 class BookingFilter {
 	private $location; // 'territory' or 'shore'
 	private $capacity;
@@ -27,6 +32,7 @@ class BookingFilter {
 	
 	/**
 	 * Get arguments for WP_Query
+	 * @method GetArgs
 	 * @return array
 	 */
 	private function GetArgs() {
@@ -60,7 +66,8 @@ class BookingFilter {
 	
 	
 	/**
-	 * Get array of product ids
+	 * @method GetIdsArray
+	 * Get array of product ids from WP_Query posts
 	 * @param $args {Array} for getting products (like in WP_Query)
 	 * @return array
 	 */
@@ -80,7 +87,8 @@ class BookingFilter {
 	
 	
 	/**
-	 * Get filtered products ids by location and capacity
+	 * @method GetFiltered
+	 * Get filtered products ids by location and capacity - IDs array
 	 * @param false $location {String|false}
 	 * @param false $capacity {Integer|false}
 	 * @return array|void
@@ -99,7 +107,8 @@ class BookingFilter {
 	}
 	
 	/**
-	 * Get all booking products
+	 * @method GetAll
+	 * Get all booking products - IDs array
 	 * @return array
 	 */
 	public function GetAll() {

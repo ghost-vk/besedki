@@ -27,11 +27,11 @@ function include_my_template( $template ) {
 	}
 	
 	if ( is_page(
-		[
+		array(
 			'privacy', // Политика конфиденциальности
 			'user-agreement', // Пользовательское соглашение
 			'rent-agreement' // Оферта
-		]
+		)
 	) ) {
 		return __DIR__ . '/../pages/document.php';
 	}

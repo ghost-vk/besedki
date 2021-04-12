@@ -53,7 +53,8 @@ function add_styles() {
 	
 	// Shop page - Reservation page
 	if ( is_archive() ) {
-		wp_enqueue_style( 'page-document', get_template_directory_uri() . '/style/reservation.css' );
+		wp_enqueue_style( 'custom-select-style', get_template_directory_uri() . '/libraries/custom-select-box/select.css' );
+		wp_enqueue_style( 'page-document', get_template_directory_uri() . '/style/booking.css' );
 	}
 }
 
@@ -63,6 +64,7 @@ function add_styles() {
 add_action ('wp_enqueue_scripts', 'add_scripts');
 function add_scripts () {
 	// General scripts
+	wp_enqueue_script('font-awesome', 'https://kit.fontawesome.com/519fd0f28a.js', array(), null, true);
 	wp_enqueue_script('header', get_template_directory_uri() . '/js/header.js', array('jquery'), null, true);
 	wp_enqueue_script('libphonenumber', 'https://unpkg.com/libphonenumber-js@1.x/bundle/libphonenumber-min.js', array(), null, true);
 	wp_enqueue_script('callback', get_template_directory_uri() . '/js/callback.js', array('jquery', 'libphonenumber'), null, true);
@@ -74,15 +76,17 @@ function add_scripts () {
 	
 	// Shop page - Reservation page
 	if ( is_archive() ) {
-		wp_enqueue_script('datetimepicker', get_template_directory_uri() . '/libraries/datetimepicker/build/jquery.datetimepicker.full.js', array('jquery'), null, true);
-		wp_enqueue_script('datetime', get_template_directory_uri() . '/js/datetime.js', array('jquery', 'datetimepicker'), null, true);
+		wp_enqueue_script('custom-select', get_template_directory_uri() . '/libraries/custom-select-box/select.min.js', array('jquery'), null, true);
+		wp_enqueue_script('reservation', get_template_directory_uri() . '/js/reservation.js', array('jquery', 'custom-select'), null, true);
+//		wp_enqueue_script('datetimepicker', get_template_directory_uri() . '/libraries/datetimepicker/build/jquery.datetimepicker.full.js', array('jquery'), null, true);
+//		wp_enqueue_script('datetime', get_template_directory_uri() . '/js/datetime.js', array('jquery', 'datetimepicker'), null, true);
 //		wp_enqueue_script('yandex-map-api', 'https://api-maps.yandex.ru/2.1/?lang=ru-RU&amp;apikey=417f5206-2e2a-4260-a439-90080e8435ff', array(), null, true);
 //		wp_enqueue_script('map', get_template_directory_uri() . '/js/yandex-map.js', array('jquery', 'datetimepicker', 'yandex-map-api'), null, true);
-		wp_localize_script('datetime', 'bookingDatetime', array(
-			'nonce' => wp_create_nonce('booking_nonce'),
-			'url' => admin_url('admin-ajax.php'),
-			'cart_url' => home_url('/cart'),
-		));
+//		wp_localize_script('datetime', 'bookingDatetime', array(
+//			'nonce' => wp_create_nonce('booking_nonce'),
+//			'url' => admin_url('admin-ajax.php'),
+//			'cart_url' => home_url('/cart'),
+//		));
 //		wp_localize_script('map', 'mapData', array(
 //			'bookingMapData' => get_stylesheet_directory_uri() . '/booking-map-data.json',
 //		));
