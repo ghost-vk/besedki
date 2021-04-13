@@ -61,3 +61,15 @@ function store_user_key_in_cookie () {
  * provide it for us.
  */
 add_theme_support( 'title-tag' );
+
+/**
+ * Changes shop title
+ */
+add_filter( 'document_title_parts', 'wc_custom_shop_archive_title' );
+function wc_custom_shop_archive_title( $title ) {
+	if ( is_shop() && isset( $title['title'] ) ) {
+		$title['title'] = 'Бронирование';
+	}
+	
+	return $title;
+}

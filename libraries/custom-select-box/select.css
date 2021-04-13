@@ -3,6 +3,7 @@
   position: absolute;
 }
 .select-wrapper .select-content {
+  z-index: 1000;
   display: block;
   max-height: 200px;
   background-color: #fff;

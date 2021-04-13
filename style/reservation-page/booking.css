@@ -1,3 +1,41 @@
+.mapPopup {
+  width: 210px;
+}
+.mapPopup__row {
+  display: flex;
+  justify-content: space-between;
+}
+.mapPopup__column {
+  flex: 0 0 100px;
+}
+.mapPopup__title {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 7px;
+}
+.mapPopup img {
+  display: block;
+  width: 100%;
+  margin-bottom: 7px;
+  border-radius: 2px;
+}
+.mapPopup__capacity {
+  padding-top: 22px;
+}
+.mapPopup__capacity, .mapPopup__price {
+  display: block;
+  font-size: 10px;
+  margin-bottom: 7px;
+}
+.mapPopup__open {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 10px;
+}
+.mapPopup i {
+  color: #114410;
+}
+
 .reservationWindow {
   max-width: calc(100vw - 100px);
   background-color: #BFD6A9;
@@ -74,6 +112,10 @@
   border-radius: 5px;
   width: 100%;
   height: 600px;
+}
+.reservationWindow #map {
+  width: 100%;
+  height: 100%;
 }
 
 .filterSelect__name {

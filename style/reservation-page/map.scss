@@ -1,0 +1,37 @@
+.mapPopup {
+  width: 210px;
+  &__row {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__column {
+    flex: 0 0 100px;
+  }
+  &__title {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 7px;
+  }
+  img {
+    display: block;
+    width: 100%;
+    margin-bottom: 7px;
+    border-radius: 2px;
+  }
+  &__capacity {
+    padding-top: 22px;
+  }
+  &__capacity, &__price {
+    display: block;
+    font-size: 10px;
+    margin-bottom: 7px;
+  }
+  &__open {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 10px;
+  }
+  i {
+    color: $dark_green;
+  }
+}
