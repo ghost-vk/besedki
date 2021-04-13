@@ -191,6 +191,7 @@ p, a, span, h1, h2, h3, h4, h5, h6, li, pre, label, div, button, input, input::p
   text-decoration: none;
   transition: background-color 0.2s ease;
   text-align: center;
+  cursor: pointer;
 }
 @media (max-width: 1080px) {
   .bigBtn {

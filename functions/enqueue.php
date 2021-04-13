@@ -77,17 +77,21 @@ function add_scripts () {
 	// Shop page - Reservation page
 	if ( is_archive() ) {
 		wp_enqueue_script('custom-select', get_template_directory_uri() . '/libraries/custom-select-box/select.min.js', array('jquery'), null, true);
-		wp_enqueue_script('reservation', get_template_directory_uri() . '/js/reservation.js', array('jquery', 'custom-select'), null, true);
+		wp_enqueue_script('reservation', get_template_directory_uri() . '/js/reservation/map.js', array('jquery', 'custom-select'), null, true);
 		wp_localize_script('reservation', 'mapData', array(
 			'nonce' => wp_create_nonce('map_nonce'),
 			'url' => admin_url('admin-ajax.php'),
 			'icon' => get_stylesheet_directory_uri() . '/img/icon/point-icon.png',
 			'testImage' => get_stylesheet_directory_uri() . '/img/picture/cart_item.jpg',
 		));
+		wp_enqueue_script('slick', get_template_directory_uri() . '/libraries/slick/slick.min.js', array('jquery'), null, true);
+		wp_enqueue_script('popup', get_template_directory_uri() . '/js/reservation/popup.js', array('jquery', 'custom-select', 'slick'), null, true);
+		wp_localize_script('popup', 'popupData', array(
+			'nonce' => wp_create_nonce('popup_nonce'),
+			'url' => admin_url('admin-ajax.php'),
+		));
 //		wp_enqueue_script('datetimepicker', get_template_directory_uri() . '/libraries/datetimepicker/build/jquery.datetimepicker.full.js', array('jquery'), null, true);
 //		wp_enqueue_script('datetime', get_template_directory_uri() . '/js/datetime.js', array('jquery', 'datetimepicker'), null, true);
-//		wp_enqueue_script('yandex-map-api', 'https://api-maps.yandex.ru/2.1/?lang=ru-RU&amp;apikey=417f5206-2e2a-4260-a439-90080e8435ff', array(), null, true);
-//		wp_enqueue_script('map', get_template_directory_uri() . '/js/yandex-map.js', array('jquery', 'datetimepicker', 'yandex-map-api'), null, true);
 //		wp_localize_script('datetime', 'bookingDatetime', array(
 //			'nonce' => wp_create_nonce('booking_nonce'),
 //			'url' => admin_url('admin-ajax.php'),
@@ -100,7 +104,7 @@ function add_scripts () {
 	
 	// Homepage
 	if ( is_front_page() ) { // Homepage
-		wp_enqueue_script('slick', get_template_directory_uri() . '/libraries/slick/slick.js?123', array('jquery'), null, true);
+		wp_enqueue_script('slick', get_template_directory_uri() . '/libraries/slick/slick.js', array('jquery'), null, true);
 		wp_enqueue_script('viewport-checker', get_template_directory_uri() . '/libraries/viewportchecker/viewportChecker.js', array('jquery'), null, true);
 		wp_enqueue_script('sticky-button', get_template_directory_uri() . '/js/sticky-button.js', array('jquery'), null, true);
 		wp_enqueue_script('homepage', get_template_directory_uri() . '/js/homepage.js', array('jquery', 'slick', 'viewport-checker'), null, true);

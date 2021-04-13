@@ -169,6 +169,7 @@ p, a, span, h1, h2, h3, h4, h5, h6, li, pre, label, div, button, input, input::p
   text-decoration: none;
   transition: background-color .2s ease;
   text-align: center;
+  cursor: pointer;
   &:hover {
     background-color: $bright_sand;
   }
@@ -181,6 +182,8 @@ p, a, span, h1, h2, h3, h4, h5, h6, li, pre, label, div, button, input, input::p
     background-color: $bright_green;
   }
 }
+
+
 
 .blueBtn {
   color: #FFFFFF;
