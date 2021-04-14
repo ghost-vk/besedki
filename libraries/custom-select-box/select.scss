@@ -24,9 +24,10 @@ $size_com : (
 );
 $shadow : 2px 4px 12px 0px #D9D9D9;
 
-.select-wrapper{
+.select-wrapper {
   display: block;
   position: absolute;
+  z-index: 1001;
   .select-content{
     z-index: 1000; // Need to be upper the map
     display: block;

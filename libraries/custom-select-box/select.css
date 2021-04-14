@@ -1,6 +1,7 @@
 .select-wrapper {
   display: block;
   position: absolute;
+  z-index: 1001;
 }
 .select-wrapper .select-content {
   z-index: 1000;

@@ -77,7 +77,8 @@ function add_scripts () {
 	// Shop page - Reservation page
 	if ( is_archive() ) {
 		wp_enqueue_script('custom-select', get_template_directory_uri() . '/libraries/custom-select-box/select.min.js', array('jquery'), null, true);
-		wp_enqueue_script('reservation', get_template_directory_uri() . '/js/reservation/map.js', array('jquery', 'custom-select'), null, true);
+		wp_enqueue_script('datetimepicker', get_template_directory_uri() . '/libraries/datetimepicker/build/jquery.datetimepicker.full.js', array('jquery'), null, true);
+		wp_enqueue_script('reservation', get_template_directory_uri() . '/js/reservation/map.js', array('jquery', 'custom-select', 'datetimepicker'), null, true);
 		wp_localize_script('reservation', 'mapData', array(
 			'nonce' => wp_create_nonce('map_nonce'),
 			'url' => admin_url('admin-ajax.php'),
@@ -90,7 +91,6 @@ function add_scripts () {
 			'nonce' => wp_create_nonce('popup_nonce'),
 			'url' => admin_url('admin-ajax.php'),
 		));
-//		wp_enqueue_script('datetimepicker', get_template_directory_uri() . '/libraries/datetimepicker/build/jquery.datetimepicker.full.js', array('jquery'), null, true);
 //		wp_enqueue_script('datetime', get_template_directory_uri() . '/js/datetime.js', array('jquery', 'datetimepicker'), null, true);
 //		wp_localize_script('datetime', 'bookingDatetime', array(
 //			'nonce' => wp_create_nonce('booking_nonce'),
