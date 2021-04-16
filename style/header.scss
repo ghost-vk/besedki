@@ -216,6 +216,10 @@
       color: #000000!important;
       text-decoration: none;
       font-size: 10px;
+      i {
+        color : $dark_green;
+        @include adaptive-value("font-size", 20, 14, 1);
+      }
     }
   }
   .headerMobile__menu {

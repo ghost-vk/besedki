@@ -17,8 +17,11 @@ require_once __DIR__ . '/functions/templates.php';
 // Callback handler
 require_once __DIR__ . '/functions/callback.php';
 
-// Reservation module
-require_once __DIR__ . '/functions/reservation.php';
+// Reservation PopUp module
+require_once __DIR__ . '/functions/reservation-popup.php';
+
+// Reservation actions (removing items)
+require_once __DIR__ . '/functions/reservation-actions.php';
 
 // Payment hooks
 require_once __DIR__ . '/functions/payment-hooks.php';

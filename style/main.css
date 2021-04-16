@@ -638,6 +638,15 @@ p, a, span, h1, h2, h3, h4, h5, h6, li, pre, label, div, button, input, input::p
   text-decoration: none;
   font-size: 10px;
 }
+.headerMobile__address a i {
+  color: #114410;
+  font-size: 20px;
+}
+@media (max-width: 1080px) {
+  .headerMobile__address a i {
+    font-size: calc(14px + 6 * ((100vw - 320px) / 760));
+  }
+}
 .headerMobile .headerMobile__menu {
   position: absolute;
   top: 100px;

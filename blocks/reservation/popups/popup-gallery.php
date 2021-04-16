@@ -1,52 +1,45 @@
-<div class="popupGallery">
+<div class="popupGallery" id="popupGallery">
     <div class="popupGallery__body">
+        <!--     HEADER      -->
         <div class="popupGallery__header">
-            <!--     POPUP TITLE     -->
+            <!--     POPUP TITLE      -->
             <div class="popupGallery__title">
-                <span>Беседка #1</span>
+                <span id="popupTitle"></span>
             </div>
             <!--     CLOSE BUTTON     -->
-            <div class="popupGallery__close">
+            <div class="popupGallery__close" id="closeBtn">
                 <i class="fas fa-times"></i>
             </div>
         </div>
-        <!--    GALLERY    -->
+        
+        <!--     GALLERY     -->
         <div class="popupGallery__gallery">
-                <!--     MAIN SLIDER     -->
-                <div class="popupGallery__slider" id="popupSlider">
-                    <div class="popupGallery__bg"
-                         style="background: center / cover no-repeat url('<?php echo get_stylesheet_directory_uri(); ?>/img/picture/gallery-image.jpg')">
-                    </div>
-                    <div class="popupGallery__bg"
-                         style="background: center / cover no-repeat url('<?php echo get_stylesheet_directory_uri(); ?>/img/picture/gallery-2.jpg')">
-                    </div>
-                    <div class="popupGallery__bg"
-                         style="background: center / cover no-repeat url('<?php echo get_stylesheet_directory_uri(); ?>/img/picture/gallery-image.jpg')">
-                    </div>
-                </div>
-                <!--      NAVIGATION ARROWS     -->
-                <div class="popupGallery__arrows" id="popupSliderArrows"></div>
             
-                <!--    BADGES    -->
-                <span class="popupGallery__location badge"><i class="fas fa-map-marker-alt"></i> На берегу</span>
-                <span class="popupGallery__capacity badge"><i class="fas fa-users"></i> До 20 человек</span>
-                <span class="popupGallery__diapason badge"><i class="fas fa-tags"></i></i> 1 000 Р - 7 000 Р</span>
+            <!--     MAIN SLIDER     -->
+            <div class="popupGallery__slider" id="popupSlider"></div>
+            
+            <!--      NAVIGATION ARROWS     -->
+            <div class="popupGallery__arrows" id="popupSliderArrows"></div>
+        
+            <!--    BADGES    -->
+            <span class="popupGallery__location badge">
+                <i class="fas fa-map-marker-alt"></i> <span id="badgeLocation"></span>
+            </span>
+            <span class="popupGallery__capacity badge">
+                <i class="fas fa-users"></i> До <span id="badgeCapacity"></span> чел.
+            </span>
+            <span class="popupGallery__diapason badge">
+                <i class="fas fa-tags"></i>
+                <span id="badgeMinPrice"></span> &#8381; -
+                <span id="badgeMaxPrice"></span> &#8381;
+            </span>
             
             <?php if ( ! is_mobile() ) : // Navigation slider only on desktop ?>
                 <!--     NAVIGATION SLIDER DESKTOP     -->
-                <div class="popupGallery__nav" id="popupSliderNav">
-                    <div class="popupGallery__bg"
-                         style="background: center / cover no-repeat url('<?php echo get_stylesheet_directory_uri(); ?>/img/picture/gallery-image.jpg')">
-                    </div>
-                    <div class="popupGallery__bg"
-                         style="background: center / cover no-repeat url('<?php echo get_stylesheet_directory_uri(); ?>/img/picture/gallery-2.jpg')">
-                    </div>
-                    <div class="popupGallery__bg"
-                         style="background: center / cover no-repeat url('<?php echo get_stylesheet_directory_uri(); ?>/img/picture/gallery-image.jpg')">
-                    </div>
-                </div>
+                <div class="popupGallery__nav" id="popupSliderNav"></div>
             <?php endif; ?>
         </div>
+        
         <!--     DETAILS     -->
         <div class="popupGallery__details">
             <div class="popupGallery__row">
@@ -67,7 +60,7 @@
                     <div class="popupGallery__label">
                         <span>Стоимость</span>
                     </div>
-                    <p>3 000 Р</p>
+                    <p id="popupPriceBox">3 000 Р</p>
                 </div>
                 <!--   DATETIME PICKER   -->
                 <div class="popupGallery__datetime">
@@ -80,14 +73,18 @@
                 </div>
             </div>
         </div>
-        <!--  SUBMIT  -->
+        
+        <!--     SUBMIT      -->
         <div class="popupGallery__button">
             <!--      ERROR      -->
 <!--            <p class="popupGallery__error">-->
 <!--                <i class="fas fa-exclamation-circle"></i>-->
 <!--                Необходимо выбрать продолжительность аренды-->
 <!--            </p>-->
-            <button class="bigBtn">Выбрать дату и время</button>
+            <button class="bigBtn">Забронировать</button>
         </div>
+        
+        <!--     LOADER      -->
+        <div class="popupGallery__loader" id="popupLoader"></div>
     </div>
 </div>

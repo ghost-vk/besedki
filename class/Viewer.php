@@ -1,16 +1,17 @@
 <?php
 namespace BESEDKA;
 
-class BookingProductViewer {
+class Viewer {
 	
-	private $product;
-	private $id;
-	private string $name;
-	private int $capacity;
-	private string $location;
-	private array $variations;
-	private array $gallery;
-	
+	public $product;
+	public $id;
+	public string $name;
+	public int $capacity;
+	public string $location;
+	public array $variations;
+	public array $gallery;
+	public $max_price;
+	public $min_price;
 	
 	/**
 	 * BookingProductViewer constructor.
@@ -28,6 +29,13 @@ class BookingProductViewer {
 		}
 		$this->product = $product;
 		$this->id = $id;
+		
+		// Min and max price
+		$min = (int)$product->get_variation_price('min');
+		$this->min_price = number_format($min, 0, '', ' ');
+		
+		$max = (int)$product->get_variation_price('max');
+		$this->max_price = number_format($max, 0, '', ' ');
 		
 		// Name
 		$this->name = get_the_title($id);
@@ -48,10 +56,13 @@ class BookingProductViewer {
 				continue;
 			}
 			
+			$price_raw = (int)$variation_product->get_price();
+			$price = number_format($price_raw, 0, '', ' ');
+			
 			$this->variations[] = array(
 				'id' => $variation['variation_id'],
 				'duration' => $variation['attributes']['attribute_pa_rent_duration'],
-				'price' => $variation_product->get_price(),
+				'price' => $price,
 			);
 		}
 		
@@ -61,26 +72,4 @@ class BookingProductViewer {
 	
 	
 	public function GetCoordinates() {}
-	
-	
-	/**
-	 * Get necessary data for display in modal window
-	 * @return array|false
-	 */
-	public function GetPopupData() {
-		if ( ! $this->product ) {
-			return false;
-		}
-		
-		$popup_data = array(
-			'id' => $this->id,
-			'name' => $this->name,
-			'capacity' => $this->capacity,
-			'location' => $this->location,
-			'variations' => $this->variations,
-			'gallery' => $this->gallery,
-		);
-		
-		return $popup_data;
-	}
 }
