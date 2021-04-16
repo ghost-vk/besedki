@@ -66,6 +66,7 @@ function add_scripts () {
 	// General scripts
 	wp_enqueue_script('font-awesome', 'https://kit.fontawesome.com/519fd0f28a.js', array(), null, true);
 	wp_enqueue_script('header', get_template_directory_uri() . '/js/header.js', array('jquery'), null, true);
+	wp_enqueue_script('server-client', get_template_directory_uri() . '/js/ServerClient.js', array('jquery'), null, true);
 	wp_enqueue_script('libphonenumber', 'https://unpkg.com/libphonenumber-js@1.x/bundle/libphonenumber-min.js', array(), null, true);
 	wp_enqueue_script('callback', get_template_directory_uri() . '/js/callback.js', array('jquery', 'libphonenumber'), null, true);
 	wp_localize_script('callback', 'generalSettings', array(
@@ -86,7 +87,7 @@ function add_scripts () {
 			'testImage' => get_stylesheet_directory_uri() . '/img/picture/cart_item.jpg',
 		));
 		wp_enqueue_script('slick', get_template_directory_uri() . '/libraries/slick/slick.min.js', array('jquery'), null, true);
-		wp_enqueue_script('popup', get_template_directory_uri() . '/js/reservation/popup.js', array('jquery', 'custom-select', 'slick'), null, true);
+		wp_enqueue_script('popup', get_template_directory_uri() . '/js/reservation/popup.js', array('jquery', 'custom-select', 'slick', 'server-client'), null, true);
 		wp_localize_script('popup', 'popupData', array(
 			'nonce' => wp_create_nonce('popup_nonce'),
 			'url' => admin_url('admin-ajax.php'),

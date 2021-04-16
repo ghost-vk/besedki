@@ -66,24 +66,6 @@ BESEDKA.testMethod = () => {
 
         picker.datetimepicker(datetimeArgs); // Starts Datetimepicker
 
-        class ServerClient {
-            constructor(query) {
-                this.data = query;
-                this.data.nonce = popupData.nonce;
-                this.data.action = "get_booking_product_data";
-                this.url = popupData.url;
-            }
-
-            get = (callback = null) => {
-                $.post(this.url, this.data, function (response) {
-                    if (typeof callback === "function") {
-                        callback(response);
-                    }
-                    console.log(response); // Test
-                });
-            }
-        }
-
         class Popup {
             constructor(wrapper, id) {
                 this.id = id;
@@ -97,7 +79,7 @@ BESEDKA.testMethod = () => {
             }
 
             init = () => {
-                let client, query;
+                let client, clientSettings, query;
 
                 this.showLoader();
                 this.show();
@@ -106,7 +88,14 @@ BESEDKA.testMethod = () => {
                     id: this.id,
                     data_for: "popup"
                 }
-                client = new ServerClient(query);
+
+                clientSettings = {
+                    nonce: popupData.nonce,
+                    action: "get_booking_product_data",
+                    url: popupData.url
+                }
+
+                client = new ServerClient(clientSettings, query);
                 client.get(this.update); // Get data from server
 
                 this.closeBtn.click(this.destroy);

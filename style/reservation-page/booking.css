@@ -342,12 +342,12 @@
   justify-content: center;
 }
 .popupGallery__duration {
-  margin-right: 30px;
-  margin-right: 20px;
+  margin-right: 40px;
+  margin-right: 40px;
 }
 @media (max-width: 1080px) {
   .popupGallery__duration {
-    margin-right: calc(10px + 10 * ((100vw - 320px) / 760));
+    margin-right: calc(10px + 30 * ((100vw - 320px) / 760));
   }
 }
 .popupGallery__duration .popupGallery__label {

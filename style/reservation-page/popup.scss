@@ -190,8 +190,8 @@
     justify-content: center;
   }
   &__duration {
-    margin-right: 30px;
-    @include adaptive-value("margin-right", 20, 10, 1);
+    margin-right: 40px;
+    @include adaptive-value("margin-right", 40, 10, 1);
   }
   &__duration &__label {
     text-align: center;
