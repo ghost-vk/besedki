@@ -66,7 +66,7 @@ function add_scripts () {
 	// General scripts
 	wp_enqueue_script('font-awesome', 'https://kit.fontawesome.com/519fd0f28a.js', array(), null, true);
 	wp_enqueue_script('header', get_template_directory_uri() . '/js/header.js', array('jquery'), null, true);
-	wp_enqueue_script('server-client', get_template_directory_uri() . '/js/ServerClient.js', array('jquery'), null, true);
+	wp_enqueue_script('server-client', get_template_directory_uri() . '/js/lib/ServerClient.js', array('jquery'), null, true);
 	wp_enqueue_script('libphonenumber', 'https://unpkg.com/libphonenumber-js@1.x/bundle/libphonenumber-min.js', array(), null, true);
 	wp_enqueue_script('callback', get_template_directory_uri() . '/js/callback.js', array('jquery', 'libphonenumber'), null, true);
 	wp_localize_script('callback', 'generalSettings', array(
@@ -79,14 +79,21 @@ function add_scripts () {
 	if ( is_archive() ) {
 		wp_enqueue_script('custom-select', get_template_directory_uri() . '/libraries/custom-select-box/select.min.js', array('jquery'), null, true);
 		wp_enqueue_script('datetimepicker', get_template_directory_uri() . '/libraries/datetimepicker/build/jquery.datetimepicker.full.js', array('jquery'), null, true);
-		wp_enqueue_script('reservation', get_template_directory_uri() . '/js/reservation/map.js', array('jquery', 'custom-select', 'datetimepicker'), null, true);
-		wp_localize_script('reservation', 'mapData', array(
+		
+		wp_enqueue_script('popup-lib', get_template_directory_uri() . '/js/lib/Popup.js', array('jquery', 'slider-handler', 'select-handler'), null, true);
+		wp_enqueue_script('slider-handler', get_template_directory_uri() . '/js/lib/Slider.js', array('jquery', 'slick'), null, true);
+		wp_enqueue_script('select-handler', get_template_directory_uri() . '/js/lib/SelectDuration.js', array('jquery', 'custom-select'), null, true);
+		
+		wp_enqueue_script('map', get_template_directory_uri() . '/js/reservation/map.js', array('jquery', 'custom-select', 'datetimepicker'), null, true);
+		wp_localize_script('map', 'mapData', array(
 			'nonce' => wp_create_nonce('map_nonce'),
 			'url' => admin_url('admin-ajax.php'),
 			'icon' => get_stylesheet_directory_uri() . '/img/icon/point-icon.png',
 			'testImage' => get_stylesheet_directory_uri() . '/img/picture/cart_item.jpg',
 		));
+		
 		wp_enqueue_script('slick', get_template_directory_uri() . '/libraries/slick/slick.min.js', array('jquery'), null, true);
+		
 		wp_enqueue_script('popup', get_template_directory_uri() . '/js/reservation/popup.js', array('jquery', 'custom-select', 'slick', 'server-client'), null, true);
 		wp_localize_script('popup', 'popupData', array(
 			'nonce' => wp_create_nonce('popup_nonce'),
