@@ -186,7 +186,7 @@ p, a, span, h1, h2, h3, h4, h5, h6, li, pre, label, div, button, input, input::p
   font-size: 24px;
   border-radius: 20px;
   display: inline-block;
-  background-color: #F1EAD8;
+  background-color: #f1ead8;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   text-decoration: none;
   transition: background-color 0.2s ease;
@@ -227,7 +227,7 @@ p, a, span, h1, h2, h3, h4, h5, h6, li, pre, label, div, button, input, input::p
   background-color: #114410;
 }
 .bigBtn.green:hover {
-  background-color: #7D8E1A;
+  background-color: #7d8e1a;
 }
 
 .blueBtn {
@@ -278,7 +278,7 @@ p, a, span, h1, h2, h3, h4, h5, h6, li, pre, label, div, button, input, input::p
   color: #ffffff;
 }
 .showPoint a:hover {
-  background-color: #7D8E1A;
+  background-color: #7d8e1a;
 }
 
 .closeBtn {
@@ -357,7 +357,7 @@ p, a, span, h1, h2, h3, h4, h5, h6, li, pre, label, div, button, input, input::p
   color: #fafafa;
   text-decoration: none;
   background: #114410;
-  background: linear-gradient(-45deg, #114410, #7D8E1A, #152352, #152c85);
+  background: linear-gradient(-45deg, #114410, #7d8e1a, #152352, #152c85);
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
   visibility: hidden;
@@ -1066,6 +1066,144 @@ footer .footer__copyright p {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
+}
+
+.notification {
+  z-index: -1;
+  opacity: 0;
+  visibility: hidden;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(66, 109, 55, 0.98);
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(50, 100, 50, 0.7);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(50, 100, 50, 0.7);
+  box-shadow: 0px 0px 5px 0px rgba(50, 100, 50, 0.7);
+  width: 600px;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+@media (max-width: 1080px) {
+  .notification {
+    width: calc(300px + 300 * ((100vw - 320px) / 760));
+  }
+}
+@media (max-width: 1080px) {
+  .notification {
+    padding-left: calc(10px + 40 * ((100vw - 320px) / 760));
+  }
+}
+@media (max-width: 1080px) {
+  .notification {
+    padding-right: calc(10px + 40 * ((100vw - 320px) / 760));
+  }
+}
+@media (max-width: 1080px) {
+  .notification {
+    padding-top: calc(10px + 15 * ((100vw - 320px) / 760));
+  }
+}
+@media (max-width: 1080px) {
+  .notification {
+    padding-bottom: calc(10px + 15 * ((100vw - 320px) / 760));
+  }
+}
+.notification__wrapper {
+  position: relative;
+}
+.notification__row {
+  display: flex;
+}
+.notification__icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.notification i {
+  display: block;
+  margin-right: 10px;
+  color: #FFFFFF;
+  font-size: 22px;
+}
+@media (max-width: 1080px) {
+  .notification i {
+    font-size: calc(14px + 8 * ((100vw - 320px) / 760));
+  }
+}
+.notification p {
+  display: block;
+  font-size: 14px;
+  line-height: 130%;
+  color: #fff;
+  font-size: 14px;
+}
+@media (max-width: 1080px) {
+  .notification p {
+    font-size: calc(10px + 4 * ((100vw - 320px) / 760));
+  }
+}
+.notification__group {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+@media (max-width: 1080px) {
+  .notification__group {
+    margin-top: calc(10px + 20 * ((100vw - 320px) / 760));
+  }
+}
+.notification .notification-button {
+  display: block;
+  border-radius: 2px;
+  font-size: 14px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+@media (max-width: 1080px) {
+  .notification .notification-button {
+    font-size: calc(10px + 4 * ((100vw - 320px) / 760));
+  }
+}
+@media (max-width: 1080px) {
+  .notification .notification-button {
+    padding-left: calc(5px + 15 * ((100vw - 320px) / 760));
+  }
+}
+@media (max-width: 1080px) {
+  .notification .notification-button {
+    padding-right: calc(5px + 15 * ((100vw - 320px) / 760));
+  }
+}
+@media (max-width: 1080px) {
+  .notification .notification-button {
+    padding-top: calc(5px + 5 * ((100vw - 320px) / 760));
+  }
+}
+@media (max-width: 1080px) {
+  .notification .notification-button {
+    padding-bottom: calc(5px + 5 * ((100vw - 320px) / 760));
+  }
+}
+.notification__link {
+  background-color: #fff;
+  margin-right: 10px;
+  text-decoration: none;
+}
+.notification__close {
+  cursor: pointer;
+  background-color: #d0cece;
+}
+
+.notification-active {
+  z-index: 10002;
+  visibility: visible;
+  opacity: 1;
 }
 
 .lds-ripple {

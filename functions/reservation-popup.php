@@ -17,7 +17,7 @@ if ( wp_doing_ajax() ) {
  * Send available time in JSON to front-end
  */
 function get_available_rent_time() {
-	check_ajax_referer( 'booking_nonce', 'nonce' ); // Check nonce code
+	check_ajax_referer( 'popup_nonce', 'nonce' ); // Check nonce code
 	
 	require_once __DIR__ . '/bookingProduct.class.php';
 	
@@ -52,7 +52,7 @@ function get_available_rent_time() {
  * Add booking variation to cart if not intersects with exists rent intervals
  */
 function add_booking_to_cart() {
-	check_ajax_referer( 'booking_nonce', 'nonce' ); // Check nonce code
+	check_ajax_referer( 'popup_nonce', 'nonce' ); // Check nonce code
 	
 	$product_id = $_POST['product_id'];
 	$variation_id = $_POST['variation_id'];
@@ -83,14 +83,7 @@ function add_booking_to_cart() {
 	
 	$is_product_add_to_cart = $booking_product->add_to_cart( $rent_data );
 	
-	$data = array (
-		'status' => $is_product_add_to_cart,
-		'data' => array (
-			$product_id,
-			$start_datetime_str,
-			$duration,
-		),
-	);
+	$data = array ( 'status' => $is_product_add_to_cart );
 	
 	wp_send_json($data);
 	wp_die();

@@ -16,13 +16,16 @@ class Popup {
         this.sliderNav = wrapper.find("#popupSliderNav");
         this.selectBox = wrapper.find("#selectDuration");
         this.priceBox = wrapper.find("#popupPriceBox");
+        this.datetimeInput = wrapper.find("#datetimepicker");
+        this.bookBtn = wrapper.find("#popupBookBtn");
+        this.errorBlock = wrapper.find("#popupErrorBlock");
     }
 
     /**
      * Method initializes PopUp, get data from server
      * @method init
      */
-    init = () => {
+    init() { // TODO Зафиксировать body при инициализации
         let client, clientSettings, query;
 
         this.showLoader();
@@ -40,25 +43,39 @@ class Popup {
         }
 
         client = new ServerClient(clientSettings, query);
-        client.get(this.update); // Get data from server
+        client.get(this.update.bind(this)); // Get data from server
 
-        this.closeBtn.click(this.destroy);
+        let dth = new DatetimeHandler(this.datetimeInput, this.id);
+        this.dth = dth;
+        dth.init();
+
+        this.closeBtn.click(this.destroy.bind(this));
+        this.bookBtn.click(this.submit.bind(this))
     }
 
+    // TODO Освободить body при инициализации
     /**
      * Method destroys PopUp data (Slider, Select, Datetimepicker) and close PopUp window
      */
-    destroy = () => {
+    destroy() {
+        let state = store.getState();
+
         // Reset slick sliders
         let slider = new Slider(this.slider);
         slider.resetSlider();
 
-        if (sliderNav.length) {
+        if (this.sliderNav.length) {
             let sliderNav = new Slider(this.sliderNav);
             sliderNav.resetSlider();
         }
 
+        // Reset selector
         this.selector.destroy();
+
+        // Reset datetimepicker
+        this.datetimeInput.datetimepicker("destroy");
+        state.reservation.isDateSelected = false;
+        state.reservation.isTimeSelected = false;
 
         this.hide();
     }
@@ -67,7 +84,7 @@ class Popup {
      * Update data in PopUp window, setup Slider, Select, Datetimepicker
      * @param data {Object} from server
      */
-    update = (data) => {
+    update (data) {
         this.wrapper.find("#popupTitle").text(data.name);
         this.wrapper.find("#badgeLocation").text(data.location);
         this.wrapper.find("#badgeCapacity").text(data.capacity);
@@ -87,10 +104,9 @@ class Popup {
         sliderNav.init();
         sliderNav.addSlides();
 
-        let selector = new SelectDuration(this.selectBox, this.priceBox, data.variations);
-        selector.init();
-        this.selector = selector.getSelector();
-        console.log(this.selector);
+        let popupSelector = new SelectDuration(this.selectBox, this.priceBox, data.variations);
+        popupSelector.init();
+        this.selector = popupSelector.getSelector();
 
         this.hideLoader();
     }
@@ -98,7 +114,7 @@ class Popup {
     /**
      * Show popup
      */
-    show = () => {
+    show() {
         this.wrapper.addClass("z");
 
         let removeOpacity = () => {
@@ -110,7 +126,7 @@ class Popup {
     /**
      * Hide popup
      */
-    hide = () => {
+    hide() {
         this.wrapper.removeClass("active");
 
         let addOpacity = () => {
@@ -122,9 +138,8 @@ class Popup {
     /**
      * Show loader
      */
-    showLoader = () => {
+    showLoader() {
         this.loader.addClass("z");
-
         this.loader.html(`
                     <div class="popupGallery__loader-wrapper">
                         <div class="wrapper">
@@ -140,20 +155,79 @@ class Popup {
                 `);
 
         setTimeout( function () {
-            this.loader.addClass("active")
+            this.loader.addClass("active");
         }.bind(this), 100);
     }
 
     /**
      * Hide loader
      */
-    hideLoader = () => {
+    hideLoader() {
         this.loader.removeClass("active");
 
         setTimeout( function () {
-            this.loader.removeClass("z")
+            this.loader.removeClass("z");
         }.bind(this), 150);
 
         this.loader.html("");
+    }
+
+    /**
+     * Method provides submit button logic
+     * First, collect data from frontend
+     * Second, do server request
+     * @method submit
+     */
+    submit() {
+        let booking = new Booking(this.id, this.dth.getYmdHis(), this.selector.getValue());
+        if (typeof booking === "object" && booking.error === true) {
+            let error = new PopupError(this.errorBlock, booking.errorText);
+            error.show();
+            return;
+        }
+        if (booking instanceof Booking) {
+            let popupError = new PopupError(this.errorBlock);
+            popupError.hide();
+        }
+
+        this.showLoader();
+        booking.request(this.destroy.bind(this), this.hideLoader.bind(this));
+    }
+}
+
+
+/**
+ * Class for display error when not enough data to do server request
+ * No datetime, no duration, no ID
+ */
+class PopupError {
+    /**
+     * Constructor
+     * @param el {jQuery}
+     * @param error {String}
+     */
+    constructor(el, error=null) {
+        this.el = el;
+        this.error = error;
+    }
+
+    /**
+     * Method show error block (put HTML inside)
+     * @method show
+     */
+    show() {
+        this.el.html(`
+            <p class="popupGallery__error">
+                <i class="fas fa-exclamation-circle"></i>
+                ${this.error}
+            </p>`);
+    }
+
+    /**
+     * Method deletes content of error block
+     * @method hide
+     */
+    hide() {
+        this.el.html("");
     }
 }

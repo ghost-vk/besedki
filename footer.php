@@ -57,6 +57,8 @@
                 </div>
             </div>
         </footer>
+        <!--   NOTIFICATION   -->
+        <div class="notification" id="notification"></div>
 	
 	    <?php wp_footer(); ?>
 

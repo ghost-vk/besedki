@@ -24,23 +24,24 @@ class SelectDuration {
     /**
      * Init select
      */
-    init = () => {
+    init() {
         this.select = this.el.select({
             data: this.options,
             index: this.index,
-            itemClick: this.changePrice,
-            initCallback: this.initPrice
+            itemClick: this.changePrice.bind(this),
+            initCallback: this.initPrice.bind(this)
         });
     }
 
     /**
      * Function 'changePrice' fires on select option click
      */
-    changePrice = () => {
+    changePrice() {
         let currentValue = this.select.getValue()
         for (var i = 0, max = this.variations.length; i < max; i += 1) {
             if (this.variations[i].duration === currentValue) {
                 this.priceBox.html(`${this.variations[i].price} &#8381;`);
+                store.setVariationID(this.variations[i].id);
             }
         }
     }
@@ -48,7 +49,7 @@ class SelectDuration {
     /**
      * Changes price with depends to whole day duration on selector init
      */
-    initPrice = () => {
+    initPrice() {
         this.priceBox.html(`${this.variations[3].price} &#8381;`)
     }
 
@@ -56,7 +57,7 @@ class SelectDuration {
      * Method returns selector object
      * @return {Selector}
      */
-    getSelector = () => {
+    getSelector() {
         return this.select;
     }
 }

@@ -8,7 +8,7 @@ class ServerClient {
      * 'nonce' is security code generates in wp_localize_script
      * 'action' is registered wordpress AJAX action
      * 'url' is path to admin-ajax.php
-     * @param query
+     * @param query {Object}
      */
     constructor(settings, query) {
         this.data = query;

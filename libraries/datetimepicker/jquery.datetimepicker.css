@@ -52,6 +52,7 @@
 	display: inline-block;
 	position: relative;
 	box-shadow: none;
+	border-radius: 2px;
 }
 
 .xdsoft_datetimepicker * {
@@ -186,6 +187,10 @@
 	height: 151px;
 	overflow: hidden;
 	border-bottom: 1px solid #ddd;
+}
+
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box.error-border {
+	border: 1px solid #ba2727 !important;
 }
 
 .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box >div >div {

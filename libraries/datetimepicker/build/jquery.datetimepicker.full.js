@@ -617,8 +617,8 @@ var datetimepickerFactory = function ($) {
 		mask: false,
 		validateOnBlur: true,
 		allowBlank: true,
-		yearStart: 1950,
-		yearEnd: 2050,
+		yearStart: 2021,
+		yearEnd: 2025,
 		monthStart: 0,
 		monthEnd: 11,
 		style: '',
@@ -1143,6 +1143,21 @@ var datetimepickerFactory = function ($) {
 			datetimepicker.toggleLoader = function () {
 				loader.toggleClass('active');
 			};
+
+
+			/**
+			 * Adds error border from block contains available time
+			 */
+			datetimepicker.addTimeboxErrorBorder = function() {
+				timeboxparent.addClass('error-border');
+			}
+
+			/**
+			 * Removes error border from block contains available time
+			 */
+			datetimepicker.removeTimeboxErrorBorder = function() {
+				timeboxparent.removeClass('error-border');
+			}
 
 			datetimepicker.getValue = function () {
 				return _xdsoft_datetime.getCurrentTime();

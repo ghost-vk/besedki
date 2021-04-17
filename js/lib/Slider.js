@@ -43,6 +43,7 @@ class Slider {
     }
 }
 
+
 /**
  * Class for works with big (main) slider
  * @extends Slider
@@ -99,6 +100,7 @@ class SliderMain extends Slider {
         }
     }
 }
+
 
 /**
  * Class for works with navigation slider

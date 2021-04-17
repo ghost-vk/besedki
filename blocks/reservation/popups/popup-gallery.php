@@ -77,11 +77,8 @@
         <!--     SUBMIT      -->
         <div class="popupGallery__button">
             <!--      ERROR      -->
-<!--            <p class="popupGallery__error">-->
-<!--                <i class="fas fa-exclamation-circle"></i>-->
-<!--                Необходимо выбрать продолжительность аренды-->
-<!--            </p>-->
-            <button class="bigBtn">Забронировать</button>
+            <div id="popupErrorBlock"></div>
+            <button class="bigBtn" id="popupBookBtn">Забронировать</button>
         </div>
         
         <!--     LOADER      -->

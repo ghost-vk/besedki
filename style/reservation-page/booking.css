@@ -454,7 +454,7 @@
   right: 0;
   top: 0;
   bottom: 0;
-  background-color: #7D8E1A;
+  background-color: #7d8e1a;
   border-radius: 5px;
 }
 .popupGallery__loader .popupGallery__loader-wrapper {
@@ -617,7 +617,7 @@
   .reservationWindow__row {
     padding: 10px 15px;
     flex-wrap: wrap;
-    background-color: #F1EAD8;
+    background-color: #f1ead8;
     border-radius: 5px;
     display: none;
   }
