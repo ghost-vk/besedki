@@ -64,7 +64,8 @@ function add_styles() {
 add_action ('wp_enqueue_scripts', 'add_scripts');
 function add_scripts () {
 	// General scripts
-	wp_enqueue_script('store', get_stylesheet_directory_uri() . '/js/lib/store.js', array(), null, true);
+	wp_enqueue_script('utils-besedka', get_stylesheet_directory_uri() . '/js/lib/utils.js', array(), null, true);
+	wp_enqueue_script('store', get_stylesheet_directory_uri() . '/js/lib/store.js', array('utils-besedka'), null, true);
 	wp_enqueue_script('notification', get_stylesheet_directory_uri() . '/js/lib/Notification.js', array('jquery'), null, true);
 	wp_enqueue_script('font-awesome', 'https://kit.fontawesome.com/519fd0f28a.js', array(), null, true);
 	wp_enqueue_script('header', get_template_directory_uri() . '/js/header.js', array('jquery'), null, true);
@@ -82,7 +83,7 @@ function add_scripts () {
 		wp_enqueue_script('custom-select', get_template_directory_uri() . '/libraries/custom-select-box/select.min.js', array('jquery'), null, true);
 		wp_enqueue_script('datetimepicker', get_template_directory_uri() . '/libraries/datetimepicker/build/jquery.datetimepicker.full.js', array('jquery'), null, true);
 		
-		wp_enqueue_script('popup-lib', get_template_directory_uri() . '/js/lib/Popup.js', array( // Main handler
+		wp_enqueue_script('popup-lib', get_template_directory_uri() . '/js/lib/popup/Popup.js', array( // Main handler
 			'jquery',
 			'store',
 			'slider-handler',
@@ -90,17 +91,25 @@ function add_scripts () {
 			'datetime-handler',
 			'booking',
 		), null, true);
-		wp_enqueue_script('slider-handler', get_template_directory_uri() . '/js/lib/Slider.js', array('jquery', 'slick'), null, true);
-		wp_enqueue_script('select-handler', get_template_directory_uri() . '/js/lib/SelectDuration.js', array('jquery', 'custom-select'), null, true);
-		wp_enqueue_script('datetime-handler', get_template_directory_uri() . '/js/lib/DatetimeHandler.js', array('jquery', 'datetimepicker'), null, true);
-		wp_enqueue_script('booking', get_template_directory_uri() . '/js/lib/Booking.js', array(), null, true);
+		wp_enqueue_script('slider-handler', get_template_directory_uri() . '/js/lib/popup/Slider.js', array('jquery', 'slick'), null, true);
+		wp_enqueue_script('select-handler', get_template_directory_uri() . '/js/lib/popup/SelectDuration.js', array('jquery', 'custom-select'), null, true);
+		wp_enqueue_script('datetime-handler', get_template_directory_uri() . '/js/lib/popup/DatetimeHandler.js', array('jquery', 'datetimepicker'), null, true);
+		wp_enqueue_script('booking', get_template_directory_uri() . '/js/lib/popup/Booking.js', array(), null, true);
 		
-		wp_enqueue_script('map', get_template_directory_uri() . '/js/reservation/map.js', array('jquery', 'custom-select', 'datetimepicker'), null, true);
+		wp_enqueue_script('map-handler', get_template_directory_uri() . '/js/lib/map/MapHandler.js', array( // Main handler
+			'jquery',
+		), null, true);
+		
+		wp_enqueue_script('map', get_template_directory_uri() . '/js/reservation/map.js', array('jquery', 'map-handler'), null, true);
 		wp_localize_script('map', 'mapData', array(
 			'nonce' => wp_create_nonce('map_nonce'),
 			'url' => admin_url('admin-ajax.php'),
 			'icon' => get_stylesheet_directory_uri() . '/img/icon/point-icon.png',
 			'testImage' => get_stylesheet_directory_uri() . '/img/picture/cart_item.jpg',
+		));
+		wp_localize_script('store', 'mapState', array(
+			'icon' => get_stylesheet_directory_uri() . '/img/icon/point-icon.png',
+			'defaultPoints' => get_default_points_data(),
 		));
 		
 		wp_enqueue_script('slick', get_template_directory_uri() . '/libraries/slick/slick.min.js', array('jquery'), null, true);
@@ -111,15 +120,6 @@ function add_scripts () {
 			'url' => admin_url('admin-ajax.php'),
 			'cartURL' => home_url('/cart'),
 		));
-//		wp_enqueue_script('datetime', get_template_directory_uri() . '/js/datetime.js', array('jquery', 'datetimepicker'), null, true);
-//		wp_localize_script('datetime', 'bookingDatetime', array(
-//			'nonce' => wp_create_nonce('booking_nonce'),
-//			'url' => admin_url('admin-ajax.php'),
-//			'cart_url' => home_url('/cart'),
-//		));
-//		wp_localize_script('map', 'mapData', array(
-//			'bookingMapData' => get_stylesheet_directory_uri() . '/booking-map-data.json',
-//		));
 	}
 	
 	// Homepage

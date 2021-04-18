@@ -105,12 +105,8 @@ function get_booking_product_data() {
 			$viewer = new BESEDKA\ViewerPopup($product_id);
 			break;
 		}
-		case "point" : {
-			$viewer = 0;
-			break;
-		}
 		case "map" : {
-			$viewer = '';
+			$viewer = new BESEDKA\ViewerMap($product_id);;
 			break;
 		}
 		default : {
@@ -120,7 +116,7 @@ function get_booking_product_data() {
 		}
 	}
 	
-	wp_send_json($viewer->get());
+	wp_send_json($viewer->Get());
 	wp_die();
 }
 

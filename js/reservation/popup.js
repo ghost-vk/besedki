@@ -1,3 +1,4 @@
+var BESEDKA = BESEDKA || {};
 (function ($) {
     $(document).ready(function () {
         BESEDKA.testMethod = () => {
@@ -5,6 +6,11 @@
             popup.init();
         }
 
-        BESEDKA.testMethod();
+        BESEDKA.initMap = () => {
+            let map = new MapHandler("map");
+            map.init();
+        }
+
+        BESEDKA.initMap();
     });
 })(jQuery);

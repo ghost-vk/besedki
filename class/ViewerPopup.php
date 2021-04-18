@@ -3,12 +3,11 @@ namespace BESEDKA;
 require_once __DIR__ . '/Viewer.php';
 
 class ViewerPopup extends Viewer {
-	public function __construct($id)
-	{
+	public function __construct($id) {
 		parent::__construct($id);
 	}
 	
-	public function get() {
+	public function Get() {
 		if ( ! $this->product ) {
 			return false;
 		}

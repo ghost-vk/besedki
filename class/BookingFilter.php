@@ -8,14 +8,15 @@ namespace BESEDKA;
  */
 class BookingFilter {
 	private $location; // 'territory' or 'shore'
-	private $capacity;
+	private $capacity; // 5 - 150
+	
 	
 	/**
 	 * BookingFilter constructor.
 	 * @param $location {String|Boolean} - 'shore' or 'territory'
 	 * @param $capacity {Integer|Boolean} - more than 5
 	 */
-	public function __construct ($location = false, $capacity = false) {
+	public function __construct ( $location = false, $capacity = false ) {
 		if ( $location === 'shore' || $location === 'territory' ) {
 			$this->location = $location;
 		} else {
@@ -72,7 +73,7 @@ class BookingFilter {
 	 * @return array
 	 */
 	private function GetIdsArray($args) {
-		$products = get_posts( $args ); // Returns array of product type post
+		$products = get_posts($args); // Returns array of product type post
 		
 		$ids = array();
 		if ( ! empty($products) ) {
@@ -106,6 +107,7 @@ class BookingFilter {
 		return $ids;
 	}
 	
+	
 	/**
 	 * @method GetAll
 	 * Get all booking products - IDs array
@@ -114,5 +116,4 @@ class BookingFilter {
 	public function GetAll() {
 		return $this->GetFiltered();
 	}
-	
 }

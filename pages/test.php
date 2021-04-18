@@ -17,7 +17,7 @@ Template Post Type: page
 //        $popup_data = $_bpv->GetPopupData();
         
         $_vp = new \BESEDKA\ViewerPopup(11);
-        var_dump($_vp->get());
+        var_dump($_vp->Get());
         
         ?>
     </div>

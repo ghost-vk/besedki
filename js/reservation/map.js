@@ -19,7 +19,6 @@ BESEDKA.reservation.state = {
                 iconUrl: mapData.icon, // mapData creates in enqueue.php
                 iconSize: [26, 35],
                 iconAnchor:   [13, 35], // point of the icon which will correspond to marker's location
-                // shadowAnchor: [4, 62],  // the same for the shadow
                 popupAnchor:  [0, -35] // point from which the popup should open relative to the iconAnchor
             }
         },
@@ -45,7 +44,7 @@ BESEDKA.reservation.state = {
                                 <a href="#" class="mapPopup__open" data-id="${data.id}">Забронировать</a>
                             </div>
                         </div>
-                    </div>                
+                    </div>
                 `;
             }
         }
@@ -69,9 +68,23 @@ mapMethods = BESEDKA.reservation.state.map.methods;
 //     maxZoom: 18
 // });
 
-mapSettings.icon = L.icon(mapSettings.iconSettings);
+// mapSettings.icon = L.icon(mapSettings.iconSettings);
 
-// var marker = L.marker([45.021303, 38.952325], {icon: mapSettings.icon}).addTo(BESEDKA.map);
+// let createPoints = () => {
+//     let data = mapData.defaultPoints;
+//
+//     for (var i = 0, max = data.length; i < max; i += 1) {
+//         let marker;
+//         marker = L.marker(
+//             [data[i].coordinates.latitude, data[i].coordinates.longitude],
+//             {icon: mapSettings.icon}).addTo(BESEDKA.map);
+//     }
+// }
+// createPoints();
+
+
+
+
 
 var popupData = {
     title: 'Беседка #1',
@@ -92,8 +105,8 @@ var popupData = {
             selectCapacity;
 
         const locationOptions = [
-            { name:'На берегу', value:'shore' },
-            { name:'В парке', value:'territory' }
+            { name: 'На берегу', value: 'shore' },
+            { name: 'В парке', value: 'territory' }
         ];
 
         const capacityOptions = [

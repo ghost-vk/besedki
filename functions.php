@@ -9,9 +9,6 @@ require_once __DIR__ . '/functions/utils.php';
 require_once __DIR__ . '/functions/menu.php';
 
 // Importing scripts and styles
-require_once __DIR__ . '/functions/enqueue.php';
-
-// Importing scripts and styles
 require_once __DIR__ . '/functions/templates.php';
 
 // Callback handler
@@ -20,8 +17,14 @@ require_once __DIR__ . '/functions/callback.php';
 // Reservation PopUp module
 require_once __DIR__ . '/functions/reservation-popup.php';
 
+// Reservation map module (AJAX callbacks and first load action)
+require_once __DIR__ . '/functions/reservation-map.php';
+
 // Reservation actions (removing items)
 require_once __DIR__ . '/functions/reservation-actions.php';
+
+// Importing scripts and styles
+require_once __DIR__ . '/functions/enqueue.php';
 
 // Payment hooks
 require_once __DIR__ . '/functions/payment-hooks.php';

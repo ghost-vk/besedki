@@ -9,12 +9,12 @@ class Viewer {
 	public int $capacity;
 	public string $location;
 	public array $variations;
-	public array $gallery;
+	public array $gallery; // [ 'img_src_1', 'img_src_2', ... ]
 	public $max_price;
 	public $min_price;
 	
 	/**
-	 * BookingProductViewer constructor.
+	 * Viewer constructor.
 	 * @method __construct
 	 * @param $id
 	 */
@@ -69,7 +69,4 @@ class Viewer {
 		// Gallery
 		$this->gallery = get_field('gallery', $id);
 	}
-	
-	
-	public function GetCoordinates() {}
 }

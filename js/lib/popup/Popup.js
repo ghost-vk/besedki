@@ -25,9 +25,10 @@ class Popup {
      * Method initializes PopUp, get data from server
      * @method init
      */
-    init() { // TODO Зафиксировать body при инициализации
+    init() {
         let client, clientSettings, query;
 
+        this.fixBody();
         this.showLoader();
         this.show();
 
@@ -53,7 +54,7 @@ class Popup {
         this.bookBtn.click(this.submit.bind(this))
     }
 
-    // TODO Освободить body при инициализации
+
     /**
      * Method destroys PopUp data (Slider, Select, Datetimepicker) and close PopUp window
      */
@@ -77,8 +78,10 @@ class Popup {
         state.reservation.isDateSelected = false;
         state.reservation.isTimeSelected = false;
 
+        this.unfixBody();
         this.hide();
     }
+
 
     /**
      * Update data in PopUp window, setup Slider, Select, Datetimepicker
@@ -111,6 +114,7 @@ class Popup {
         this.hideLoader();
     }
 
+
     /**
      * Show popup
      */
@@ -123,6 +127,7 @@ class Popup {
         setTimeout(removeOpacity, 100);
     }
 
+
     /**
      * Hide popup
      */
@@ -134,6 +139,7 @@ class Popup {
         }
         setTimeout(addOpacity, 200);
     }
+
 
     /**
      * Show loader
@@ -159,6 +165,7 @@ class Popup {
         }.bind(this), 100);
     }
 
+
     /**
      * Hide loader
      */
@@ -171,6 +178,23 @@ class Popup {
 
         this.loader.html("");
     }
+
+
+    /**
+     * Fix document body
+     */
+    fixBody() { // TODO протестировать
+        jQuery("body").css("overflow", "hidden");
+    }
+
+
+    /**
+     * Let document body scroll
+     */
+    unfixBody() {
+        jQuery("body").css("overflow", "auto");
+    }
+
 
     /**
      * Method provides submit button logic
