@@ -70,6 +70,8 @@ function add_scripts () {
 	wp_enqueue_script('store', $directory . '/js/lib/store.js', array('utils-besedka'), null, true);
 	wp_enqueue_script('notification', $directory . '/js/lib/Notification.js', array('jquery'), null, true);
 	wp_enqueue_script('font-awesome', 'https://kit.fontawesome.com/519fd0f28a.js', array(), null, true);
+	// Show that site is not full complete
+	wp_enqueue_script('uncompleted-message', $directory . '/js/show-uncomlete.js', array('notification'), null, true);
 	wp_enqueue_script('header', $directory . '/js/header.js', array('jquery'), null, true);
 	wp_enqueue_script('server-client', $directory . '/js/lib/ServerClient.js', array('jquery'), null, true);
 	wp_enqueue_script('libphonenumber', 'https://unpkg.com/libphonenumber-js@1.x/bundle/libphonenumber-min.js', array(), null, true);
