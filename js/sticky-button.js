@@ -1,6 +1,6 @@
 (function ($) {
 
-    var stickReservationBtn = function () {
+    (function () {
         let reservationBtn = $("#stickyReservation");
 
         var showBtn = function () {
@@ -19,7 +19,6 @@
                 hideBtn();
             }
         });
-    }
-    stickReservationBtn();
+    })();
 
 })(jQuery);

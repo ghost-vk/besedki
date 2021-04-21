@@ -1,17 +1,35 @@
+/**
+ * Class Notification used for showing
+ * response to user after some action
+ */
 class Notification {
+    /**
+     * Constructor
+     * @param el { jQuery }
+     * @param data {
+     *   text: 'notification text',
+     *   icon: 'FA icon tag',
+     *   linkUrl: 'http://some/url' - no required
+     *   linkTitle: 'Link title' - no required
+     * }
+     */
     constructor(el, data) {
         this.text = data.text;
         this.icon = (data.icon) ? data.icon : '<i class="fas fa-info-circle"></i>';
         this.linkUrl = data.linkUrl;
         this.linkTitle = data.linkTitle
         this.el = el;
-        this.closeButton = jQuery('<span class="notification__close notification-button">Закрыть</span>');
     }
 
+    /**
+     * Method initialize notification window
+     * @param timeout { 7000 }
+     * @public
+     */
     init(timeout = 7000) {
-        let template = this.createTemplate();
+        let template = this._createTemplate();
         this.el.html(template);
-        this.show();
+        this._show();
 
         this.closeButton = this.el.find(".notification__close");
 
@@ -19,15 +37,30 @@ class Notification {
         setTimeout(this.destroy.bind(this), timeout);
     }
 
-    show() {
+    /**
+     * Method hides notification wrapper
+     * Destroy inner content
+     * @public
+     */
+    destroy() {
+        this.el.removeClass("notification-active");
+        this.el.html("");
+    }
+
+    /**
+     * Method show notification window
+     * @private
+     */
+    _show() {
         this.el.addClass('notification-active');
     }
 
-    hide() {
-        this.el.removeClass("notification-active");
-    }
-
-    createTemplate() {
+    /**
+     * Method creates notification body
+     * @return {string}
+     * @private
+     */
+    _createTemplate() {
         let template;
         template = `
             <div class="notification__row">
@@ -46,10 +79,5 @@ class Notification {
             </div>`;
 
         return template;
-    }
-
-    destroy() {
-        this.hide();
-        this.el.html("");
     }
 }

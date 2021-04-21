@@ -1,6 +1,11 @@
 <?php
 namespace BESEDKA;
 
+/**
+ * Class Viewer
+ * Used for view booking product data
+ * @package BESEDKA
+ */
 class Viewer {
 	
 	public $product;
@@ -9,7 +14,6 @@ class Viewer {
 	public int $capacity;
 	public string $location;
 	public array $variations;
-	public array $gallery; // [ 'img_src_1', 'img_src_2', ... ]
 	public $max_price;
 	public $min_price;
 	
@@ -65,8 +69,5 @@ class Viewer {
 				'price' => $price,
 			);
 		}
-		
-		// Gallery
-		$this->gallery = get_field('gallery', $id);
 	}
 }

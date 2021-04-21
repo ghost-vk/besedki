@@ -90,14 +90,9 @@ class BookingFilter {
 	/**
 	 * @method GetFiltered
 	 * Get filtered products ids by location and capacity - IDs array
-	 * @param false $location {String|false}
-	 * @param false $capacity {Integer|false}
 	 * @return array|void
 	 */
-	public function GetFiltered($location = false, $capacity = false) {
-		$this->location = $location;
-		$this->capacity = $capacity;
-		
+	public function GetFiltered() {
 		$args = $this->GetArgs();
 		if ( empty($args) ) {
 			return;
@@ -114,6 +109,8 @@ class BookingFilter {
 	 * @return array
 	 */
 	public function GetAll() {
+		$this->location = false;
+		$this->capacity = false;
 		return $this->GetFiltered();
 	}
 }

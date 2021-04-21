@@ -48,9 +48,11 @@ class SelectDuration {
 
     /**
      * Changes price with depends to whole day duration on selector init
+     * 3 element in variations should be the last one
      */
     initPrice() {
         this.priceBox.html(`${this.variations[3].price} &#8381;`)
+        store.setVariationID(this.variations[3].id);
     }
 
     /**

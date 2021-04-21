@@ -83,14 +83,40 @@
             }
 
             /**
-             * Show modal window with response, and hide after timeout
+             * Function disables form fields
              */
-            var showResponse = function () {
-                var callbackResponseModal = callbackResponseModal || $("#callbackModal");
-                callbackResponseModal.addClass("active");
-                setTimeout(function () {
-                    callbackResponseModal.removeClass("active");
-                }, 2500);
+            var disableForm = function () {
+                elements.btn.prop("disabled", "true");
+                elements.name.prop("disabled", "true");
+                elements.phone.prop("disabled", "true");
+            }
+
+
+            /**
+             * Show modal window with response, and hide after timeout
+             * @param response { status : true }
+             */
+            var showResponse = function (response) {
+                let content, notification, state;
+                state = store.getState();
+                content = {};
+
+                if (response.status === true) {
+                    content.icon = '<i class="fas fa-check-square"></i>';
+                    content.text = 'В скором времени мы вам перезвоним!';
+
+                    elements.btn.text("Готово!");
+                } else {
+                    content.icon = '<i class="fas fa-exclamation-circle"></i>';
+                    content.text = 'Возникла ошибка!<br />Попробуйте перезагрузить страницу';
+
+                    elements.btn.text("Ошибка");
+                }
+
+                notification = new Notification(state.general.notificationContainer, content);
+                notification.init(4000);
+
+
             }
 
             /**
@@ -108,13 +134,10 @@
              * @return {Object}
              */
             var getFormData = function () {
-                let phoneNumber,
-                    data;
+                let phoneNumber, data;
 
                 phoneNumber = libphonenumber.parsePhoneNumber(elements.phone.val(), "RU");
                 data = {
-                    action: "callback_lid",
-                    nonce: generalSettings.nonce,
                     name: elements.name.val(),
                     phone: phoneNumber.formatNational()
                 }
@@ -127,13 +150,26 @@
              */
             var sendForm = function () {
                 elements.btn.click(function () {
-                    let is_valid = validateInput();
+                    let settings,
+                        state,
+                        is_valid = validateInput();
                     if ( is_valid ) {
-                        let data;
-                        showResponse();
-                        data = getFormData();
+                        // showResponse();
+                        state = store.getState();
+                        settings = {
+                            nonce: state.general.nonce,
+                            url: state.general.ajaxUrl,
+                            action: "callback_lid"
+                        }
+                        let query = getFormData();
+
+                        let serverClient = new ServerClient(settings, query);
+                        serverClient.get(showResponse);
+
+                        elements.btn.text("Отправка...");
+                        disableForm();
+
                         clearInput();
-                        $.post( generalSettings.url, data );
                     }
                 });
             }

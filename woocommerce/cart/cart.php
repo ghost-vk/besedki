@@ -23,7 +23,7 @@
                             // Get data for row
                             $_product   = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
                             $product_id = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );
-
+                            
                             $product_name = $_product->get_name();
                             
                             $thumbnail_src = get_field('square_image', $product_id);

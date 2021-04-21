@@ -10,6 +10,7 @@ require_once __DIR__ . '/Viewer.php';
  */
 class ViewerMap extends Viewer {
 	private $coordinates;
+	private $preview;
 	
 	/**
 	 * ViewerMap constructor.
@@ -28,6 +29,8 @@ class ViewerMap extends Viewer {
 			'latitude' => $latitude,
 			'longitude' => $longitude,
 		);
+		
+		$this->preview = get_field('square_image', $this->id);
 	}
 	
 	
@@ -55,7 +58,7 @@ class ViewerMap extends Viewer {
 		$data = array(
 			'coordinates' => $this->coordinates,
 			'title' => $this->name,
-			'image' => $this->gallery[0],
+			'image' => $this->preview,
 			'capacity' => $this->capacity,
 			'min' => $this->min_price,
 			'max' => $this->max_price,

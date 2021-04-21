@@ -4,11 +4,8 @@
 class ServerClient {
     /**
      * Constructor
-     * @param settings {Object} Should contains field 'nonce', 'action', 'url'
-     * 'nonce' is security code generates in wp_localize_script
-     * 'action' is registered wordpress AJAX action
-     * 'url' is path to admin-ajax.php
-     * @param query {Object}
+     * @param settings { nonce: 'nonce-code', action: 'actionName, url: 'path/to/admin-ajax' }
+     * @param query { Object }
      */
     constructor(settings, query) {
         this.data = query;
@@ -20,9 +17,9 @@ class ServerClient {
     /**
      * Get data from server and call function from callback param
      * @method get
-     * @param callback {Function} - Function will be called after get response from server
+     * @param callback { Function } - Function will be called after get response from server
      */
-    get = (callback = null) => {
+    get(callback = null) {
         jQuery.post(this.url, this.data, function (response) {
             if (typeof callback === "function") {
                 callback(response);

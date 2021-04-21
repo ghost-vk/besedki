@@ -26,7 +26,7 @@
 	<!-- SHOW MAP POINT BUTTON -->
 	<div class="reservationWindow__search">
 		<div class="showPoint">
-			<a href="#">
+			<a href="#" id="updateMapPointsBtn">
 				<i class="fas fa-search"></i>
 				<span>Показать на карте</span>
 			</a>

@@ -38,17 +38,3 @@
 		</div>
 	</div>
 </div>
-
-<!--  RESPONSE  -->
-<div class="modal modal-response" id="callbackModal">
-    <div class="modal__window lightBg no-opacity">
-        <div class="modal__close">
-            <div class="closeBtn"></div>
-        </div>
-        <div class="modal__body">
-            <div class="modal__response">
-                <p class="mainText-1 no-select"><?php the_field('notification_callback_success', $home_page_id); ?></p>
-            </div>
-        </div>
-    </div>
-</div>

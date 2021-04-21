@@ -2,8 +2,6 @@
 
 namespace BESEDKA;
 
-use http\Params;
-
 /**
  * Class bookingProduct
  * @package BESEDKA
@@ -19,6 +17,9 @@ class bookingProduct {
 		if ( gettype($product_id) !== 'integer' ) {
 			$product_id = (int)$product_id;
 			if ( $product_id <= 0 || gettype($product_id) !== 'integer' ) {
+				return;
+			}
+			if ( ! wc_get_product($product_id) ) {
 				return;
 			}
 		}

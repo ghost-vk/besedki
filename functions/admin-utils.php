@@ -103,6 +103,7 @@ function remove_product_metabox() {
 	remove_meta_box( 'postexcerpt', 'product', 'normal'); // Short description
 	remove_meta_box( 'tagsdiv-product_tag', 'product', 'side' ); // Product tags
 	remove_meta_box( 'woocommerce-product-images',  'product', 'side'); // Products gallery
+	remove_meta_box('product_catdiv', 'product', 'normal'); // Products category - `besedki` is default
 }
 
 /**

@@ -1,4 +1,5 @@
 @import "./../templates";
+@import "loader";
 @import "map";
 @import "popup";
 
@@ -61,18 +62,22 @@
       flex: 0 0 100%;
     }
   }
+}
 
-  .reservationMap {
-    background-color: #c4c4c4;
-    border-radius: 5px;
-    width: 100%;
-    height: 600px;
-  }
+.reservationMap {
+  background-color: #c4c4c4;
+  border-radius: 5px;
+  overflow: hidden;
+  width: 100%;
+  height: 600px;
+  position: relative;
 
   #map {
     width: 100%;
     height: 100%;
   }
+
+  @include windowLoader;
 }
 
 .filterSelect {

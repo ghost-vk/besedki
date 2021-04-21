@@ -1,4 +1,16 @@
+/**
+ * Class used for add booking to cart
+ * @class Booking
+ *
+ */
 class Booking {
+    /**
+     * Constructor
+     * @param id { '11' }
+     * @param datetime { 'Y-m-d H:i:s' }
+     * @param duration { '1' | '2' | '3' | 'day'}
+     * @return {{errorText: string, error: boolean}}
+     */
     constructor(id, datetime, duration) {
         let error;
         if (!datetime) {
@@ -18,9 +30,14 @@ class Booking {
         this.duration = duration;
     }
 
+
+    /**
+     * Method send request to server, fire callback.
+     * @param callbackSuccess {Function|null}
+     * @param callbackFailure {Function|null}
+     */
     request(callbackSuccess=null, callbackFailure=null) {
         let serverQuery, clientSettings, serverClient, state;
-        console.log(`Booking: ${this.id} ${this.datetime} ${this.duration}`);
         state = store.getState();
 
         serverQuery = {
@@ -31,9 +48,9 @@ class Booking {
         }
 
         clientSettings = {
-            nonce: popupData.nonce,
+            nonce: state.general.nonce,
             action: "add_booking_to_cart",
-            url: popupData.url
+            url: state.general.ajaxUrl
         }
 
         serverClient = new ServerClient(clientSettings, serverQuery);
@@ -47,6 +64,12 @@ class Booking {
         }.bind(this));
     }
 
+
+    /**
+     * Method get error if have bad response from server.
+     * @param text
+     * @return {{errorText: string, error: boolean}}
+     */
     getError(text) {
         return {
             error: true,
@@ -54,8 +77,16 @@ class Booking {
         }
     }
 
+
+    /**
+     * Method call Notification to show server response
+     * @param response { 'status': boolean }
+     */
     showNotification(response) {
-        let notificationArgs, notification;
+        let notificationArgs, notification, state;
+
+        state = store.getState();
+
 
         if (response.status === false) {
             notificationArgs = {
@@ -66,7 +97,7 @@ class Booking {
             notificationArgs = {
                 text: "Для завершения бронирования необходимо оплатить заказ",
                 icon: '<i class="fas fa-check-circle"></i>',
-                linkUrl: popupData.cartURL,
+                linkUrl: state.reservation.popup.settings.cartURL,
                 linkTitle: 'Оплатить',
             }
         }

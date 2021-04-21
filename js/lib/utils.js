@@ -1,5 +1,18 @@
+/**
+ * @namespace utils
+ */
 var utils = utils || {};
 
+
+/**
+ * Method returns localized data generated in enqueue.php
+ * @param _object {'objectName'}
+ * @param key {'objectKey'}
+ * @return {Object}
+ */
 utils.getLocalizeData = (_object, key) => {
-    return _object[key] ? _object[key] : null;
+    if (typeof window[_object] !== "undefined") {
+        return window[_object][key];
+    }
+    return {};
 };

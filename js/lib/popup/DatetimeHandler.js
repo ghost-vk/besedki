@@ -51,9 +51,9 @@ class DatetimeHandler {
         }
 
         clientSettings = {
-            nonce: popupData.nonce,
+            nonce: state.general.nonce,
             action: "get_available_rent_time",
-            url: popupData.url
+            url: state.general.ajaxUrl
         }
 
         client = new ServerClient(clientSettings, clientQuery);

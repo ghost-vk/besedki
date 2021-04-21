@@ -11,7 +11,7 @@ class Popup {
         this.id = id;
         this.wrapper = wrapper;
         this.closeBtn = wrapper.find("#closeBtn");
-        this.loader = wrapper.find("#popupLoader");
+        this.loader = new Loader(wrapper.find("#popupLoader"));
         this.slider = wrapper.find("#popupSlider");
         this.sliderNav = wrapper.find("#popupSliderNav");
         this.selectBox = wrapper.find("#selectDuration");
@@ -26,7 +26,9 @@ class Popup {
      * @method init
      */
     init() {
-        let client, clientSettings, query;
+        let client, clientSettings, query, state;
+
+        state = store.getState();
 
         this.fixBody();
         this.showLoader();
@@ -38,9 +40,9 @@ class Popup {
         }
 
         clientSettings = {
-            nonce: popupData.nonce,
+            nonce: state.general.nonce,
             action: "get_booking_product_data",
-            url: popupData.url
+            url: state.general.ajaxUrl
         }
 
         client = new ServerClient(clientSettings, query);
@@ -80,6 +82,8 @@ class Popup {
 
         this.unfixBody();
         this.hide();
+
+        this.loader.hide();
     }
 
 
@@ -145,24 +149,7 @@ class Popup {
      * Show loader
      */
     showLoader() {
-        this.loader.addClass("z");
-        this.loader.html(`
-                    <div class="popupGallery__loader-wrapper">
-                        <div class="wrapper">
-                            <div class="circle"></div>
-                            <div class="circle"></div>
-                            <div class="circle"></div>
-                            <div class="shadow"></div>
-                            <div class="shadow"></div>
-                            <div class="shadow"></div>
-                            <span>Загрузка</span>
-                        </div>
-                    </div>
-                `);
-
-        setTimeout( function () {
-            this.loader.addClass("active");
-        }.bind(this), 100);
+        this.loader.show();
     }
 
 
@@ -170,13 +157,7 @@ class Popup {
      * Hide loader
      */
     hideLoader() {
-        this.loader.removeClass("active");
-
-        setTimeout( function () {
-            this.loader.removeClass("z");
-        }.bind(this), 150);
-
-        this.loader.html("");
+        this.loader.hide();
     }
 
 
@@ -214,7 +195,7 @@ class Popup {
             popupError.hide();
         }
 
-        this.showLoader();
+        this.loader.show();
         booking.request(this.destroy.bind(this), this.hideLoader.bind(this));
     }
 }
