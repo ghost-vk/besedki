@@ -7,7 +7,7 @@ var utils = utils || {};
 /**
  * Method returns localized data generated in enqueue.php
  * @param _object {'objectName'}
- * @param key {'objectKey'}
+ * @param key {string}
  * @return {Object}
  */
 utils.getLocalizeData = (_object, key) => {

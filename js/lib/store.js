@@ -8,9 +8,10 @@ const store = {
      */
     _state: {
         general: {
-            nonce: utils.getLocalizeData("mainSettings", "nonce"),
-            ajaxUrl: utils.getLocalizeData("mainSettings", "url"),
-            notificationContainer: jQuery("#notification")
+            nonce: utils.getLocalizeData('mainSettings', 'nonce'),
+            ajaxUrl: utils.getLocalizeData('mainSettings', 'url'),
+            notificationContainer: jQuery("#notification"),
+            privacyUrl: utils.getLocalizeData('mainSettings', 'privacyUrl')
         },
         reservation: {
             popup: {
