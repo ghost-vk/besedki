@@ -104,6 +104,9 @@ function add_scripts () {
 	// Loader class
 	wp_enqueue_script('loader', $directory . '/js/lib/Loader.js', array('jquery'), null, true);
 	
+	// Show loader on page loading
+	wp_enqueue_script('page-loader', $directory . '/js/page-loader.js', array('loader'), null, true);
+	
 	// Localize store with primary settings
 	wp_localize_script('store', 'mainSettings', array(
 		'nonce' => wp_create_nonce('store_nonce'),

@@ -30,6 +30,7 @@
 </head>
 	<body class="lightBg">
         <div id="main">
+            <!--      HEADER      -->
             <header>
                 <?php
                 global $home_page_id;
@@ -101,6 +102,28 @@
                     </div>
                 <?php endif; ?>
             </header>
+            <!--     PAGE LOADER       -->
+            <div class="pageLoader">
+                <div id="mainLoader" class="pageLoader__wrapper active z">
+                    <div class="pageLoader__container">
+                        <div class="lds-spinner">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--      MOBILE MENU      -->
             <div class="mobileMenu" id="mobileMenu">
                 <div class="mobileMenu__wrapper">
                     <div class="mobileMenu__reservation">
