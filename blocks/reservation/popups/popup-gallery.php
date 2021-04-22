@@ -22,17 +22,23 @@
             <div class="popupGallery__arrows" id="popupSliderArrows"></div>
         
             <!--    BADGES    -->
-            <span class="popupGallery__location badge">
-                <i class="fas fa-map-marker-alt"></i> <span id="badgeLocation"></span>
-            </span>
-            <span class="popupGallery__capacity badge">
-                <i class="fas fa-users"></i> До <span id="badgeCapacity"></span> чел.
-            </span>
-            <span class="popupGallery__diapason badge">
-                <i class="fas fa-tags"></i>
-                <span id="badgeMinPrice"></span> &#8381; -
-                <span id="badgeMaxPrice"></span> &#8381;
-            </span>
+            <div class="popupGallery__location badge">
+                <span>
+                    <i class="fas fa-map-marker-alt"></i> <span id="badgeLocation"></span>
+                </span>
+            </div>
+            <div class="popupGallery__capacity badge">
+                <span >
+                    <i class="fas fa-users"></i> До <span id="badgeCapacity"></span> чел.
+                </span>
+            </div>
+            <div class="popupGallery__diapason badge">
+                <span>
+                    <i class="fas fa-tags"></i>
+                    <span id="badgeMinPrice"></span> &#8381; -
+                    <span id="badgeMaxPrice"></span> &#8381;
+                </span>
+            </div>
             
             <?php if ( ! is_mobile() ) : // Navigation slider only on desktop ?>
                 <!--     NAVIGATION SLIDER DESKTOP     -->

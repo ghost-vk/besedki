@@ -163,13 +163,15 @@
   .badge {
     z-index: 1001;
     display: block;
-    width: fit-content;
-    font-size: 14px;
-    @include adaptive-value("font-size", 14, 9, 1);
-    line-height: 120%;
+    white-space: nowrap;
     padding: 7px;
     border-radius: 2px;
     background-color: rgba(254, 255, 254, 0.9);
+    span, i {
+      @include adaptive-value("font-size", 14, 9, 1);
+      line-height: 120%;
+      color: rgba(0, 0, 0, 0.8);
+    }
   }
   &__nav {
     flex: 0 0 250px;

@@ -311,16 +311,18 @@
 .popupGallery .badge {
   z-index: 1001;
   display: block;
-  width: fit-content;
-  font-size: 14px;
-  font-size: 14px;
-  line-height: 120%;
+  white-space: nowrap;
   padding: 7px;
   border-radius: 2px;
   background-color: rgba(254, 255, 254, 0.9);
 }
+.popupGallery .badge span, .popupGallery .badge i {
+  font-size: 14px;
+  line-height: 120%;
+  color: rgba(0, 0, 0, 0.8);
+}
 @media (max-width: 1080px) {
-  .popupGallery .badge {
+  .popupGallery .badge span, .popupGallery .badge i {
     font-size: calc(9px + 5 * ((100vw - 320px) / 760));
   }
 }
