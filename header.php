@@ -1,3 +1,4 @@
+<?php do_action('store_user_key_in_cookie'); // Stores user key in COOKIE, used for identification in booking process ?>
 <!DOCTYPE html>
 <html lang="ru-RU">
 <head>
@@ -141,5 +142,3 @@
                     </div>
                 </div>
             </div>
-            
-            <?php do_action('store_user_key_in_cookie'); // Stores user key in COOKIE, used for identification in booking process ?>
