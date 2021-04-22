@@ -164,7 +164,10 @@
     z-index: 1001;
     display: block;
     white-space: nowrap;
-    padding: 7px;
+    @include adaptive-value("padding-left", 7, 3, 1);
+    @include adaptive-value("padding-right", 7, 3, 1);
+    @include adaptive-value("padding-top", 7, 0, 1);
+    @include adaptive-value("padding-bottom", 7, 3, 1);
     border-radius: 2px;
     background-color: rgba(254, 255, 254, 0.9);
     span, i {

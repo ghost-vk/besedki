@@ -312,9 +312,32 @@
   z-index: 1001;
   display: block;
   white-space: nowrap;
-  padding: 7px;
+  padding-left: 7px;
+  padding-right: 7px;
+  padding-top: 7px;
+  padding-bottom: 7px;
   border-radius: 2px;
   background-color: rgba(254, 255, 254, 0.9);
+}
+@media (max-width: 1080px) {
+  .popupGallery .badge {
+    padding-left: calc(3px + 4 * ((100vw - 320px) / 760));
+  }
+}
+@media (max-width: 1080px) {
+  .popupGallery .badge {
+    padding-right: calc(3px + 4 * ((100vw - 320px) / 760));
+  }
+}
+@media (max-width: 1080px) {
+  .popupGallery .badge {
+    padding-top: calc(0px + 7 * ((100vw - 320px) / 760));
+  }
+}
+@media (max-width: 1080px) {
+  .popupGallery .badge {
+    padding-bottom: calc(3px + 4 * ((100vw - 320px) / 760));
+  }
 }
 .popupGallery .badge span, .popupGallery .badge i {
   font-size: 14px;
