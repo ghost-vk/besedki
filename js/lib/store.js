@@ -11,7 +11,8 @@ const store = {
             nonce: utils.getLocalizeData('mainSettings', 'nonce'),
             ajaxUrl: utils.getLocalizeData('mainSettings', 'url'),
             notificationContainer: jQuery("#notification"),
-            privacyUrl: utils.getLocalizeData('mainSettings', 'privacyUrl')
+            privacyUrl: utils.getLocalizeData('mainSettings', 'privacyUrl'),
+            callbackResponse: utils.getLocalizeData('callbackText', 'text'), // TODO зацепить в ответ на запрос обратного звонка
         },
         reservation: {
             popup: {

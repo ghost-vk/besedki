@@ -52,6 +52,7 @@
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(100px);
+  -webkit-backdrop-filter: blur(100px);
   padding: 80px 0;
   overflow-y: scroll;
   -ms-overflow-y: scroll;
@@ -661,7 +662,13 @@
   overflow: hidden;
   width: 100%;
   height: 600px;
+  height: 600px;
   position: relative;
+}
+@media (max-width: 1080px) {
+  .reservationMap {
+    height: calc(450px + 150 * ((100vw - 320px) / 760));
+  }
 }
 .reservationMap #map {
   width: 100%;

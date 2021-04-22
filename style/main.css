@@ -371,8 +371,10 @@ p, a, span, h1, h2, h3, h4, h5, h6, li, pre, label, div, button, input, input::p
     transform: translateX(-50%);
   }
 }
-.stickyBtn:hover {
-  transform: scale3d(1.1, 1.1, 1.1);
+@media (min-width: 1024px) {
+  .stickyBtn:hover {
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
 }
 @media (max-width: 1080px) {
   .stickyBtn {
@@ -551,11 +553,15 @@ p, a, span, h1, h2, h3, h4, h5, h6, li, pre, label, div, button, input, input::p
   box-shadow: 0px 3px 10px 2px rgba(0, 0, 0, 0.25);
 }
 .headerMobile__icon {
+  z-index: 2;
   position: absolute;
   top: 5px;
   left: calc(50%);
   transform: translateX(-50%);
   transition: opacity 0.2s ease;
+}
+.headerMobile__icon a {
+  display: block;
 }
 .headerMobile__row {
   display: flex;
@@ -743,7 +749,7 @@ p, a, span, h1, h2, h3, h4, h5, h6, li, pre, label, div, button, input, input::p
 }
 
 .mobileMenu.active {
-  z-index: 1000;
+  z-index: 1001;
   pointer-events: auto;
 }
 .mobileMenu.active .mobileMenu__wrapper {

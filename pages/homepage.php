@@ -1,12 +1,10 @@
 <?php get_header(); ?>
 
-<?php if ( is_mobile() ) : ?>
-    <div class="homeTopReservation">
-        <div class="homeTopReservation__row">
-            <a href="#" class="whiteBtn1">Забронировать</a>
-        </div>
-    </div>
-<?php endif; ?>
+<?php
+if ( is_mobile() ) {
+	require_once __DIR__ . '/../blocks/buttons/reservation-after-header-btn.php';
+}
+?>
 
 <div class="promo" id="promoSection">
     <div class="promo__img">
@@ -149,6 +147,6 @@
 	<?php require_once __DIR__ . '/../blocks/callback-section.php'; // Callback ?>
 </div>
 
-<?php require_once __DIR__ . '/../blocks/sticky-button.php'; // Reservation button ?>
+<?php require_once __DIR__ . '/../blocks/buttons/sticky-button.php'; // Reservation button ?>
 
 <?php get_footer(); ?>

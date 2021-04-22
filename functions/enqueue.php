@@ -101,6 +101,9 @@ function add_scripts () {
 	// Callback function
 	wp_enqueue_script('callback', $directory . '/js/callback.js', array('jquery', 'libphonenumber', 'notification'), null, true);
 	
+	// Localize callback
+	wp_localize_script('store', 'callbackText', array( 'text' => get_field('notification_callback_success', 18) )); // 18 - home page ID
+	
 	// Loader class
 	wp_enqueue_script('loader', $directory . '/js/lib/Loader.js', array('jquery'), null, true);
 	

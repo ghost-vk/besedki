@@ -103,7 +103,7 @@
 
                 if (response.status === true) {
                     content.icon = '<i class="fas fa-check-square"></i>';
-                    content.text = 'В скором времени мы вам перезвоним!';
+                    content.text = state.general.callbackResponse;
 
                     elements.btn.text("Готово!");
                 } else {

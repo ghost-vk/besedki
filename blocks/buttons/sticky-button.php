@@ -1,0 +1,1 @@
+<a class="stickyBtn" id="stickyReservation" href="<?php echo home_url('/reservation'); ?>">Забронировать</a>

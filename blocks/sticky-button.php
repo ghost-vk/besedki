@@ -1,1 +1,0 @@
-<a class="stickyBtn" id="stickyReservation" href="<?= home_url('/reservation'); ?>">Забронировать</a>

@@ -298,8 +298,10 @@ p, a, span, h1, h2, h3, h4, h5, h6, li, pre, label, div, button, input, input::p
     transform: translateX(-50%);
   }
   transition: transform .3s ease, opacity .3s ease;
-  &:hover {
-    transform: scale3d(1.1, 1.1, 1.1);
+  @media (min-width: 1024px) {
+    &:hover {
+      transform: scale3d(1.1, 1.1, 1.1);
+    }
   }
   border-radius: 20px;
   padding: 10px 30px;
