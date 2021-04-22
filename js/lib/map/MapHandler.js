@@ -33,7 +33,8 @@ class MapHandler {
             layers: [new L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')],
             attributionControl: false,
             minZoom: this.minZoom,
-            maxZoom: this.maxZoom
+            maxZoom: this.maxZoom,
+            tap: false
         });
 
         this.icon = L.icon(this.state.settings.icon);
