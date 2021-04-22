@@ -232,12 +232,17 @@ class bookingProduct {
 	 */
 	public function is_intersects ($data) {
 		if ( ! isset($data['start_datetime']) || ! isset($data['duration']) ) {
-			return;
+			return false;
 		}
 		
 		$need_interval = $this->get_interval( $data['start_datetime'], $data['duration'] );
+		$is_allowed_time = $this->check_allowed_time($need_interval);
 		
-		if ( ! have_rows('rent_repeater', $this->id) ) { // If haven't rents
+		if ( ! $is_allowed_time ) { // 1. Working time
+			return true;
+		}
+		
+		if ( ! have_rows('rent_repeater', $this->id) ) { // 2. Maybe haven't booking recording
 			return false;
 		}
 		
@@ -247,9 +252,8 @@ class bookingProduct {
 			$duration = get_sub_field('duration');
 			$exists_interval = $this->get_interval($start, $duration);
 			$is_vacant = $this->compare_intervals($need_interval, $exists_interval);
-			$is_allowed_time = $this->check_allowed_time($need_interval);
 			
-			if ( $is_vacant === true && $is_allowed_time ) { // Not intersects and time not in 5:00 - 9:00
+			if ( $is_vacant === true ) { // 3. Check exists booking recording
 				continue;
 			} else {
 				return true;
@@ -358,12 +362,13 @@ class bookingProduct {
 	/**
 	 * Add rent product to cart
 	 * Returns true if product added to cart
-	 * $data['start_datetime'] - a string time formated 'Y-m-d H:i:s'
+	 * $data['start_datetime'] - a string time formatted 'Y-m-d H:i:s'
 	 * $data['duration'] - one of '1', '2', '3', 'day'
 	 * @param $data {Array} contains Start time and rent duration
 	 * @return bool|void
 	 */
-	public function add_to_cart($data) {
+	public function add_to_cart($data): bool
+	{
 		if (
 			gettype($this->id) !== 'integer' // Not ID
 			OR
@@ -382,6 +387,8 @@ class bookingProduct {
 			return false;
 		}
 		
+		echo "Intersects: <br>";
+		var_dump($this->is_intersects($data));
 		if ( $this->is_intersects($data) === false ) {
 			$now_datetime = new \DateTime('now', new \DateTimeZone('Europe/Moscow'));
 			

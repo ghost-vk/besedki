@@ -71,7 +71,6 @@ function add_booking_to_cart() {
 		wp_die();
 	}
 	
-	
 	$start_datetime_str = $_POST['rent_datetime'];
 	$duration = $_POST['rent_duration'];
 	
