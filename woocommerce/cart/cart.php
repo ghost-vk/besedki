@@ -57,7 +57,7 @@
                             <div class="product">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <img class="img-fluid mx-auto d-block image rounded" src="<?= $thumbnail_src; ?>">
+                                        <img class="mx-auto d-block image rounded" src="<?= $thumbnail_src; ?>">
                                     </div>
                                     <div class="col-md-8">
                                         <div class="info">
