@@ -387,8 +387,6 @@ class bookingProduct {
 			return false;
 		}
 		
-		echo "Intersects: <br>";
-		var_dump($this->is_intersects($data));
 		if ( $this->is_intersects($data) === false ) {
 			$now_datetime = new \DateTime('now', new \DateTimeZone('Europe/Moscow'));
 			
