@@ -195,7 +195,7 @@ class bookingProduct {
 	 * @param $need_interval {Array} - constructed by "get_interval"
 	 * @return {Boolean} if 5 - 9 o'clock returns false
 	 */
-	public function check_allowed_time($need_interval) {
+	protected function check_allowed_time($need_interval) {
 		if (
 			! $need_interval['start_datetime']
 			OR

@@ -30,13 +30,14 @@
                                                         <?php $element = get_sub_field('element'); ?>
                                                         <?php if ( $element ) : ?>
                                                             <?php if ( $element['type'] === 'is_text' ) : ?>
-                                                                <p class="mainText-1 no-select"><?= $element['text']; ?></p>
+                                                                <p class="mainText-1 no-select"><?php echo wp_specialchars_decode($element['text']); ?></p>
                                                             <?php elseif ( $element['type'] === 'is_link' ) : ?>
                                                                 <?php
                                                                 $link = $element['link'];
                                                                 $target = ( $link['target'] ) ? $link['target'] : '_self';
                                                                 ?>
-                                                                <a class="mainText-1" href="<?= $link['url']; ?>" target="<?= $target; ?>"><?= $link['title']; ?></a>
+                                                                <a class="mainText-1" href="<?= $link['url']; ?>"
+                                                                   target="<?= $target; ?>"><?php echo wp_specialchars_decode($link['title']); ?></a>
                                                             <?php endif; ?>
                                                         <?php endif; ?>
                                                         
