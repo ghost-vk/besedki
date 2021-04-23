@@ -23,8 +23,8 @@ class DatetimeHandler {
             defaultSelect: false,
             timepickerScrollbar: false,
             allowTimes: [''],
-            onSelectDate: this.getTime.bind(this),
-            onSelectTime: this.setTimeFlag.bind(this)
+            onSelectDate: this._onSelectDate.bind(this),
+            onSelectTime: this._onSelectTime.bind(this)
         }
 
         this.el.datetimepicker(this.options); // Starts Datetimepicker
@@ -35,26 +35,27 @@ class DatetimeHandler {
      * Method add available times for booking to Datetimepicker
      * @method getTime
      */
-    getTime() {
+    _onSelectDate() {
         let state, client, clientQuery, clientSettings;
         if (typeof this.id === "undefined") {
             return;
         }
 
         state = store.getState();
-        state.reservation.isDateSelected = (state.reservation.isDateSelected) ? state.reservation.isDateSelected : true;
+        store.setDateSelectedFlag(true);
+
         this.toggleLoader();
 
         clientQuery = {
             product_id: this.id,
-            rent_date: this.getYmd()
-        }
+            rent_date: this._getYmd()
+        };
 
         clientSettings = {
             nonce: state.general.nonce,
             action: "get_available_rent_time",
             url: state.general.ajaxUrl
-        }
+        };
 
         client = new ServerClient(clientSettings, clientQuery);
         client.get(this.setNewTimes.bind(this));
@@ -72,8 +73,9 @@ class DatetimeHandler {
      * Returns formated string from datetimepicker in "Y-m-d", f.e "2000-01-01"
      * @return {string}
      * @method getYmd
+     * @private
      */
-    getYmd = () => {
+    _getYmd = () => {
         let needDate = this.el.datetimepicker('getValue'),
             Y, m, d;
 
@@ -93,7 +95,7 @@ class DatetimeHandler {
      * @return {string}
      * @method getYmdHis
      */
-    getYmdHis() {
+    _setYmdHis() {
         let state = store.getState();
         if (!state.reservation.isDateSelected) {
             return false;
@@ -107,7 +109,8 @@ class DatetimeHandler {
         }
 
         let needDate = this.el.datetimepicker('getValue'),
-            Y, m, d, H;
+            Y, m, d, H,
+            value;
 
         if (needDate) {
             Y = needDate.getFullYear();
@@ -115,10 +118,12 @@ class DatetimeHandler {
             d = needDate.getDate();
             H = needDate.getHours();
 
-            return `${Y}-${m}-${d} ${H}:00:00`;
+            value = `${Y}-${m}-${d} ${H}:00:00`;
         } else {
             return;
         }
+
+        store.setYmdHis(value);
     }
 
     /**
@@ -139,11 +144,11 @@ class DatetimeHandler {
     }
 
     /**
-     * Method sets time flag
-     * @methos setTimeFlag
+     * Method set time selected flag in state
+     * @private
      */
-    setTimeFlag() {
-        let state = store.getState();
-        state.reservation.isTimeSelected = true;
+    _onSelectTime() {
+        store.setTimeSelectedFlag(true);
+        this._setYmdHis();
     }
 }

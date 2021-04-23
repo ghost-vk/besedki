@@ -133,7 +133,7 @@
   position: absolute;
   top: 10px;
   right: 15px;
-  z-index: 10001;
+  z-index: 10000;
 }
 .popupGallery__close i {
   font-size: 35px;

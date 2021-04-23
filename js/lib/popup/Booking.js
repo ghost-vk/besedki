@@ -6,28 +6,32 @@
 class Booking {
     /**
      * Constructor
-     * @param id { '11' }
-     * @param datetime { 'Y-m-d H:i:s' }
-     * @param duration { '1' | '2' | '3' | 'day'}
+     * @param state {
+     *   bookingNeedTime: '2021-05-12 13:00:00',
+     *   bookingDuration: 'day',
+     *   productID: '312',
+     *   variationID: '316'
+     * }
      * @return {{errorText: string, error: boolean}}
      */
-    constructor(id, datetime, duration) {
+    constructor(state) { // Only state should be here
         let error;
-        if (!datetime) {
-            error = this.getError("Выберите дату и время для бронирования");
+        if (!state.bookingNeedTime) {
+            error = this._getError("Выберите дату и время для бронирования");
             return error;
         }
-        if (!duration) {
-            error = this.getError("Выберите продолжительность аренды");
+        if (!state.bookingDuration) {
+            error = this._getError("Выберите продолжительность аренды");
             return error;
         }
-        if (!id) {
-            error = this.getError("Ошибка сервера, попробуйте перезагрузить страницу");
+        if (!state.productID || !state.variationID) {
+            error = this._getError("Ошибка сервера, попробуйте перезагрузить страницу");
             return error;
         }
-        this.id = id;
-        this.datetime = datetime;
-        this.duration = duration;
+        this.productID = state.productID;
+        this.variationID = state.variationID;
+        this.bookingNeedTime = state.bookingNeedTime;
+        this.bookingDuration = state.bookingDuration;
     }
 
 
@@ -41,10 +45,10 @@ class Booking {
         state = store.getState();
 
         serverQuery = {
-            product_id: this.id,
-            variation_id: state.reservation.variationID,
-            rent_datetime: this.datetime,
-            rent_duration: this.duration
+            product_id: this.productID,
+            variation_id: this.variationID,
+            rent_datetime: this.bookingNeedTime,
+            rent_duration: this.bookingDuration
         }
 
         clientSettings = {
@@ -60,7 +64,7 @@ class Booking {
             } else if (typeof callbackFailure === "function" && response.status === false) {
                 callbackFailure();
             }
-            this.showNotification(response);
+            this._showNotification(response);
         }.bind(this));
     }
 
@@ -70,7 +74,7 @@ class Booking {
      * @param text
      * @return {{errorText: string, error: boolean}}
      */
-    getError(text) {
+    _getError(text) {
         return {
             error: true,
             errorText: `${text}`
@@ -82,7 +86,7 @@ class Booking {
      * Method call Notification to show server response
      * @param response { 'status': boolean }
      */
-    showNotification(response) {
+    _showNotification(response) {
         let notificationArgs, notification, state;
 
         state = store.getState();

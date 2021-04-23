@@ -86,6 +86,42 @@ const store = {
 
 
     /**
+     * Set booking duration
+     * @param duration { '1' | '2' | '3' | 'day' | null }
+     */
+    setBookingDuration(duration) {
+        this._state.reservation.bookingDuration = duration;
+    },
+
+
+    /**
+     * Set date choice flag
+     * @param value { Boolean }
+     */
+    setDateSelectedFlag(value) {
+        this._state.reservation.isDateSelected = value;
+    },
+
+
+    /**
+     * Set time choice flag
+     * @param value { Boolean }
+     */
+    setTimeSelectedFlag(value) {
+        this._state.reservation.isTimeSelected = value;
+    },
+
+
+    /**
+     * Set time need for booking
+     * @param value { '2021-05-12 13:00:00' | null }
+     */
+    setYmdHis(value) {
+        this._state.reservation.bookingNeedTime = value;
+    },
+
+
+    /**
      * Method opens booking modal window
      * @private
      */

@@ -49,7 +49,6 @@ class Popup {
         client.get(this.update.bind(this)); // Get data from server
 
         let dth = new DatetimeHandler(this.datetimeInput, this.id);
-        this.dth = dth;
         dth.init();
 
         this.closeBtn.click(this.destroy.bind(this));
@@ -62,6 +61,11 @@ class Popup {
      */
     destroy() {
         let state = store.getState();
+
+        store.setDateSelectedFlag(false);
+        store.setTimeSelectedFlag(false);
+        store.setBookingDuration(null);
+        store.setYmdHis(null);
 
         // Reset slick sliders
         let slider = new Slider(this.slider);
@@ -164,7 +168,7 @@ class Popup {
     /**
      * Fix document body
      */
-    fixBody() { // TODO протестировать
+    fixBody() {
         jQuery("body").css("overflow", "hidden");
     }
 
@@ -184,12 +188,15 @@ class Popup {
      * @method submit
      */
     submit() {
-        let booking = new Booking(this.id, this.dth.getYmdHis(), this.selector.getValue());
+        let booking = new Booking(store.getState().reservation);
+
+        // If not enough data in state to create Booking request
         if (typeof booking === "object" && booking.error === true) {
             let error = new PopupError(this.errorBlock, booking.errorText);
             error.show();
             return;
         }
+        // Default hide errors
         if (booking instanceof Booking) {
             let popupError = new PopupError(this.errorBlock);
             popupError.hide();

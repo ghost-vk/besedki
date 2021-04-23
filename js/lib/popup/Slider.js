@@ -22,7 +22,7 @@ class Slider {
      * Reset slick slider
      */
     resetSlider = () => {
-        if (! this.slider.length) {
+        if (this.slider === "undefined" || !this.slider.slick('getSlick')) {
             return;
         }
 
@@ -78,10 +78,10 @@ class SliderMain extends Slider {
 
     getSlideTemplate = (image) => {
         return `
-                    <div class="popupGallery__bg"
-                     style="background: center / cover no-repeat url('${image}')">
-                    </div>
-                `;
+            <div class="popupGallery__bg"
+            style="background: center / cover no-repeat url('${image}')">
+            </div>
+        `;
     }
 
     /**

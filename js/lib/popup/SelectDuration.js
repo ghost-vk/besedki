@@ -28,19 +28,27 @@ class SelectDuration {
         this.select = this.el.select({
             data: this.options,
             index: this.index,
-            itemClick: this.changePrice.bind(this),
-            initCallback: this.initPrice.bind(this)
+            itemClick: this._onOptionClick.bind(this),
+            initCallback: this._onSelectorInit.bind(this)
         });
     }
 
     /**
-     * Function 'changePrice' fires on select option click
+     * Method fires on select option click
+     * @private
      */
-    changePrice() {
-        let currentValue = this.select.getValue()
+    _onOptionClick() {
+        let currentValue = this.select.getValue(),
+            availableDuration = ['1', '2', '3', 'day'];
+
+        if (!availableDuration.includes(currentValue)) {
+            return;
+        }
+
         for (var i = 0, max = this.variations.length; i < max; i += 1) {
             if (this.variations[i].duration === currentValue) {
                 this.priceBox.html(`${this.variations[i].price} &#8381;`);
+                store.setBookingDuration(currentValue);
                 store.setVariationID(this.variations[i].id);
             }
         }
@@ -49,9 +57,11 @@ class SelectDuration {
     /**
      * Changes price with depends to whole day duration on selector init
      * 3 element in variations should be the last one
+     * @private
      */
-    initPrice() {
+    _onSelectorInit() {
         this.priceBox.html(`${this.variations[3].price} &#8381;`)
+        store.setBookingDuration(this.options[3].value);
         store.setVariationID(this.variations[3].id);
     }
 
