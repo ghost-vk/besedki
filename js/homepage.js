@@ -5,8 +5,7 @@
         slickContainer.slick({
             slidesToShow: 1,
             slidesToScroll: 1,
-            // autoplay: true,
-            autoplay: false,
+            autoplay: true,
             dots: true,
             arrows: false,
             appendDots: $("#slickDots"),

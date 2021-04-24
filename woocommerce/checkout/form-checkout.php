@@ -4,6 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 require_once __DIR__ . './../../functions/bookingFormat.class.php';
+require_once __DIR__ . './../../class/FormatterUI/FormatterUIHandler.php';
 
 ?>
 
@@ -55,8 +56,8 @@ require_once __DIR__ . './../../functions/bookingFormat.class.php';
                                                     <?php echo apply_filters( 'woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key ) . '&nbsp;'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 													<?php if ( isset($cart_item['start_datetime']) ) : // If start datetime is set ?>
 														<?php
-                                                        $format = new BESEDKA\bookingFormat($cart_item['start_datetime']);
-                                                        $start_datetime_nice = $format->format_datetime_for_ui();
+                                                        $formatter = new BESEDKA\FormatterUIHandler('datetime', $cart_item['start_datetime']);
+                                                        $start_datetime_nice = $formatter->Format();
 														?>
                                                         (<?php echo $start_datetime_nice; ?>)
 													<?php endif; ?>
