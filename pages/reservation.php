@@ -1,13 +1,11 @@
 <?php get_header(); ?>
 
 <?php
-require_once __DIR__ . '/../functions/bookingProduct.class.php';
-$_bp = new BESEDKA\bookingProduct(336);
-$_bp->add_to_cart(array(
-	'start_datetime' => '2021-05-12 12:00:00',
-	'duration' => '3',
-	'variation_id' => 338,
-));
+//require_once __DIR__ . '/../class/DurationAvailability/DurationHandler.php';
+//$duration_availability_handler = new \BESEDKA\DurationAvailabilityHandler('1', '2021-05-12 10:00:00');
+//$duration_availability_handler->IsAvailable();
+//$data = get_field('duration_availability_group', 'options');
+//var_dump($data['one_hour']);
 ?>
 
 <?php require_once __DIR__ . '/../blocks/reservation/map/map.php'; // Map with filters ?>

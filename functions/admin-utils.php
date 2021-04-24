@@ -232,3 +232,44 @@ function mytheme_add_woocommerce_support() {
 	add_theme_support( 'woocommerce' );
 }
 add_action( 'after_setup_theme', 'mytheme_add_woocommerce_support' );
+
+
+/**
+ * Add advanced settings
+ */
+if( function_exists('acf_add_options_page') ) {
+	generate_booking_settings_page();
+}
+function generate_booking_settings_page() {
+	$parent = acf_add_options_page(array(
+		'page_title' 	=> 'Настройки',
+		'menu_title'	=> 'Настройки',
+		'menu_slug' 	=> 'booking-settings',
+		'capability'	=> 'edit_posts',
+		'redirect'		=> true,
+		'position'	    => 1,
+		'post_id'		=> 'option',
+		'update_button' => 'Обновить настройки',
+		'updated_message' => 'Настройки обновлены',
+	));
+	
+	acf_add_options_sub_page(array(
+		'page_title' 	=> 'Настройки бронирования',
+		'menu_title'	=> 'Бронирование',
+		'capability'	=> 'edit_posts',
+		'menu_slug' 	=> $parent['menu_slug'] . '-reservation',
+		'parent_slug'	=> $parent['menu_slug'],
+		'update_button' => $parent['update_button'],
+		'updated_message' => $parent['updated_message'],
+	));
+	
+	acf_add_options_sub_page(array(
+		'page_title' 	=> 'Настройки Telegram',
+		'menu_title'	=> 'Telegram',
+		'capability'	=> 'edit_posts',
+		'menu_slug' 	=> $parent['menu_slug'] . '-telegram',
+		'parent_slug'	=> $parent['menu_slug'],
+		'update_button' => $parent['update_button'],
+		'updated_message' => $parent['updated_message'],
+	));
+}

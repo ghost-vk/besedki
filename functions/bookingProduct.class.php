@@ -387,6 +387,13 @@ class bookingProduct {
 			return false;
 		}
 		
+		require_once __DIR__ . '/../class/DurationAvailability/DurationAvailabilityHandler.php';
+		
+		$_dah = new DurationAvailabilityHandler($data['duration'], $data['start_datetime']);
+		if ( $_dah->IsAvailable() === false ) { // Type of duration with this start hour is not available
+			return false;
+		}
+		
 		if ( $this->is_intersects($data) === false ) {
 			$now_datetime = new \DateTime('now', new \DateTimeZone('Europe/Moscow'));
 			

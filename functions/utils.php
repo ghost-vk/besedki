@@ -16,7 +16,7 @@ function send_message_via_telegram($message) {
 	if ( !isset($message) ) {
 		return;
 	}
-	$chat_id = get_field('telegram_id', 'user_2'); // Get chat ID from admin settings
+	$chat_id = get_field('telegram_id', 'options'); // Get chat ID from admin settings
 	
 	$token = '1723994804:AAF5pZxN5cZHJa9EKK2pgxv24lUiIW_-VtI';
 	$ch = curl_init();

@@ -34,7 +34,7 @@ function remove_unavailable_items( $cart_items ) {
 		
 		$now_datetime = new \DateTime('now', new \DateTimeZone('Europe/Moscow'));
 		$added_to_cart_datetime = DateTime::createFromFormat('Y-m-d H:i:s', $cart_item['added_to_cart'], new \DateTimeZone('Europe/Moscow'));
-		$expires_interval = get_field('booking_timer', get_option( 'woocommerce_shop_page_id' ));
+		$expires_interval = get_field('booking_timer', 'options');
 		$expires_datetime = $added_to_cart_datetime->modify('+' . $expires_interval . ' minutes');
 		
 		if ( $now_datetime > $expires_datetime ) { // Booking expired
