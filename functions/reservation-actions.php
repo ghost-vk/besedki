@@ -59,9 +59,11 @@ function remove_unavailable_items( $cart_items ) {
 			
 			if ( isset($_COOKIE['user_key']) ) {
 				
-				$is_user_holder = $booking_product->is_user_holder($_COOKIE['user_key']);
+				require_once __DIR__ . '/../class/Booking/BookingUser.php';
+				$_bu = new \BESEDKA\BookingUser();
+				$is_user_reservation = $_bu->IsUserReservation($_COOKIE['user_key'], $product_id);
 				
-				if ( $is_user_holder === true ) { // If user is booking owner
+				if ( $is_user_reservation === true ) { // If user is booking owner
 					continue;
 				} else {
 					$woocommerce->cart->remove_cart_item( $cart_item_key );

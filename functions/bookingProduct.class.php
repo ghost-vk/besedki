@@ -168,38 +168,6 @@ class bookingProduct {
 	
 	
 	/**
-	 * @param $need_interval {Array} - constructed by "get_interval"
-	 * @return {Boolean} if 5 - 9 o'clock returns false
-	 */
-	protected function check_allowed_time($need_interval) {
-		if (
-			! $need_interval['start_datetime']
-			OR
-			! $need_interval['end_datetime']
-			OR
-			! $need_interval['start_datetime'] instanceof \DateTime
-			OR
-			! $need_interval['end_datetime'] instanceof \DateTime
-		) {
-			return false;
-		}
-		
-		$start_hour = (int)$need_interval['start_datetime']->format('H');
-		$end_hour = (int)$need_interval['end_datetime']->format('H');
-		
-		if ( $start_hour > 4 && $start_hour < 10 ) { // Start hour between 4:00 and 10:00
-			return false;
-		}
-		
-		if ( $end_hour > 5 && $end_hour < 10 ) { // End hour between 4:00 and 10:00
-			return false;
-		}
-		
-		return true;
-	}
-	
-	
-	/**
 	 * Check reservation period. If period is not intersects with exists returns false;
 	 * @param $data {Array} contains start datetime and duration
 	 * $data['start_datetime'] - a string time formated "Y-m-d H:i:s"
@@ -212,11 +180,6 @@ class bookingProduct {
 		}
 		
 		$need_interval = $this->get_interval( $data['start_datetime'], $data['duration'] );
-		$is_allowed_time = $this->check_allowed_time($need_interval);
-		
-		if ( ! $is_allowed_time ) { // 1. Working time
-			return true;
-		}
 		
 		if ( ! have_rows('rent_repeater', $this->id) ) { // 2. Maybe haven't booking recording
 			return false;
