@@ -102,34 +102,9 @@ class bookingProduct {
 	 * 	'end_datetime' => DateTime
 	 */
 	public function get_interval($start, $duration) {
-		$start_datetime = \DateTime::createFromFormat('Y-m-d H:i:s', $start, new \DateTimeZone('Europe/Moscow'));
-		
-		if ( ! $start_datetime ) {
-			return;
-		}
-		
-		$end_datetime = \DateTime::createFromFormat('Y-m-d H:i:s', $start, new \DateTimeZone('Europe/Moscow'));
-		
-		switch ( $duration ) {
-			case '1':
-				$end_datetime = $end_datetime->modify('+1 hour');
-				break;
-			case '2':
-				$end_datetime = $end_datetime->modify('+2 hour');
-				break;
-			case '3':
-				$end_datetime = $end_datetime->modify('+3 hour');
-				break;
-			case 'day':
-				$next_day = $end_datetime->modify('+1 day');
-				$end_datetime = $next_day->setTime( 4, 0 ); // When day type reservation ends
-				break;
-		}
-		
-		return array(
-			'start_datetime' => $start_datetime,
-			'end_datetime' => $end_datetime
-		);
+		require_once __DIR__ . '/../class/Booking/BookingInterval/BookingIntervalHandler.php';
+		$handler = new BookingIntervalHandler($start, $duration);
+		return $handler->Get();
 	}
 	
 	
@@ -140,6 +115,7 @@ class bookingProduct {
 	 * @return bool - false if intersects
 	 */
 	private function compare_intervals($need_interval, $exist_interval) {
+		
 		if (
 			$need_interval['start_datetime'] > $need_interval['end_datetime']
 			OR
@@ -364,6 +340,7 @@ class bookingProduct {
 	 * Returns true if product added to cart
 	 * $data['start_datetime'] - a string time formatted 'Y-m-d H:i:s'
 	 * $data['duration'] - one of '1', '2', '3', 'day'
+	 * $data['variation_id'] - WC_Product_Variation ID
 	 * @param $data {Array} contains Start time and rent duration
 	 * @return bool|void
 	 */
