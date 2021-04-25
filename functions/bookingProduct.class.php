@@ -109,65 +109,6 @@ class bookingProduct {
 	
 	
 	/**
-	 * Compares two datetime intervals
-	 * @param $need_interval {Array}
-	 * @param $exist_interval {Array}
-	 * @return bool - false if intersects
-	 */
-	private function compare_intervals($need_interval, $exist_interval) {
-		
-		if (
-			$need_interval['start_datetime'] > $need_interval['end_datetime']
-			OR
-			$exist_interval['start_datetime'] > $exist_interval['end_datetime']
-		) {
-			error_log ("Задан не правильный интервал: начало интервала позже окончания", 0);
-			return true;
-		}
-		
-		if (
-			$need_interval['start_datetime'] == $exist_interval['start_datetime']
-			OR
-			$need_interval['end_datetime'] == $exist_interval['end_datetime']
-		) { // If starts or ends is equal
-			return false;
-		}
-		
-		if ( $need_interval['start_datetime'] < $exist_interval['start_datetime'] ) {
-			if (
-				$need_interval['end_datetime'] > $exist_interval['start_datetime']
-				AND
-				$need_interval['end_datetime'] < $exist_interval['end_datetime']
-			) {
-				return false;
-			}
-			
-			if ( $need_interval['end_datetime'] > $exist_interval['end_datetime'] ) {
-				return false;
-			}
-		}
-		else
-		{
-			if (
-				$exist_interval['end_datetime'] > $need_interval['start_datetime']
-				AND
-				$exist_interval['end_datetime'] < $need_interval['end_datetime']
-			) {
-				return false;
-			}
-			
-			if ( $exist_interval['end_datetime'] > $need_interval['end_datetime'] ) {
-				return false;
-			}
-			
-		}
-		
-		return true;
-		
-	}
-	
-	
-	/**
 	 * Check reservation period. If period is not intersects with exists returns false;
 	 * @param $data {Array} contains start datetime and duration
 	 * $data['start_datetime'] - a string time formated "Y-m-d H:i:s"
@@ -181,7 +122,7 @@ class bookingProduct {
 		
 		$need_interval = $this->get_interval( $data['start_datetime'], $data['duration'] );
 		
-		if ( ! have_rows('rent_repeater', $this->id) ) { // 2. Maybe haven't booking recording
+		if ( ! have_rows('rent_repeater', $this->id) ) { // 1. Maybe haven't booking recording
 			return false;
 		}
 		
@@ -190,9 +131,13 @@ class bookingProduct {
 			$start = get_sub_field('start_datetime');
 			$duration = get_sub_field('duration');
 			$exists_interval = $this->get_interval($start, $duration);
-			$is_vacant = $this->compare_intervals($need_interval, $exists_interval);
 			
-			if ( $is_vacant === true ) { // 3. Check exists booking recording
+			require_once __DIR__ . '/../class/Booking/BookingInterval/BookingIntervalComparing.php';
+			$comparator = new BookingIntervalComparing($need_interval, $exists_interval);
+			$is_vacant = $comparator->CheckIntersects($need_interval, $exists_interval);
+			
+			
+			if ( $is_vacant === true ) { // 2. Check exists booking recording
 				continue;
 			} else {
 				return true;
@@ -317,18 +262,15 @@ class bookingProduct {
 			! isset($data['duration']) // Not set duration
 			OR
 			! isset($data['variation_id']) // Not set variation
+			OR
+			! wc_get_product($data['variation_id'])
 		) {
 			return false;
 		}
 		
 		global $woocommerce;
 		
-		if ( ! wc_get_product($data['variation_id']) ) {
-			return false;
-		}
-		
 		require_once __DIR__ . '/../class/DurationAvailability/DurationAvailabilityHandler.php';
-		
 		$_dah = new DurationAvailabilityHandler($data['duration'], $data['start_datetime']);
 		if ( $_dah->IsAvailable() === false ) { // Type of duration with this start hour is not available
 			return false;
@@ -527,29 +469,5 @@ class bookingProduct {
 		} else {
 			error_log('Booking rows was not finded "change_booking_status"', 0);
 		}
-	}
-	
-	
-	/**
-	 * Check is current user holder of booking
-	 * If current user added booking to cart - he is holder
-	 * Returns true if current user is holder
-	 * $key is md5 string stores in $_COOKIE
-	 * @param $key {String}
-	 * @returns {Boolean}
-	 */
-	public function is_user_holder($key) {
-		$rent_rows = get_field('rent_repeater', $this->id);
-		if ( empty($rent_rows) || ! isset($_COOKIE['user_key']) ) {
-			return false;
-		}
-		
-		foreach ( $rent_rows as $row ) {
-			if ( $row['user_key'] === $key ) {
-				return true;
-			}
-		}
-		
-		return false;
 	}
 }
