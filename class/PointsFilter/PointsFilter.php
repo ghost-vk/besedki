@@ -6,7 +6,7 @@ namespace BESEDKA;
  * Used for filtering booking products
  * @package BESEDKA
  */
-class BookingFilter {
+class PointsFilter {
 	private $location; // 'territory' or 'shore'
 	private $capacity; // 5 - 150
 	

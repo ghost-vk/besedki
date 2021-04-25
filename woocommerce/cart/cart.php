@@ -10,7 +10,6 @@
 		$count_products = $woocommerce->cart->cart_contents_count;
 		$cart_items = $woocommerce->cart->get_cart();
 		
-		require_once __DIR__ . '/../../functions/bookingFormat.class.php'; // Need to format date and duration
         require_once __DIR__ . '/../../class/FormatterUI/FormatterUIHandler.php'; // Need to format date and duration
         ?>
         <form action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
@@ -35,8 +34,6 @@
                             
                             if ( isset($cart_item['start_datetime']) ) {
                                 $start_datetime = $cart_item['start_datetime'];
-//								$format = new BESEDKA\bookingFormat( $start_datetime );
-//								$start_datetime = $format->format_datetime_for_ui();
                                 
                                 $_fh = new \BESEDKA\FormatterUIHandler('datetime', $start_datetime);
 								$start_datetime_ui = $_fh->Format();
@@ -46,7 +43,6 @@
 
                             if ( isset($cart_item['rent_duration']) ) {
                                 $duration = $cart_item['rent_duration'];
-//								$format = new BESEDKA\bookingFormat( $duration );
 								$formatter = new BESEDKA\FormatterUIHandler('duration', $duration);
 								$duration = $formatter->Format();
                             } else {

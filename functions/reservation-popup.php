@@ -102,7 +102,7 @@ function add_booking_to_cart() {
  */
 function get_booking_product_data() {
 	check_ajax_referer( 'store_nonce', 'nonce' ); // Check nonce code
-	include_once __DIR__ . '/../class/ViewerPopup.php';
+	include_once __DIR__ . '/../class/Viewer/ViewerPopup.php';
 	
 	$data_for = $_POST['data_for'];
 	$product_id = $_POST['id'];

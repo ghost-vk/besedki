@@ -3,7 +3,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-require_once __DIR__ . './../../functions/bookingFormat.class.php';
 require_once __DIR__ . './../../class/FormatterUI/FormatterUIHandler.php';
 
 ?>
