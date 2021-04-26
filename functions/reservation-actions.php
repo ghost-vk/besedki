@@ -13,6 +13,8 @@ function remove_unavailable_items( $cart_items ) {
 	}
 	
 	require_once __DIR__ . '/bookingProduct.class.php';
+	require_once __DIR__ . '/../class/Booking/BookingInterval/BookingIntervalHandler.php';
+	require_once __DIR__ . '/../class/Booking/BookingUser.php';
 	global $woocommerce;
 	
 	foreach ( $cart_items as $cart_item_key => $cart_item ) {
@@ -51,26 +53,28 @@ function remove_unavailable_items( $cart_items ) {
 			
 		}
 		
-		if ( $booking_product->is_intersects( $rent_data ) === false ) { // Booking intersects with exists rent interval
+		$_ih = new \BESEDKA\BookingIntervalHandler($cart_item['start_datetime'], $cart_item['rent_duration']);
+		$is_not_intersects = $_ih->IsNotIntersects($product_id);
+		
+		if ( $is_not_intersects === true ) { // Booking intersects with exists rent interval
 			
 			continue;
 			
 		} else {
-			
-			if ( isset($_COOKIE['user_key']) ) {
-				
-				require_once __DIR__ . '/../class/Booking/BookingUser.php';
-				$_bu = new \BESEDKA\BookingUser();
-				$is_user_reservation = $_bu->IsUserReservation($_COOKIE['user_key'], $product_id);
-				
-				if ( $is_user_reservation === true ) { // If user is booking owner
-					continue;
-				} else {
-					$woocommerce->cart->remove_cart_item( $cart_item_key );
-				}
-			} else {
+			if ( ! isset($_COOKIE['user_key']) ) {
 				$woocommerce->cart->remove_cart_item( $cart_item_key );
+				return;
 			}
+			
+			$_bu = new \BESEDKA\BookingUser();
+			$is_user_reservation_owner = $_bu->IsUserReservation($_COOKIE['user_key'], $product_id);
+			
+			if ( $is_user_reservation_owner === true ) { // If user is booking owner
+				var_dump('User is owner');
+				continue;
+			}
+			
+			$woocommerce->cart->remove_cart_item( $cart_item_key );
 		}
 		
 	}

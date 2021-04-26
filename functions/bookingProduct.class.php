@@ -66,7 +66,7 @@ class bookingProduct {
 				delete_row( 'rent_repeater', $row, $this->id );
 			}
 		}
-	}
+	} // TODO Move to Database
 	
 	
 	/**
@@ -90,7 +90,7 @@ class bookingProduct {
 				}
 			}
 		}
-	}
+	} // TODO Move to Database
 	
 	
 	/**
@@ -104,7 +104,7 @@ class bookingProduct {
 	public function get_interval($start, $duration) {
 		require_once __DIR__ . '/../class/Booking/BookingInterval/BookingIntervalHandler.php';
 		$handler = new BookingIntervalHandler($start, $duration);
-		return $handler->Get();
+		return $handler->GetInterval();
 	}
 	
 	
@@ -113,37 +113,12 @@ class bookingProduct {
 	 * @param $data {Array} contains start datetime and duration
 	 * $data['start_datetime'] - a string time formated "Y-m-d H:i:s"
 	 * $data['duration'] - one of '1', '2', '3', 'day'
-	 * @return bool|void
+	 * @return {Boolean}
 	 */
-	public function is_intersects ($data) {
-		if ( ! isset($data['start_datetime']) || ! isset($data['duration']) ) {
-			return false;
-		}
-		
-		$need_interval = $this->get_interval( $data['start_datetime'], $data['duration'] );
-		
-		if ( ! have_rows('rent_repeater', $this->id) ) { // 1. Maybe haven't booking recording
-			return false;
-		}
-		
-		while ( have_rows('rent_repeater', $this->id) ) {
-			the_row();
-			$start = get_sub_field('start_datetime');
-			$duration = get_sub_field('duration');
-			$exists_interval = $this->get_interval($start, $duration);
-			
-			require_once __DIR__ . '/../class/Booking/BookingInterval/BookingIntervalComparing.php';
-			$comparator = new BookingIntervalComparing($need_interval, $exists_interval);
-			$is_vacant = $comparator->CheckIntersects($need_interval, $exists_interval);
-			
-			
-			if ( $is_vacant === true ) { // 2. Check exists booking recording
-				continue;
-			} else {
-				return true;
-			}
-		}
-		return false;
+	public function is_intersects($data) {
+		require_once __DIR__ . '/../class/Booking/BookingInterval/BookingIntervalHandler.php';
+		$_ih = new BookingIntervalHandler($data['start_datetime'], $data['duration']);
+		return ! $_ih->IsNotIntersects($this->id); // Reversed
 	}
 	
 	
@@ -279,6 +254,8 @@ class bookingProduct {
 		if ( $this->is_intersects($data) === false ) {
 			$now_datetime = new \DateTime('now', new \DateTimeZone('Europe/Moscow'));
 			
+			
+			// f.e if user pick 15:00 now is 14:59, if no
 			if ( $this->is_today($data['start_datetime']) === true ) { // If need to rent day is today
 				$start_datetime = \DateTime::createFromFormat('Y-m-d H:i:s', $data['start_datetime']);
 				if ( $now_datetime > $start_datetime ) { // If time is up
@@ -381,7 +358,6 @@ class bookingProduct {
 			$start_hour = (int)$rent_start->format('H');
 			$end_hour = (int)$rent_finish->format('H');
 			
-			// При прохождении цикла по записям бронирования всегда будет срабатывать только $start_date == $need_date
 			if ( $start_date == $need_date ) { // Find match : date which need to get available time is ...
 				if ( $start_hour > $end_hour ) { // If rent starts in one day, but ends the next day
 					$end_hour = 24;
@@ -401,19 +377,13 @@ class bookingProduct {
 		}
 		
 		if ( ! empty($rent_periods) ) { // If have rent records in needed day
-			$not_allowed_hours = array( // This time is not available for booking
-				5,
-				6,
-				7,
-				8,
-				8,
-				9,
-			);
+			// This time is not available for booking
+			$not_allowed_hours = array(5, 6, 7, 8, 8, 9);
 			
 			// Exclude hours before current time if today
 			if ( $is_today === true ) {
 				$now_datetime = new \DateTime('now', new \DateTimeZone('Europe/Moscow'));
-				$current_hour = (int)$now_datetime->format('H');
+				$current_hour = (int)$now_datetime->format('G');
 				for ( $i = 0; $i <= $current_hour; $i += 1 ) {
 					$not_allowed_hours[] =  $i;
 				}
@@ -467,7 +437,7 @@ class bookingProduct {
 				update_sub_row('rent_status', 1, $new_value);
 			}
 		} else {
-			error_log('Booking rows was not finded "change_booking_status"', 0);
+			error_log('Booking rows was not find in Function "change_booking_status"', 0);
 		}
 	}
 }
