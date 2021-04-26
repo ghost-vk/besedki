@@ -294,7 +294,10 @@ class bookingProduct {
 	 * @return array|string[]|void
 	 */
 	public function get_available_time($date) {
-		$this->remove_outdated(); // Remove expires bookings, f.e +30 minutes after adding to cart
+		require_once __DIR__ . '/../class/Booking/BookingCleaner/BookingCleaner.php';
+		$_cleaner = new BookingCleaner($this->id);
+		$_cleaner->RemoveExpiredCartRecords();
+		
 		
 		$need_datetime = \DateTime::createFromFormat('Y-m-d', $date, new \DateTimeZone('Europe/Moscow'));
 		if ( ! $need_datetime ) { // If is not right date format

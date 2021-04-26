@@ -31,10 +31,11 @@ class BookingIntervalHandler {
 	 * Method check all records in product post
 	 * with product ID ($product_id)
 	 * @param $product_id { '11' | 11 }
+	 * @param $record { Boolean | Array } that record will not compared (current)
 	 * @return { Boolean }
 	 * @public
 	 */
-	public function IsNotIntersects($product_id) {
+	public function IsNotIntersects($product_id, $record = false) {
 		if ( ! wc_get_product($product_id) ) {
 			return false; // Like intersects
 		}
@@ -42,13 +43,22 @@ class BookingIntervalHandler {
 		if ( ! $need_to_reservation_interval ) { // Can't create interval
 			return false;
 		}
+		require_once __DIR__ . '/BookingIntervalComparing.php';
+		
 		while ( have_rows('rent_repeater', $product_id) ) {
 			the_row();
+			if ( $record ) {
+				$key = get_sub_field('user_key');
+				$added_time = get_sub_field('added_datetime');
+				if ( $record['user_key'] === $key && $record['added_datetime'] === $added_time ) {
+					continue;
+				}
+			}
+			
 			$start = get_sub_field('start_datetime');
 			$duration = get_sub_field('duration');
 			$exists_interval = $this->GetInterval($start, $duration);
 			
-			require_once __DIR__ . '/BookingIntervalComparing.php';
 			$comparator = new BookingIntervalComparing($need_to_reservation_interval, $exists_interval);
 			$is_vacant = $comparator->CheckIntersects();
 			

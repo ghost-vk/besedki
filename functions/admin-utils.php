@@ -273,3 +273,17 @@ function generate_booking_settings_page() {
 		'updated_message' => $parent['updated_message'],
 	));
 }
+
+/**
+ * Deleting all unneeded booking records
+ */
+add_action('wp_loaded', 'delete_needless_booking_records', 10, 0);
+function delete_needless_booking_records() {
+	if ( ! is_admin() ) {
+		return;
+	}
+	require_once __DIR__ . '/../class/Booking/BookingCleaner/BookingCleanerAdmin.php';
+	$_cleaner = new \BESEDKA\BookingCleanerAdmin();
+	$_cleaner->DeleteNeedlessRecords();
+}
+

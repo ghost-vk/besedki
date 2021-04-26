@@ -1,8 +1,8 @@
 <?php
 /**
  * Removes unavailable items in cart.
- * Item unavailable if rent interval is deprecated
- * or if rent interval is intersected
+ * Item unavailable if expired reservation time
+ * or if record interval is intersected
  * @param $cart_items {Array}
  * @returns nothing
  */
@@ -14,10 +14,15 @@ function remove_unavailable_items( $cart_items ) {
 	
 	require_once __DIR__ . '/bookingProduct.class.php';
 	require_once __DIR__ . '/../class/Booking/BookingInterval/BookingIntervalHandler.php';
-	require_once __DIR__ . '/../class/Booking/BookingUser.php';
+	require_once __DIR__ . '/../class/Booking/BookingRecord.php';
+	require_once __DIR__ . '/../class/Booking/BookingCleaner/BookingCleaner.php';
 	global $woocommerce;
 	
 	foreach ( $cart_items as $cart_item_key => $cart_item ) {
+		if ( ! isset($_COOKIE['user_key']) ) {
+			$woocommerce->cart->remove_cart_item( $cart_item_key );
+			return;
+		}
 		
 		$product_id = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );
 		$booking_product = new BESEDKA\bookingProduct($product_id);
@@ -30,12 +35,15 @@ function remove_unavailable_items( $cart_items ) {
 			'start_datetime' => $cart_item['start_datetime'],
 			'duration' => $cart_item['rent_duration'],
 		];
+		$added_to_cart_datetime_string = $cart_item['added_to_cart'];
 		
+		$_cleaner = new \BESEDKA\BookingCleaner($product_id);
+		$_cleaner->RemoveExpiredCartRecords();
 		$booking_product->remove_outdated(); // Removes booking with expired time (default 30 minutes)
-		$booking_product->remove_completed(); // Removes completed booking
 		
 		$now_datetime = new \DateTime('now', new \DateTimeZone('Europe/Moscow'));
-		$added_to_cart_datetime = DateTime::createFromFormat('Y-m-d H:i:s', $cart_item['added_to_cart'], new \DateTimeZone('Europe/Moscow'));
+		$added_to_cart_datetime = DateTime::createFromFormat('Y-m-d H:i:s', $added_to_cart_datetime_string,
+			new \DateTimeZone('Europe/Moscow'));
 		$expires_interval = get_field('booking_timer', 'options');
 		$expires_datetime = $added_to_cart_datetime->modify('+' . $expires_interval . ' minutes');
 		
@@ -53,30 +61,17 @@ function remove_unavailable_items( $cart_items ) {
 			
 		}
 		
+		$_br = new BESEDKA\BookingRecord($_COOKIE['user_key'], $added_to_cart_datetime_string, $product_id);
+		$record = $_br->GetRecord();
+		
 		$_ih = new \BESEDKA\BookingIntervalHandler($cart_item['start_datetime'], $cart_item['rent_duration']);
-		$is_not_intersects = $_ih->IsNotIntersects($product_id);
+		$is_not_intersects = $_ih->IsNotIntersects($product_id, $record);
 		
 		if ( $is_not_intersects === true ) { // Booking intersects with exists rent interval
-			
 			continue;
-			
-		} else {
-			if ( ! isset($_COOKIE['user_key']) ) {
-				$woocommerce->cart->remove_cart_item( $cart_item_key );
-				return;
-			}
-			
-			$_bu = new \BESEDKA\BookingUser();
-			$is_user_reservation_owner = $_bu->IsUserReservation($_COOKIE['user_key'], $product_id);
-			
-			if ( $is_user_reservation_owner === true ) { // If user is booking owner
-				var_dump('User is owner');
-				continue;
-			}
-			
-			$woocommerce->cart->remove_cart_item( $cart_item_key );
 		}
 		
+		$woocommerce->cart->remove_cart_item( $cart_item_key );
 	}
 }
 
