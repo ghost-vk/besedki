@@ -115,6 +115,7 @@ function add_scripts () {
 		'nonce' => wp_create_nonce('store_nonce'),
 		'url' => admin_url('admin-ajax.php'),
 		'privacyUrl' => home_url('/privacy'),
+		'reservationPageUrl' => home_url('/reservation'),
 	));
 	
 	/**

@@ -7,7 +7,7 @@ class ServerClient {
      * @param settings { nonce: 'nonce-code', action: 'actionName, url: 'path/to/admin-ajax' }
      * @param query { Object }
      */
-    constructor(settings, query) {
+    constructor(settings, query = {}) {
         this.data = query;
         this.data.nonce = settings.nonce;
         this.data.action = settings.action;

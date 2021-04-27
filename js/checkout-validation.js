@@ -182,6 +182,52 @@
         }
 
 
+        /**
+         * Check user cookies
+         */
+        function checkCookies() {
+            let time_cookie = Cookies.get("_added_to_cart");
+            let key_cookie = Cookies.get("user_key"); //test
+            if (typeof time_cookie !== "undefined" || typeof key_cookie !== "undefined") {
+                return true;
+            }
+        }
+
+        /**
+         * Show notification cookie is not set
+         * Delete all items from cart
+         * Redirect to reservation page
+         */
+        function closeOrder() {
+            let notification, notificationArgs, state;
+            state = store.getState();
+
+            notificationArgs = {
+                text:  `<strong>Ошибка!</strong><br />
+                Возможно у вас выключено использование cookie файлов.<br />
+                Через пару секунд вы будете перенаправлены на страницу бронирования.`,
+                icon: '<i class="fas fa-exclamation-triangle"></i>',
+            }
+            notification = new Notification(state.general.notificationContainer, notificationArgs);
+            notification.init(4000);
+
+            let serverClient, serverClientSettings;
+            serverClientSettings = {
+                nonce: state.general.nonce,
+                action: 'empty_cart',
+                url: state.general.ajaxUrl
+            }
+
+            let callback = function () {
+                let redirect = function () {
+                    document.location.href = state.general.reservationPageUrl;
+                }
+                setTimeout(redirect, 3000);
+            }
+
+            serverClient = new ServerClient(serverClientSettings);
+            serverClient.get(callback);
+        }
 
         /**
          * Scroll to node
@@ -206,6 +252,12 @@
             let error;
 
             e.preventDefault();
+
+            if (checkCookies() !== true) {
+                closeOrder();
+                return;
+            }
+
             validation = validateFields();
             if (validation.status !== true) { // Validation failed
                 error = constructError(validation.errorProp);

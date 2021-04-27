@@ -39,7 +39,7 @@ function remove_unavailable_items( $cart_items ) {
 		
 		$_cleaner = new \BESEDKA\BookingCleaner($product_id);
 		$_cleaner->RemoveExpiredCartRecords();
-		$booking_product->remove_outdated(); // Removes booking with expired time (default 30 minutes)
+		$booking_product->remove_outdated(); // Removes booking with expired time (default 30 minutes) TODO удалить
 		
 		$now_datetime = new \DateTime('now', new \DateTimeZone('Europe/Moscow'));
 		$added_to_cart_datetime = DateTime::createFromFormat('Y-m-d H:i:s', $added_to_cart_datetime_string,
@@ -109,4 +109,12 @@ function remove_booking_row($cart_item_key, $cart) {
 			}
 		}
 	}
+}
+
+/** AJAX */
+if ( wp_doing_ajax() ) {
+	require_once __DIR__ . '/../class/Booking/BookingCart.php';
+	// Deletes cart items
+	add_action( 'wp_ajax_empty_cart', array('BookingCart', 'ClearCart') );
+	add_action( 'wp_ajax_nopriv_empty_cart', array('BookingCart', 'ClearCart') );
 }

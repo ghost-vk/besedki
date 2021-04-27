@@ -12,6 +12,7 @@ const store = {
             ajaxUrl: utils.getLocalizeData('mainSettings', 'url'),
             notificationContainer: jQuery("#notification"),
             privacyUrl: utils.getLocalizeData('mainSettings', 'privacyUrl'),
+            reservationPageUrl: utils.getLocalizeData('mainSettings', 'reservationPageUrl'),
             callbackResponse: utils.getLocalizeData('callbackText', 'text'), // TODO зацепить в ответ на запрос обратного звонка
         },
         reservation: {

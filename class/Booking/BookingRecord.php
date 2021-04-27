@@ -11,6 +11,7 @@ class BookingRecord {
 	 * BookingRecord constructor.
 	 * @param $key { String }
 	 * @param $time { 'Y-m-d H:i:s' }
+	 * @param $product_id { WC_Product ID }
 	 */
 	public function __construct($key, $time, $product_id) {
 		$this->key = $key;
@@ -25,11 +26,46 @@ class BookingRecord {
 	 * @return { Array | false }
 	 */
 	public function GetRecord() {
-		foreach ( $this->all_records as $record ) {
-			if ( $record['user_key'] === $this->key && $record['added_datetime'] === $this->time ) {
+		foreach ($this->all_records as $record) {
+			if ($record['user_key'] === $this->key && $record['added_datetime'] === $this->time) {
 				return $record;
 			}
 		}
 		return false;
+	}
+	
+	
+	/**
+	 * Changes status in booking record
+	 * @param $status { 'completed' | 'added' }
+	 */
+	public function SetStatus($status) {
+		$is_update = false;
+		while ( have_rows('rent_repeater', $this->product_id) ) {
+			the_row();
+			$user_key = get_sub_field('user_key');
+			$added_time = get_sub_field('added_datetime');
+			
+			if ($user_key === $this->key && $added_time === $this->time) {
+				update_sub_row('rent_status', 1, $status);
+				$is_update = true;
+			}
+		}
+		
+		if ( $is_update === true ) { // Updated by strict query
+			return;
+		}
+		
+		while ( have_rows('rent_repeater', $this->product_id) ) {
+			the_row();
+			$user_key = get_sub_field('user_key');
+			
+			if ($user_key === $this->key) {
+				error_log('Notice: no strict updated (not find record with match time and key)' .
+				'in BookingRecord method SetStatus', 0);
+				update_sub_row('rent_status', 1, $status);
+				return;
+			}
+		}
 	}
 }

@@ -263,12 +263,22 @@ class bookingProduct {
 				}
 			}
 			
+			if ( ! isset($_COOKIE['user_key']) ) {
+				error_log('Not find cookie `user_key` when add_to_cart', 0);
+				return false;
+			}
+			
+			$now_datetime_str = $now_datetime->format('Y-m-d H:i:s');
+			
 			$add_to_cart = $woocommerce->cart->add_to_cart( $data['variation_id'], 1, 0, array(), array (
 				'start_datetime' => $data['start_datetime'],
 				'rent_duration' => $data['duration'],
-				'added_to_cart' => $now_datetime->format('Y-m-d H:i:s'),
+				'added_to_cart' => $now_datetime_str,
 				'user_key' => $_COOKIE['user_key'],
 			) );
+			
+			$expires_cookie = time() + (60 * (int)(get_field('booking_timer', 'options')));
+			setcookie('_added_to_cart', $now_datetime_str, $expires_cookie, '/');
 			
 			if ( $add_to_cart ) { // If added to cart
 				$insert_row = $this->insert_row( $data, 'added' );
