@@ -14,85 +14,32 @@ if ( wp_doing_ajax() ) {
 }
 
 /**
- * Send available time in JSON to front-end
+ * Function sends available time in JSON to front-end
  */
 function get_available_rent_time() {
 	check_ajax_referer( 'store_nonce', 'nonce' ); // Check nonce code
 	
-	require_once __DIR__ . '/bookingProduct.class.php';
+	require_once __DIR__ . '/../class/Booking/BookingAvailabilityTime.php';
 	
-	$product_id = $_POST['product_id'];
-	if ( !wc_get_product($product_id) ) {
-		wp_die();
-	}
-	
-	$booking_product = new BESEDKA\bookingProduct($product_id);
-	if ( $booking_product->validate() !== true ) {
-		wp_die();
-	}
-	$rent_date = $_POST['rent_date'];
-	if ( ! isset($rent_date) ) {
-		wp_die();
-	}
-	
-	$available_times = $booking_product->get_available_time($rent_date); // In this method also removes outdated bookings
-	
-	$data = [
-		'id' => $product_id,
-		'date' => $rent_date,
-		'times' => $available_times,
-	];
+	$available_times = (new \BESEDKA\BookingAvailabilityTime())
+		->GetAvailableTime($_POST['product_id'], $_POST['rent_date']);
+	$data = $available_times ? array( 'times' => $available_times ) : false;
 	
 	wp_send_json($data);
 	wp_die();
 }
 
-
 /**
  * Add booking variation to cart if not intersects with exists rent intervals
  */
 function add_booking_to_cart() {
-	check_ajax_referer( 'store_nonce', 'nonce' ); // Check nonce code
+	check_ajax_referer('store_nonce', 'nonce'); // Check nonce code
 	
-	$product_id = $_POST['product_id'];
-	$variation_id = $_POST['variation_id'];
-	if ( ! wc_get_product($product_id) || ! wc_get_product($variation_id) ) {
-		wp_send_json( array(
-			'status' => false,
-			'error' => 'No such product',
-		));
-		wp_die();
-	}
+	require_once __DIR__ . '/../class/Booking/BookingCart.php';
+	$cart = new \BESEDKA\BookingCart($_POST['product_id'], $_POST['variation_id'], $_POST['rent_datetime'],
+		$_POST['rent_duration'], $_COOKIE['user_key']);
 	
-	require_once __DIR__ . '/bookingProduct.class.php';
-	
-	$booking_product = new BESEDKA\bookingProduct($product_id);
-	if ( $booking_product->validate() !== true ) {
-		wp_die();
-	}
-	
-	$start_datetime_str = $_POST['rent_datetime'];
-	$duration = $_POST['rent_duration'];
-	
-	if ( ! $start_datetime_str || ! $duration ) {
-		wp_send_json( array(
-			'status' => false,
-			'error' => 'No datetime or duration',
-		));
-		wp_die();
-	}
-	
-	$rent_data = array (
-		'start_datetime' => $start_datetime_str,
-		'duration' => $duration,
-		'variation_id' => $variation_id,
-	);
-	
-	$is_product_add_to_cart = $booking_product->add_to_cart( $rent_data );
-	
-	$data = array ( 'status' => $is_product_add_to_cart );
-	
-	wp_send_json($data);
+	wp_send_json( array('status' => $cart->AddToCart()) );
 	wp_die();
 }
 

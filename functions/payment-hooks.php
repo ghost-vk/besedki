@@ -14,7 +14,6 @@ function need_processing_false_filter() {
  */
 add_action( 'woocommerce_order_status_completed', 'change_booking_status' );
 function change_booking_status( $order_id ) { // TODO Протестировать функцию с боевой платежной системой
-	require_once __DIR__ . '/bookingProduct.class.php';
 	require_once __DIR__ . '/../class/Booking/BookingRecord.php';
 	$current_order = wc_get_order( $order_id );
 	$current_items = $current_order->get_items();

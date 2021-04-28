@@ -21,7 +21,7 @@ class BookingIntervalHandler {
 	 * @param $start { '2021-05-12 13:00:00' }
 	 * @param $duration { '1', '2', '3', 'day' }
 	 */
-	public function __construct($start, $duration) {
+	public function __construct($start = '_s', $duration = '_d') {
 		$this->start = $start;
 		$this->duration = $duration;
 	}
@@ -64,10 +64,10 @@ class BookingIntervalHandler {
 			
 			if ( $is_vacant === true ) { // Need interval isn't intersects with interval in current exists record
 				continue;
-			} else {
-				return false;
 			}
+			return false;
 		}
+		
 		return true;
 	}
 	
