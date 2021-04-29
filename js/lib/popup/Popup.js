@@ -77,7 +77,7 @@ class Popup {
         }
 
         // Reset selector
-        this.selector.destroy();
+        // this.selector.destroy();
 
         // Reset datetimepicker
         this.datetimeInput.datetimepicker("destroy");
@@ -115,9 +115,9 @@ class Popup {
         sliderNav.init();
         sliderNav.addSlides();
 
-        let popupSelector = new SelectDuration(this.selectBox, this.priceBox, data.variations);
+        let popupSelector = new SelectDuration(this.selectBox, this.priceBox, data.variations, this.wrapper);
         popupSelector.init();
-        this.selector = popupSelector.getSelector();
+        // this.selector = popupSelector.getSelector();
 
         this.hideLoader();
     }

@@ -90,10 +90,17 @@ function remove_booking_row($cart_item_key, $cart) {
 	}
 }
 
+
+/**
+ * Removes all products from cart except first one
+ */
+require_once __DIR__ . '/../class/Booking/BookingCart.php';
+add_action( 'remove_cart_items_from_second_one', array('\BESEDKA\BookingCart', 'ClearAllFromSecondOne'), 20, 1 );
+
 /** AJAX */
 if ( wp_doing_ajax() ) {
 	require_once __DIR__ . '/../class/Booking/BookingCart.php';
 	// Deletes cart items
-	add_action( 'wp_ajax_empty_cart', array('BookingCart', 'ClearCart') );
-	add_action( 'wp_ajax_nopriv_empty_cart', array('BookingCart', 'ClearCart') );
+	add_action( 'wp_ajax_empty_cart', array('\BESEDKA\BookingCart', 'ClearCart') );
+	add_action( 'wp_ajax_nopriv_empty_cart', array('\BESEDKA\BookingCart', 'ClearCart') );
 }

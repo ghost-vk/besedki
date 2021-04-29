@@ -44,4 +44,12 @@ function before_checkout_create_order( $order, $data ) { // That works
 	}
 	$order->update_meta_data($time_cookie_key, $_COOKIE[$time_cookie_key]);
 	$order->update_meta_data($user_key_cookie_key, $_COOKIE[$user_key_cookie_key]);
+	
+	if ( isset($_COOKIE['_duration']) ) {
+		$order->update_meta_data('_duration', $_COOKIE['_duration']);
+	}
+	
+	if ( isset($_COOKIE['_start']) ) {
+		$order->update_meta_data('_start', $_COOKIE['_start']);
+	}
 }

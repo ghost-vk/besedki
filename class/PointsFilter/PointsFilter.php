@@ -8,25 +8,33 @@ namespace BESEDKA;
  */
 class PointsFilter {
 	private $location; // 'territory' or 'shore'
-	private $capacity; // 5 - 150
+	private $min_capacity;
+	private $max_capacity;
 	
 	
 	/**
 	 * BookingFilter constructor.
 	 * @param $location {String|Boolean} - 'shore' or 'territory'
-	 * @param $capacity {Integer|Boolean} - more than 5
+	 * @param $min_capacity {Integer|Boolean} - positive integer
+	 * @param $max_capacity {Integer|Boolean} - positive integer
 	 */
-	public function __construct ( $location = false, $capacity = false ) {
+	public function __construct ( $location = false, $min_capacity = false, $max_capacity = false ) {
 		if ( $location === 'shore' || $location === 'territory' ) {
 			$this->location = $location;
 		} else {
 			$this->location = false;
 		}
 		
-		if ( is_int($capacity) && $capacity >= 5 ) {
-			$this->capacity = $capacity;
+		if ( is_int($min_capacity) && $min_capacity >= 0 ) {
+			$this->min_capacity = $min_capacity;
 		} else {
-			$this->capacity = false;
+			$this->min_capacity = false;
+		}
+		
+		if ( is_int($max_capacity) && $max_capacity >= $min_capacity ) {
+			$this->max_capacity = $max_capacity;
+		} else {
+			$this->max_capacity = false;
 		}
 	}
 	
@@ -52,12 +60,11 @@ class PointsFilter {
 			);
 		}
 		
-		$capacity = $this->capacity;
-		if ( is_int($capacity) ) {
+		if ( is_int($this->min_capacity) && is_int($this->max_capacity) ) {
 			$args['meta_query']['capacity'] = array(
 				'key' => 'capacity',
-				'value' => $capacity,
-				'compare' => '>',
+				'value' => array( $this->min_capacity, $this->max_capacity ),
+				'compare' => 'BETWEEN',
 				'type' => 'NUMERIC',
 			);
 		}
@@ -110,7 +117,7 @@ class PointsFilter {
 	 */
 	public function GetAll() {
 		$this->location = false;
-		$this->capacity = false;
+		$this->min_capacity = false;
 		return $this->GetFiltered();
 	}
 }

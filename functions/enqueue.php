@@ -87,7 +87,7 @@ function add_scripts () {
 	wp_enqueue_script('js-cookie', $directory . '/node_modules/js-cookie/src/js.cookie.js', array(), null, true);
 	
 	// Show that site is not full complete
-	wp_enqueue_script('uncompleted-message', $directory . '/js/show-uncomplete.js', array('notification', 'js-cookie'), null, true);
+//	wp_enqueue_script('uncompleted-message', $directory . '/js/show-uncomplete.js', array('notification', 'js-cookie'), null, true);
 	
 	// Works with header
 	wp_enqueue_script('header', $directory . '/js/header.js', array('jquery'), null, true);

@@ -49,6 +49,7 @@ class BookingCart {
 		$this->added_time = $now_datetime_str;
 	}
 	
+	
 	/**
 	 * @param $product_id
 	 * @param $variation_id
@@ -91,8 +92,7 @@ class BookingCart {
 		}
 		
 		// 4. Set necessary cookie for order meta
-		$expires_cookie = time() + (60 * (int)(get_field('booking_timer', 'options')));
-		setcookie('_added_to_cart', $this->added_time, $expires_cookie, '/');
+		$this->SetCookiesForOrderMeta();
 		
 		// 5. Insert booking record in product
 		require_once __DIR__ . '/BookingDatabase.php';
@@ -105,8 +105,23 @@ class BookingCart {
 		return true;
 	}
 	
+	
 	/**
-	 * Method clear all items from cart
+	 * Method sets necessary cookies for order
+	 */
+	protected function SetCookiesForOrderMeta() {
+		require_once __DIR__ . '/../FormatterUI/FormatterUIHandler.php';
+		$expires_cookie = time() + (60 * 2 * (int)(get_field('booking_timer', 'options')));
+		setcookie('_added_to_cart', $this->added_time, $expires_cookie, '/');
+		setcookie('_duration',
+			(new FormatterUIHandler('duration', $this->duration))->Format(), $expires_cookie, '/');
+		setcookie('_start',
+			(new FormatterUIHandler('datetime', $this->start))->Format(), $expires_cookie, '/');
+	}
+	
+	
+	/**
+	 * Method clear all items from cart via ajax
 	 */
 	static function ClearCart($is_ajax = false) {
 		if ($is_ajax === true) {
@@ -118,6 +133,26 @@ class BookingCart {
 		
 		if ($is_ajax === true) {
 			wp_die();
+		}
+	}
+	
+	
+	/**
+	 * Method clear all items from cart except first one in cart
+	 */
+	static function ClearAllFromSecondOne($cart_items) {
+		if ( count($cart_items) === 1 ) {
+			return;
+		}
+		global $woocommerce;
+		$i = 1;
+		$count = count($cart_items);
+		foreach ( $cart_items as $cart_item_key => $item ) {
+			if ( $i === $count ) { // Last one
+				break;
+			}
+			$woocommerce->cart->remove_cart_item($cart_item_key);
+			$i += 1;
 		}
 	}
 }

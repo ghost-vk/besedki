@@ -8,7 +8,7 @@ class SelectDuration {
      * @param priceBox {jQuery object}
      * @param variations {Array[Object]} should contains elements: Object with 'price' property
      */
-    constructor(el, priceBox, variations) {
+    constructor(el, priceBox, variations, popup) {
         this.el = el;
         this.options = [
             { name: '1 час', value: '1' },
@@ -19,6 +19,7 @@ class SelectDuration {
         this.index = 3;
         this.variations = variations;
         this.priceBox = priceBox;
+        this.popup = popup;
     }
 
     /**
@@ -31,6 +32,8 @@ class SelectDuration {
             itemClick: this._onOptionClick.bind(this),
             initCallback: this._onSelectorInit.bind(this)
         });
+
+        this.popup.on('scroll', this._clickPopup.bind(this));
     }
 
     /**
@@ -40,6 +43,8 @@ class SelectDuration {
     _onOptionClick() {
         let currentValue = this.select.getValue(),
             availableDuration = ['1', '2', '3', 'day'];
+
+        this._clickPopup();
 
         if (!availableDuration.includes(currentValue)) {
             return;
@@ -63,6 +68,15 @@ class SelectDuration {
         this.priceBox.html(`${this.variations[3].price} &#8381;`)
         store.setBookingDuration(this.options[3].value);
         store.setVariationID(this.variations[3].id);
+    }
+
+    /**
+     * Click on popup wrapper
+     * Used for close selector
+     * @private
+     */
+    _clickPopup() {
+        this.popup.click();
     }
 
     /**

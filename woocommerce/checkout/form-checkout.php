@@ -114,7 +114,7 @@ require_once __DIR__ . './../../class/FormatterUI/FormatterUIHandler.php';
                         <p class="text-muted mb-2">После оплаты вам на почту придет письмо с номером заказа. Сохраните этот номер себе, он вам понадобится для посещения наших беседок.</p>
                         <p class="text-muted mb-2">С собой будет необходимо взять паспорт соответствующий данным, указанным вами в полях для оформления заказа.</p>
                         <p class="text-muted mb-3">Нажимая кнопку "Оплатить", Вы подтверждаете бронирование выбранных услуг и соглашаетесь с
-                            <a href="<?= home_url('/rent-agreement')?>">Правилами аренды беседок</a>.</p>
+                            <a href="<?php echo home_url('/rent-agreement')?>">Правилами аренды беседок</a>.</p>
 						<?php wp_nonce_field( 'woocommerce-process_checkout' ); ?>
                         <button type="submit" class="btn btn-success btn-lg w-100" name="woocommerce_checkout_place_order" id="checkoutSubmit"><span class="text-white">Оплатить</span></button>
                     </div>
@@ -132,7 +132,8 @@ require_once __DIR__ . './../../class/FormatterUI/FormatterUIHandler.php';
 				<?php
 				$WC_Payment_Gateways = new WC_Payment_Gateways();
 				$available_gateways = $WC_Payment_Gateways->get_available_payment_gateways();
-				$gateway = $available_gateways["cheque"]; // TODO Сменить тип платежной системы на боевой (Касса)
+//				$gateway = $available_gateways["cheque"];
+				$gateway = $available_gateways["yookassa_epl"];
 				?>
                 <input type="radio" name="payment_method" value="<?php echo esc_attr( $gateway->id ); ?>" checked="checked" />
             </div>

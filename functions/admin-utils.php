@@ -103,7 +103,7 @@ function remove_product_metabox() {
 	remove_meta_box( 'postexcerpt', 'product', 'normal'); // Short description
 	remove_meta_box( 'tagsdiv-product_tag', 'product', 'side' ); // Product tags
 	remove_meta_box( 'woocommerce-product-images',  'product', 'side'); // Products gallery
-	remove_meta_box('product_catdiv', 'product', 'normal'); // Products category - `besedki` is default
+//	remove_meta_box('product_catdiv', 'product', 'normal'); // Products category - `besedki` is default
 }
 
 /**
@@ -163,7 +163,7 @@ function true_duplicate_post_as_draft () {
 			'post_name'      => $post->post_name,
 			'post_parent'    => $post->post_parent,
 			'post_password'  => $post->post_password,
-			'post_status'    => 'draft', // черновик, если хотите сразу публиковать - замените на publish
+			'post_status'    => 'draft',
 			'post_title'     => $post->post_title,
 			'post_type'      => $post->post_type,
 			'to_ping'        => $post->to_ping,
@@ -287,3 +287,43 @@ function delete_needless_booking_records() {
 	$_cleaner->DeleteNeedlessRecords();
 }
 
+
+/**
+ * Function hiding unused pages for manager
+ */
+add_action('admin_init', 'hide_needless_pages');
+function hide_needless_pages() {
+	if ( ! is_admin() ) {
+		return;
+	}
+	if ( 1 === (int)get_current_user_id() ) { // Not super admin
+		return;
+	}
+	// Sidebar menus
+	remove_menu_page( 'index.php' );
+	remove_menu_page( 'plugins.php' );
+	remove_menu_page( 'upload.php' );
+	remove_menu_page( 'themes.php' );
+	remove_menu_page( 'users.php' );
+	remove_menu_page( 'tools.php' );
+	remove_menu_page( 'options-general.php' );
+	remove_menu_page( 'cptui_main_menu' );
+	remove_menu_page( 'edit.php?post_type=acf-field-group' );
+	remove_menu_page( 'wc-admin&path=/analytics/overview' );
+	remove_submenu_page( 'edit.php?post_type=page', 'post-new.php?post_type=page' );
+	
+	// Submenus WooCommerce
+	remove_submenu_page( 'woocommerce', 'wc-admin' );
+	remove_submenu_page( 'woocommerce', 'yoomoney_api_menu' );
+	remove_submenu_page( 'woocommerce', 'wc-admin&path=/customers' );
+	remove_submenu_page( 'woocommerce', 'wc-reports' );
+	remove_submenu_page( 'woocommerce', 'wc-settings' );
+	remove_submenu_page( 'woocommerce', 'wc-status' );
+	remove_submenu_page( 'woocommerce', 'wc-addons' );
+	remove_submenu_page( 'woocommerce', 'inspire_checkout_fields_settings' );
+	
+	// Submenus WooCommerce Products
+	remove_submenu_page( 'edit.php?post_type=product', 'post-new.php?post_type=product' );
+	remove_submenu_page( 'edit.php?post_type=product', 'edit-tags.php?taxonomy=product_cat&amp;post_type=product' );
+	remove_submenu_page( 'edit.php?post_type=product', 'edit-tags.php?taxonomy=product_tag&amp;post_type=product' );
+}

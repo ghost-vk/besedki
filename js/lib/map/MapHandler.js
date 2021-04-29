@@ -127,6 +127,9 @@ class MapHandler {
      * @private
      */
     _createPoints() {
+        if (typeof this.state.points === "undefined") {
+            return;
+        }
         for (var i = 0, max = this.state.points.length; i < max; i += 1) {
             let marker, latitude, longitude, mapPopup;
 

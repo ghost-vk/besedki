@@ -9,6 +9,7 @@ require_once __DIR__ . '/BookingCleaner/BookingCleaner.php';
 class BookingAvailabilityTime {
 	
 	/**
+	 * Method checks today date
 	 * @param $check_datetime_ymd_str { '2021-05-12 14:00:00' }
 	 * @return { Boolean }
 	 */

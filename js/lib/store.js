@@ -13,7 +13,7 @@ const store = {
             notificationContainer: jQuery("#notification"),
             privacyUrl: utils.getLocalizeData('mainSettings', 'privacyUrl'),
             reservationPageUrl: utils.getLocalizeData('mainSettings', 'reservationPageUrl'),
-            callbackResponse: utils.getLocalizeData('callbackText', 'text'), // TODO зацепить в ответ на запрос обратного звонка
+            callbackResponse: utils.getLocalizeData('callbackText', 'text')
         },
         reservation: {
             popup: {
@@ -43,13 +43,11 @@ const store = {
                     { name: 'Без разницы', value: 'no-matter' }
                 ],
                 capacity: [
-                    { name: 'до 5', value: '5' },
-                    { name: '5 - 30', value: '30' },
-                    { name: '30 - 50', value: '50' },
-                    { name: '50 - 150', value: '150' },
+                    { name: 'до 25', value: '0#25' },
+                    { name: '25 - 50', value: '25#50' },
                     { name: 'Без разницы', value: 'no-matter' }
                 ],
-                value: {
+                value: { // default
                     location: 'no-matter',
                     capacity: 'no-matter'
                 }

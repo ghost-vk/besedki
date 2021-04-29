@@ -16,7 +16,14 @@
 				<?php else : ?>
 					<div class="thankYou__content">
 						<h1 class="title-1">Спасибо за ваш заказ!</h1>
-						<p class="mainText-1">Ждем вас в гости</p>
+						<p class="mainText-1">Ждем вас:</p>
+                        <?php
+                        $duration = $order->get_meta('_duration');
+                        $start = $order->get_meta('_start');
+                        if ( $duration && $start ) :
+                        ?>
+                            <p class="mainText-2"><strong><?php echo $start . ' (' . $duration . ')'; ?></strong></p>
+                        <?php endif; ?>
 						<p class="mainText-2">Не забудьте взять с собой паспорт, который вы указали при оформлении заказа</p>
 					</div>
 				<?php endif; ?>
@@ -25,7 +32,10 @@
 				
 				<div class="thankYou__content">
 					<h1 class="title-1">Ошибка при оплате</h1>
-					<p class="mainText-1 woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received"><?php echo apply_filters( 'woocommerce_thankyou_order_received_text', esc_html__( 'Thank you. Your order has been received.', 'woocommerce' ), null ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
+					<p class="mainText-1 woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received">
+                        <?php echo apply_filters( 'woocommerce_thankyou_order_received_text',
+                            esc_html__( 'Thank you. Your order has been received.', 'woocommerce' ), null ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                    </p>
 				</div>
 			
 			<?php endif; ?>

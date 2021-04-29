@@ -13,6 +13,7 @@
             personQty: $("#billing_person_qty"),
             phone: $("#billing_phone"),
             passport: $("#billing_passport_data"),
+            email: $("#billing_email"),
             policy: $("#checkPolicy")
         }
 
@@ -23,6 +24,7 @@
             personQty: 'Сколько вас будет?',
             phone: 'Введите номер телефона',
             passport: 'Введите ваши паспортные данные',
+            email: 'Вы не указали email, мы направим на него данные о брони и чек об оплате.',
             policy: 'Обязательно согласие с Политикой конфиденциальности'
         }
 
