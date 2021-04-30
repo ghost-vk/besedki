@@ -20,8 +20,8 @@ function change_booking_status( $order_id ) { // TODO Протестироват
 	$added_to_cart_time = $current_order->get_meta('_added_to_cart');
 	$user_key = $current_order->get_meta('user_key');
 	
-	if ( ! isset($_COOKIE['user_key']) ) {
-		error_log('Can`t get record: user have no cookie `user_key`', 0);
+	if ( ! isset($added_to_cart_time) || ! isset($user_key) ) {
+		error_log('Can`t get record: order hasn`t meta `_added_to_cart` or(and) `user_key`', 0);
 		return;
 	}
 	
