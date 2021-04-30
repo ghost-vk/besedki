@@ -1153,6 +1153,13 @@ var datetimepickerFactory = function ($) {
 			}
 
 			/**
+			 * Show timebox
+			 */
+			datetimepicker.addTimeboxActiveClass = function() {
+				timeboxparent.addClass('active');
+			}
+
+			/**
 			 * Removes error border from block contains available time
 			 */
 			datetimepicker.removeTimeboxErrorBorder = function() {

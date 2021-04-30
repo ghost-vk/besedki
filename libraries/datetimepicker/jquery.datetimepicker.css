@@ -187,6 +187,15 @@
 	height: 151px;
 	overflow: hidden;
 	border-bottom: 1px solid #ddd;
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+}
+
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box.active {
+	opacity: 1;
+	visibility: visible;
+	pointer-events: auto;
 }
 
 .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box.error-border {

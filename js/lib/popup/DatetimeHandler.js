@@ -136,6 +136,7 @@ class DatetimeHandler {
         if (!Array.isArray(data.times)) {
             return;
         }
+        this.el.datetimepicker('addTimeboxActiveClass');
         this.el.datetimepicker('setOptions', {
             allowTimes: data.times
         });
