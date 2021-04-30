@@ -134,6 +134,8 @@ class DatetimeHandler {
      */
     setNewTimes(data) {
         if (!Array.isArray(data.times)) {
+            this.toggleLoader();
+            this._showNoTimesNotification();
             return;
         }
         this.el.datetimepicker('addTimeboxActiveClass');
@@ -151,5 +153,20 @@ class DatetimeHandler {
     _onSelectTime() {
         store.setTimeSelectedFlag(true);
         this._setYmdHis();
+    }
+
+    /**
+     * Method show failure notification
+     * @private
+     */
+    _showNoTimesNotification() {
+        let state, notificationArgs, notification;
+
+        state = store.getState();
+
+        notificationArgs = { text: "Нет доступного времени на выбранную дату" };
+
+        notification = new Notification(state.general.notificationContainer, notificationArgs);
+        notification.init(3500);
     }
 }

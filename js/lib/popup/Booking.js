@@ -107,6 +107,6 @@ class Booking {
         }
 
         notification = new Notification(jQuery("#notification"), notificationArgs);
-        notification.init();
+        notification.init(5000);
     }
 }
