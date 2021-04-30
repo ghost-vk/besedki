@@ -23,7 +23,7 @@ function get_available_rent_time() {
 	
 	$available_times = (new \BESEDKA\BookingAvailabilityTime())
 		->GetAvailableTime($_POST['product_id'], $_POST['rent_date']);
-	$data = $available_times ? array( 'times' => $available_times ) : false;
+	$data = $available_times ? array( 'times' => $available_times ) : array( 'status' => false );
 	
 	wp_send_json($data);
 	wp_die();

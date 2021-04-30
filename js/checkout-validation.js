@@ -144,6 +144,12 @@
                 errorNode: '',
             }
 
+            if (checkCookies() !== true) {
+                data.status = false;
+                closeOrder();
+                return data;
+            }
+
             for (var prop in fields) {
                 let inputValue = fields[prop].val();
                 switch (prop) {
@@ -188,11 +194,19 @@
          * Check user cookies
          */
         function checkCookies() {
-            let time_cookie = Cookies.get("_added_to_cart");
-            let key_cookie = Cookies.get("user_key"); //test
-            if (typeof time_cookie !== "undefined" || typeof key_cookie !== "undefined") {
-                return true;
+            let orderCookies = [];
+            orderCookies.push(Cookies.get("_added_to_cart"));
+            orderCookies.push(Cookies.get("user_key"));
+            orderCookies.push(Cookies.get("_duration"));
+            orderCookies.push(Cookies.get("_start"));
+
+            let i = 0, max = orderCookies.length;
+            for (i; i < max; i += 1) {
+                if (typeof orderCookies[i] === "undefined") {
+                    return  false;
+                }
             }
+            return true;
         }
 
         /**
@@ -242,23 +256,14 @@
             }, 1);
         }
 
-
         submit = $("#checkoutSubmit");
-
-        validation = false;
+        validation = { status: false };
         submit.click(function (e) {
             if (validation.status === true) { // Bubble away after validation
                 return;
             }
-
             let error;
-
             e.preventDefault();
-
-            if (checkCookies() !== true) {
-                closeOrder();
-                return;
-            }
 
             validation = validateFields();
             if (validation.status !== true) { // Validation failed

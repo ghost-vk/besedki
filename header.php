@@ -4,11 +4,11 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:title" content="Беседки в Краснодаре на Затоне" />
-    <meta property="og:site_name" content="Беседки на Затоне" />
+    <meta property="og:title" content="Беседки в Краснодаре" />
+    <meta property="og:site_name" content="Беседки в Краснодаре на Затоне" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ru_RU" />
-    <meta property="og:description" content="Бронирование беседки и веранды в Краснодаре на Затоне" />
+    <meta property="og:description" content="Аренда беседки в Краснодаре на Затоне" />
     <meta property="og:image" content="<?php echo get_stylesheet_directory_uri(); ?>/img/picture/website-image.jpg" />
     
 	<link rel="preconnect" href="https://fonts.gstatic.com">
