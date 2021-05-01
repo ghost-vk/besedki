@@ -115,8 +115,12 @@ class BookingCart {
 		setcookie('_added_to_cart', $this->added_time, $expires_cookie, '/');
 		setcookie('_duration',
 			(new FormatterUIHandler('duration', $this->duration))->Format(), $expires_cookie, '/');
+		setcookie('_duration_key',
+			$this->duration, $expires_cookie, '/');
 		setcookie('_start',
 			(new FormatterUIHandler('datetime', $this->start))->Format(), $expires_cookie, '/');
+		setcookie('_start_key',
+			$this->start, $expires_cookie, '/');
 	}
 	
 	

@@ -26,6 +26,10 @@ class BookingRecord {
 	 * @return { Array | false }
 	 */
 	public function GetRecord() {
+		if ( empty($this->all_records) ) {
+			error_log('Can`t find record in function `remove_unavailable_items`');
+			return false;
+		}
 		foreach ($this->all_records as $record) {
 			if ($record['user_key'] === $this->key && $record['added_datetime'] === $this->time) {
 				return $record;
@@ -40,32 +44,31 @@ class BookingRecord {
 	 * @param $status { 'completed' | 'added' }
 	 */
 	public function SetStatus($status) {
-		$is_update = false;
-		while ( have_rows('rent_repeater', $this->product_id) ) {
+		while ( have_rows('rent_repeater', $this->product_id) ) { // Try to find record in exist
 			the_row();
 			$user_key = get_sub_field('user_key');
 			$added_time = get_sub_field('added_datetime');
 			
-			if ($user_key === $this->key && $added_time === $this->time) {
+			if ($user_key === $this->key && $added_time === $this->time) { // Found record
 				update_sub_row('rent_status', 1, $status);
-				$is_update = true;
+				return true;
 			}
 		}
 		
-		if ( $is_update === true ) { // Updated by strict query
-			return;
-		}
-		
-		while ( have_rows('rent_repeater', $this->product_id) ) {
-			the_row();
-			$user_key = get_sub_field('user_key');
-			
-			if ($user_key === $this->key) {
-				error_log('Notice: no strict updated (not find record with match time and key)' .
-				'in BookingRecord method SetStatus', 0);
-				update_sub_row('rent_status', 1, $status);
-				return;
-			}
-		}
+		// Sending fail status to Telegram
+		$this->SendError();
+		return false;
+	}
+	
+	/**
+	 * Method send error to tech-support in telegram
+	 */
+	protected function SendError() {
+		error_log('Fail when set status in booking record', 0);
+		require_once __DIR__ . '/../Telegram/TelegramHandler.php';
+		$args = array( 'product_name' => get_the_title($this->product_id) );
+		$_th = new \Telegram\Utility\TelegramHandler('tech-support',
+			'error-change-booking-status', $args);
+		$_th->CallSender();
 	}
 }

@@ -14,20 +14,15 @@ if ( wp_doing_ajax() ) {
 function get_callback_lid () {
 	check_ajax_referer( 'store_nonce', 'nonce' ); // Check nonce code
 	
-	$name = $_POST['name'];
-	$phone = $_POST['phone'];
+	$args = array(
+		'name' => $_POST['name'],
+		'phone' => $_POST['phone'],
+	);
 	
-	if ( ! isset($name) || ! isset($phone) ) {
-		wp_send_json( array('status' => false) );
-		wp_die();
-	}
+	require_once __DIR__ . '/../class/Telegram/TelegramHandler.php';
+	$_th = new Telegram\Utility\TelegramHandler('manager', 'get-lid-callback', $args);
+	$is_send = $_th->CallSender();
 	
-	$message = 'Заказ обратного звонка:' . "\r\n\r\n";
-	$message .= "Имя: $name\r\n";
-	$message .= "Номер телефона: $phone";
-	
-	send_message_via_telegram($message);
-	
-	wp_send_json( array('status' => true) );
+	wp_send_json( array('status' => $is_send) );
 	wp_die();
 }

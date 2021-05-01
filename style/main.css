@@ -369,6 +369,8 @@ p, a, span, h1, h2, h3, h4, h5, h6, li, pre, label, div, button, input, input::p
   .stickyBtn {
     left: 50%;
     transform: translateX(-50%);
+    top: auto;
+    bottom: 70px;
   }
 }
 @media (min-width: 1024px) {

@@ -42,6 +42,10 @@ function remove_unavailable_items( $cart_items ) {
 		
 		$_br = new BESEDKA\BookingRecord($_COOKIE['user_key'], $added_to_cart_datetime_string, $product_id);
 		$record = $_br->GetRecord();
+		if ($record === false) { // Not find record, should be at least one
+			$woocommerce->cart->remove_cart_item( $cart_item_key );
+			continue;
+		}
 		
 		$_ih = new \BESEDKA\BookingIntervalHandler($cart_item['start_datetime'], $cart_item['rent_duration']);
 		$is_not_intersects = $_ih->IsNotIntersects($product_id, $record);

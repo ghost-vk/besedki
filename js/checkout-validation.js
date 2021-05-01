@@ -199,6 +199,8 @@
             orderCookies.push(Cookies.get("user_key"));
             orderCookies.push(Cookies.get("_duration"));
             orderCookies.push(Cookies.get("_start"));
+            orderCookies.push(Cookies.get("_start_key"));
+            orderCookies.push(Cookies.get("_duration_key"));
 
             let i = 0, max = orderCookies.length;
             for (i; i < max; i += 1) {

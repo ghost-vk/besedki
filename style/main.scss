@@ -296,6 +296,8 @@ p, a, span, h1, h2, h3, h4, h5, h6, li, pre, label, div, button, input, input::p
   @media (max-width: 1024px) {
     left: 50%;
     transform: translateX(-50%);
+    top: auto;
+    bottom: 70px;
   }
   transition: transform .3s ease, opacity .3s ease;
   @media (min-width: 1024px) {

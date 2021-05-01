@@ -28,7 +28,13 @@ function change_booking_status( $order_id ) { // TODO Протестироват
 	foreach ( $current_items as $item ) {
 		$product_id = $item->get_product_id();
 		$_record = new \BESEDKA\BookingRecord($user_key, $added_to_cart_time, $product_id);
-		$_record->SetStatus('completed');
+		$is_status_set = $_record->SetStatus('completed');
+		if ( ! $is_status_set ) { // Record is not find
+			require_once __DIR__ . '/../class/Booking/BookingDatabase.php';
+			$start = $current_order->get_meta('_start_key');
+			$duration = $current_order->get_meta('_duration_key');
+			BESEDKA\BookingDatabase::AddBookingRecord($product_id, $start, $duration, 'completed'); // Insert new
+		}
 	}
 }
 
@@ -40,16 +46,31 @@ function before_checkout_create_order( $order, $data ) { // That works
 	$time_cookie_key = '_added_to_cart';
 	$user_key_cookie_key = 'user_key';
 	if ( ! isset($_COOKIE[$time_cookie_key]) || ! isset($_COOKIE[$user_key_cookie_key]) ) {
+		error_log('Haven`t identify order cookie in function `before_checkout_create_order`!', 0);
+		require_once __DIR__ . '/../class/Telegram/TelegramHandler.php';
+		$_th = new Telegram\Utility\TelegramHandler('tech-support',
+			'error-no-cookie-creating-order');
+		$_th->CallSender();
 		return;
 	}
 	$order->update_meta_data($time_cookie_key, $_COOKIE[$time_cookie_key]);
 	$order->update_meta_data($user_key_cookie_key, $_COOKIE[$user_key_cookie_key]);
 	
-	if ( isset($_COOKIE['_duration']) ) {
-		$order->update_meta_data('_duration', $_COOKIE['_duration']);
-	}
-	
-	if ( isset($_COOKIE['_start']) ) {
-		$order->update_meta_data('_start', $_COOKIE['_start']);
+	update_order_meta_for_booking_record($order, '_duration');
+	update_order_meta_for_booking_record($order, '_start');
+	update_order_meta_for_booking_record($order, '_duration_key');
+	update_order_meta_for_booking_record($order, '_start_key');
+}
+
+/**
+ * Function updates meta data in order through cookie
+ * @param $order { WC_Order }
+ * @param $cookie_key { String }
+ */
+function update_order_meta_for_booking_record($order, $cookie_key) {
+	if ( isset($_COOKIE[$cookie_key] ) ) {
+		$order->update_meta_data($cookie_key, $_COOKIE[$cookie_key]);
+	} else {
+		error_log('Haven`t cookie `' . $cookie_key . '` in function `before_checkout_create_order`', 0);
 	}
 }
