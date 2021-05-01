@@ -29,4 +29,7 @@ require_once __DIR__ . '/functions/enqueue.php';
 // Payment hooks
 require_once __DIR__ . '/functions/payment-hooks.php';
 
+// Add checkout fields
+require_once __DIR__ . '/functions/checkout-fields.php';
+
 
