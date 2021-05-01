@@ -10935,6 +10935,10 @@ textarea.form-control-lg {
   color: #a7a5a5 !important;
 }
 
+.hidden-input {
+  display: none !important;
+}
+
 .thankYou {
   min-height: 70vh;
   display: flex;

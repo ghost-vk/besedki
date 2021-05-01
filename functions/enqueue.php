@@ -48,7 +48,7 @@ function add_styles() {
 			'checkout',
 		)
 	) ) {
-		wp_enqueue_style( 'page-document', get_template_directory_uri() . '/style/cart.css' );
+		wp_enqueue_style( 'page-document', get_template_directory_uri() . '/style/cart.css?' . time() );
 	}
 	
 	// Shop page - Reservation page
