@@ -69,7 +69,7 @@ if ( is_mobile() ) {
     </div>
 </div>
 
-<div class="homeQuestion">
+<div class="homeQuestion" id="frequently-questions">
     <div class="container">
         <div class="homeQuestion__title titleAnimated" data-animation="left">
             <h3 class="title-1"><?php the_field('question_title'); ?></h3>

@@ -24,7 +24,22 @@ class ServerClient {
             if (typeof callback === "function") {
                 callback(response);
             }
-            console.log(response); // Test
-        });
+            // console.log(response); // Test
+        }).fail(this._failGetResponse);
+    }
+
+    /**
+     * Method fires when no success getting response from server
+     * @private
+     */
+    _failGetResponse() {
+        let args, notification, state;
+        state = store.getState();
+        args = {
+            text: `Возникла ошибка на сервере<br />Пожалуйста, перезагрузите страницу`,
+            icon: '<i class="fas fa-sync-alt"></i>'
+        }
+        notification = new Notification(state.general.notificationContainer, args)
+        notification.init(10000);
     }
 }
