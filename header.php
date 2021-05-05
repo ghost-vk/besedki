@@ -1,21 +1,21 @@
-<?php do_action('store_user_key_in_cookie'); // Stores user key in COOKIE, used for identification in booking process ?>
+<?php
+do_action('store_user_key_in_cookie'); // Stores user key in COOKIE, used for identification in booking process
+$rollback_page_id = get_hide_current_page_id();
+$page_id = ( $rollback_page_id ) ? $rollback_page_id : get_the_ID();
+?>
 <!DOCTYPE html>
 <html lang="ru-RU">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:title" content="Беседки в Краснодаре" />
-    <meta property="og:site_name" content="Беседки в Краснодаре на Затоне" />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="ru_RU" />
-    <meta property="og:description" content="Аренда беседки в Краснодаре на Затоне" />
-    <meta property="og:image" content="<?php echo get_stylesheet_directory_uri(); ?>/img/picture/website-image.jpg" />
-    
+    <meta name="description" content="Забронировать беседку онлайн в центре города Краснодар на Затоне по низкой цене.
+    Аренда беседки. Проводим дни рождения, корпоративы. Беседки на берегу и в парке. Пожарить шашлык на мангале.">
+    <?php do_action('render_og'); // Render Open Graph tags ?>
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <?php if (is_archive()) : ?>
-        <!--    LEAFLET MAP    -->
+    <?php if (is_archive()) : // Shop(reservation) page ?>
+        <!--    LEAFLET MAP STYLES    -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
               integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
               crossorigin=""
@@ -25,8 +25,6 @@
                 crossorigin="">
         </script>
     <?php endif; ?>
-	
-	<?php _wp_render_title_tag(); ?>
 	<?php wp_head(); ?>
 </head>
 	<body class="lightBg">

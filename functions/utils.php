@@ -67,3 +67,30 @@ function init_smtp_constants( PHPMailer $phpmailer ) {
 		$phpmailer->FromName   = SMTP_NAME;
 	}
 }
+
+/**
+ * Function returns value of hide current page ID
+ * Sometimes page ID is hidden (f.e. in WooCommerce pages)
+ * Used for get value from ACF
+ */
+function get_hide_current_page_id() {
+	if ( is_shop() ) { // Shop page (reservation page with map)
+		return 6;
+	}
+	if ( is_cart() ) {
+		return 7;
+	}
+	if ( is_checkout() ) {
+		return 8;
+	}
+	return false;
+}
+
+/**
+ * Function handles RenderOpenGraph which render OG tags
+ */
+add_action('render_og', 'render_open_graph_tags', 10, 0);
+function render_open_graph_tags() {
+	require_once __DIR__ . '/../class/RenderOpenGraph/RenderOpenGraph.php';
+	(new \Utility\MetaTags\RenderOpenGraph())->RenderAll();
+}
