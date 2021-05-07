@@ -32,4 +32,7 @@ require_once __DIR__ . '/functions/payment-hooks.php';
 // Add checkout fields
 require_once __DIR__ . '/functions/checkout-fields.php';
 
+// Works with sitemap
+require_once __DIR__ . '/functions/sitemap.php';
+
 
