@@ -10,7 +10,14 @@
             <?php if ( have_rows('slider_repeater') ) : $i = 0; ?>
                 <?php while ( have_rows('slider_repeater') ) : the_row(); ?>
                     <?php $lazy_loading = ( $i > 0 ) ? 'loading="lazy"' : ''; ?>
-                    <div class="homeCarousel__item"><img src="<?php the_sub_field('image');?>" <?= $lazy_loading; ?> /></div>
+                    <div class="homeCarousel__item">
+						<?php
+						$image = get_sub_field('image');
+						if ( ! empty($image) ) : ?>
+                            <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>"
+								<?php echo $lazy_loading; ?> />
+						<?php endif; ?>
+                    </div>
                 <?php endwhile; ?>
             <?php endif; ?>
         </div>

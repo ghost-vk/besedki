@@ -34,7 +34,11 @@ if ( is_mobile() ) {
                             ?>
                             <div class="reviewsAll__item">
                                 <div class="reviewsAll__image">
-                                    <img src="<?php the_field('image'); ?>" />
+									<?php
+									$image = get_field('image');
+									if ( ! empty($image) ) : ?>
+                                        <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" />
+									<?php endif; ?>
                                 </div>
                                 <div class="reviewsAll__content">
                                     <p class="mainText-2"><?php the_field('text'); ?></p>
@@ -69,7 +73,11 @@ if ( is_mobile() ) {
                             ?>
                             <div class="reviewsAll__item">
                                 <div class="reviewsAll__image">
-                                    <img src="<?php the_field('image'); ?>" />
+									<?php
+									$image = get_field('image');
+									if ( ! empty($image) ) : ?>
+                                        <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" />
+									<?php endif; ?>
                                 </div>
                                 <div class="reviewsAll__content">
                                     <p class="mainText-2"><?php the_field('text'); ?></p>
@@ -104,7 +112,11 @@ if ( is_mobile() ) {
 							?>
                             <div class="reviewsAll__item">
                                 <div class="reviewsAll__image">
-                                    <img src="<?php the_field('image'); ?>" />
+									<?php
+									$image = get_field('image');
+									if ( ! empty($image) ) : ?>
+                                        <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" />
+									<?php endif; ?>
                                 </div>
                                 <div class="reviewsAll__content">
                                     <p class="mainText-2"><?php the_field('text'); ?></p>

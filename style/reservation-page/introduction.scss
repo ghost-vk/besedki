@@ -1,0 +1,29 @@
+@import "./../blocks/post-block";
+
+.introductionReservation {
+  max-width: calc(100vw - 100px);
+  margin-left: auto;
+  margin-right: auto;
+  @include adaptive-value("margin-top", 40, 20, 1);
+  @media (max-width: 768px) {
+    max-width: calc(100vw - 20px);
+    margin: 20px auto;
+  }
+  &__title {
+    background-color: $dark-green;
+    border-radius: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    @include adaptive-value("padding-top", 25, 10, 1);
+    @include adaptive-value("padding-bottom", 25, 10, 1);
+    h1 {
+      @include adaptive-value("margin-bottom", 20, 10, 1);
+      text-align: center;
+      color: #fefefe;
+    }
+    p {
+      text-align: center;
+      color: #fefefe;
+    }
+  }
+}

@@ -1,5 +1,7 @@
 <?php get_header(); ?>
 
+<?php require_once __DIR__ . '/../blocks/reservation/introduction.php'; ?>
+
 <?php require_once __DIR__ . '/../blocks/reservation/map/map.php'; // Map with filters ?>
 
 <?php require_once __DIR__ . '/../blocks/callback-section.php'; // Callback ?>

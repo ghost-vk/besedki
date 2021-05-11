@@ -7,7 +7,12 @@
             <?php $review_ids = get_field('reviews_posts'); ?>
             <?php foreach ( $review_ids as $id ) : ?>
                 <div class="homeReviews__item">
-                    <img class="homeReviews__image" src="<?= the_field('image', $id); ?>" />
+					<?php
+					$image = get_field('image', $id);
+					if ( ! empty($image) ) : ?>
+                        <img class="homeReviews__image" src="<?php echo esc_url($image['url']); ?>"
+                             alt="<?php echo esc_attr($image['alt']); ?>" />
+					<?php endif; ?>
                     <p class="homeReviews__name mainTextBig"><?= the_field('name', $id); ?></p>
                     <p class="homeReviews__content mainText-2"><?= the_field('text', $id); ?></p>
                     <p class="homeReviews__label"><?= the_field('badge', $id); ?></p>

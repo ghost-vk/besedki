@@ -609,6 +609,93 @@
   pointer-events: auto;
 }
 
+.postBlock {
+  margin-top: 30px;
+}
+@media (max-width: 1080px) {
+  .postBlock {
+    margin-top: calc(15px + 15 * ((100vw - 320px) / 760));
+  }
+}
+.postBlock__wrapper {
+  background-color: #f1ead8;
+  border-radius: 3px;
+  padding: 20px;
+}
+@media (max-width: 1080px) {
+  .postBlock__wrapper {
+    padding: calc(5px + 15 * ((100vw - 320px) / 760));
+  }
+}
+.postBlock p {
+  margin-bottom: 25px;
+  font-size: 14px;
+  line-height: 130%;
+}
+@media (max-width: 1080px) {
+  .postBlock p {
+    margin-bottom: calc(10px + 15 * ((100vw - 320px) / 760));
+  }
+}
+@media (max-width: 1080px) {
+  .postBlock p {
+    font-size: calc(10px + 4 * ((100vw - 320px) / 760));
+  }
+}
+.postBlock p:last-child {
+  margin-bottom: 0;
+}
+
+.introductionReservation {
+  max-width: calc(100vw - 100px);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+}
+@media (max-width: 1080px) {
+  .introductionReservation {
+    margin-top: calc(20px + 20 * ((100vw - 320px) / 760));
+  }
+}
+@media (max-width: 768px) {
+  .introductionReservation {
+    max-width: calc(100vw - 20px);
+    margin: 20px auto;
+  }
+}
+.introductionReservation__title {
+  background-color: #114410;
+  border-radius: 3px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+@media (max-width: 1080px) {
+  .introductionReservation__title {
+    padding-top: calc(10px + 15 * ((100vw - 320px) / 760));
+  }
+}
+@media (max-width: 1080px) {
+  .introductionReservation__title {
+    padding-bottom: calc(10px + 15 * ((100vw - 320px) / 760));
+  }
+}
+.introductionReservation__title h1 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #fefefe;
+}
+@media (max-width: 1080px) {
+  .introductionReservation__title h1 {
+    margin-bottom: calc(10px + 10 * ((100vw - 320px) / 760));
+  }
+}
+.introductionReservation__title p {
+  text-align: center;
+  color: #fefefe;
+}
+
 .reservationWindow {
   max-width: calc(100vw - 100px);
   background-color: #BFD6A9;

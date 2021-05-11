@@ -1,4 +1,5 @@
 @import "templates";
+@import "blocks/post-block";
 
 .promo {
   position: relative;
@@ -45,6 +46,43 @@
     .title-1 {
       font-weight: 700!important;
     }
+  }
+}
+
+.priceLine {
+  @include adaptive-value("margin-top", 60, 45, 1);
+  &__row {
+    background-color: $bright_green;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    @include adaptive-value("padding-top", 20, 10, 1);
+    @include adaptive-value("padding-bottom", 20, 10, 1);
+    @include adaptive-value("padding-left", 40, 10, 1);
+    @include adaptive-value("padding-right", 40, 10, 1);
+    -webkit-box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  }
+  &__text {
+    @include adaptive-value("font-size", 18, 12, 1);
+    font-weight: 500;
+    color: #fefefe;
+  }
+  &__icon {
+    flex: 0 0 40px;
+    background-color: $dark_green;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include adaptive-value("margin-right", 20, 10, 1);
+  }
+  i {
+    @include adaptive-value("font-size", 22, 14, 1);
+    color: #fefefe;
   }
 }
 

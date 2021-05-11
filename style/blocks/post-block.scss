@@ -1,0 +1,18 @@
+@import "./../templates";
+
+.postBlock {
+  @include adaptive-value("margin-top", 30, 15, 1);
+  &__wrapper {
+    background-color: $sand;
+    border-radius: 3px;
+    @include adaptive-value("padding", 20, 5, 1);
+  }
+  p {
+    @include adaptive-value("margin-bottom", 25, 10, 1);
+    @include adaptive-value("font-size", 14, 10, 1);
+    line-height: 130%;
+  }
+  p:last-child {
+    margin-bottom: 0;
+  }
+}

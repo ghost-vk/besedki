@@ -103,7 +103,6 @@ p, a, span, h1, h2, h3, h4, h5, h6, li, pre, label, div, button, input, input::p
 }
 
 .mainText-2 {
-  font-size: 14px;
   line-height: 130%;
   @include adaptive-value("font-size", 14, 10, 1);
 }

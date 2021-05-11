@@ -40,7 +40,7 @@ $page_id = ( $rollback_page_id ) ? $rollback_page_id : get_the_ID();
 				$target = $address['target'] ? $address['target'] : '_self';
                 $phone = get_field('contacts_phone', $home_page_id);
                 ?>
-                <?php if ( !is_mobile() ) : ?>
+                <?php if ( ! is_mobile() ) : ?>
                     <div class="preheader">
                         <div class="preheader__iconbox">
                             <?php require_once __DIR__ . '/blocks/social-iconbox.php'; ?>
