@@ -627,6 +627,21 @@
     padding: calc(5px + 15 * ((100vw - 320px) / 760));
   }
 }
+.postBlock h5 {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+@media (max-width: 1080px) {
+  .postBlock h5 {
+    font-size: calc(14px + 4 * ((100vw - 320px) / 760));
+  }
+}
+@media (max-width: 1080px) {
+  .postBlock h5 {
+    margin-bottom: calc(8px + 8 * ((100vw - 320px) / 760));
+  }
+}
 .postBlock p {
   margin-bottom: 25px;
   font-size: 14px;

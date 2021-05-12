@@ -42,7 +42,8 @@ add_theme_support( 'title-tag' );
 add_filter( 'document_title_parts', 'wc_custom_shop_archive_title' );
 function wc_custom_shop_archive_title( $title ) {
 	if ( is_shop() && isset( $title['title'] ) ) {
-		$title['title'] = 'Бронирование';
+		$id = get_hide_current_page_id();
+		$title['title'] = get_the_title($id);
 	}
 	
 	return $title;

@@ -8,8 +8,7 @@ $page_id = ( $rollback_page_id ) ? $rollback_page_id : get_the_ID();
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Забронировать беседку онлайн в центре города Краснодар на Затоне по низкой цене.
-    Аренда беседки. Проводим дни рождения, корпоративы. Беседки на берегу и в парке. Пожарить шашлык на мангале.">
+    <meta name="description" content="<?php the_field('og_description', $rollback_page_id); ?>">
     <?php do_action('render_og'); // Render Open Graph tags ?>
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">

@@ -7,6 +7,11 @@
     border-radius: 3px;
     @include adaptive-value("padding", 20, 5, 1);
   }
+  h5 {
+    @include adaptive-value("font-size", 18, 14, 1);
+    font-weight: 500;
+    @include adaptive-value("margin-bottom", 16, 8, 1);
+  }
   p {
     @include adaptive-value("margin-bottom", 25, 10, 1);
     @include adaptive-value("font-size", 14, 10, 1);
