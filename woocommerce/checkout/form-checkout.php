@@ -132,9 +132,11 @@ require_once __DIR__ . './../../class/FormatterUI/FormatterUIHandler.php';
 				<?php
 				$WC_Payment_Gateways = new WC_Payment_Gateways();
 				$available_gateways = $WC_Payment_Gateways->get_available_payment_gateways();
-//				$gateway = $available_gateways["cheque"];
+				$gateway_cheque = $available_gateways["cheque"];
 				$gateway = $available_gateways["yookassa_epl"];
-				?>
+				if ( get_current_user_id() === 1 ) : ?>
+					<input type="radio" name="payment_method" value="<?php echo esc_attr( $gateway_cheque->id ); ?>" />
+                <?php endif; ?>
                 <input type="radio" name="payment_method" value="<?php echo esc_attr( $gateway->id ); ?>" checked="checked" />
             </div>
         </form>

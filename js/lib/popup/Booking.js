@@ -61,6 +61,8 @@ class Booking {
         serverClient.get(function(response) {
             if (typeof callbackSuccess === "function" && response.status === true) {
                 callbackSuccess();
+                let analyticsEvent = (Cookies.get('isAlreadyAddToCart') === 'true') ? 'secondTimeAdd' : 'add';
+                window.analytics.sendData(analyticsEvent);
             } else if (typeof callbackFailure === "function" && response.status === false) {
                 callbackFailure();
             }

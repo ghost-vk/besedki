@@ -95,3 +95,48 @@ function render_open_graph_tags() {
 	require_once __DIR__ . '/../class/RenderOpenGraph/RenderOpenGraph.php';
 	(new \Utility\MetaTags\RenderOpenGraph())->RenderAll();
 }
+
+add_action('render_meta_robots', 'render_meta_robots', 10, 1);
+function render_meta_robots($id) {
+	$no_index = get_field('seo_no_index', $id);
+	$no_follow = get_field('seo_no_follow', $id);
+	$value = '';
+	if ( $no_index && $no_follow ) {
+		$value = 'noindex, nofollow';
+	} else if ( $no_index ) {
+		$value = 'noindex';
+	} else if ( $no_follow ) {
+		$value = 'nofollow';
+	}
+	if ( strlen($value) > 0 ) {
+		echo "<meta name='robots' content='$value' />";
+	}
+}
+
+/**
+ * Disable the emoji's
+ */
+function disable_emojis() {
+	remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+	remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+	remove_action( 'wp_print_styles', 'print_emoji_styles' );
+	remove_action( 'admin_print_styles', 'print_emoji_styles' );
+	remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
+	remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
+	remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
+	
+	// Remove from TinyMCE
+	add_filter( 'tiny_mce_plugins', 'disable_emojis_tinymce' );
+}
+add_action( 'init', 'disable_emojis' );
+
+/**
+ * Filter out the tinymce emoji plugin.
+ */
+function disable_emojis_tinymce( $plugins ) {
+	if ( is_array( $plugins ) ) {
+		return array_diff( $plugins, array( 'wpemoji' ) );
+	} else {
+		return array();
+	}
+}

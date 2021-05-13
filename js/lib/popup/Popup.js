@@ -76,6 +76,8 @@ class Popup {
             sliderNav.resetSlider();
         }
 
+        this.bookBtn.off('click'); // Need to avoid multiply AJAX request
+
         // Reset selector
         // this.selector.destroy();
 

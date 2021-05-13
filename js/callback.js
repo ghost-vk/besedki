@@ -154,7 +154,6 @@
                         state,
                         is_valid = validateInput();
                     if ( is_valid ) {
-                        // showResponse();
                         state = store.getState();
                         settings = {
                             nonce: state.general.nonce,
@@ -165,6 +164,8 @@
 
                         let serverClient = new ServerClient(settings, query);
                         serverClient.get(showResponse);
+
+                        analytics.sendData("lid");
 
                         elements.btn.text("Отправка...");
                         disableForm();

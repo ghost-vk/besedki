@@ -9,7 +9,9 @@ $page_id = ( $rollback_page_id ) ? $rollback_page_id : get_the_ID();
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="<?php the_field('og_description', $rollback_page_id); ?>">
+    <?php do_action('render_meta_robots', $page_id); ?>
     <?php do_action('render_og'); // Render Open Graph tags ?>
+    <?php require_once __DIR__ . '/blocks/analytics/analytics.php'; ?>
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
@@ -54,8 +56,7 @@ $page_id = ( $rollback_page_id ) ? $rollback_page_id : get_the_ID();
                         </div>
                     </div>
                 <?php endif; ?>
-                
-                <?php if ( !is_mobile() ) : ?>
+                <?php if ( ! is_mobile() ) : ?>
                     <div class="header">
                         <div class="c-container">
                             <div class="header__icon">
@@ -121,21 +122,23 @@ $page_id = ( $rollback_page_id ) ? $rollback_page_id : get_the_ID();
                     </div>
                 </div>
             </div>
-            <!--      MOBILE MENU      -->
-            <div class="mobileMenu" id="mobileMenu">
-                <div class="mobileMenu__wrapper">
-                    <div class="mobileMenu__reservation">
-                        <a class="greenBtn1" href="<?= home_url('/reservation'); ?>">Забронировать</a>
-                    </div>
-                    <div class="mobileMenu__elements">
-						<?php
-						wp_nav_menu( [
-							'theme_location' => 'header_menu',
-						] );
-						?>
-                    </div>
-                    <div class="mobileMenu__iconbox">
-						<?php require_once __DIR__ . '/blocks/social-iconbox.php'; ?>
+            <?php if ( is_mobile() ) : ?>
+                <!--      MOBILE MENU      -->
+                <div class="mobileMenu" id="mobileMenu">
+                    <div class="mobileMenu__wrapper">
+                        <div class="mobileMenu__reservation">
+                            <a class="greenBtn1" href="<?= home_url('/reservation'); ?>">Забронировать</a>
+                        </div>
+                        <div class="mobileMenu__elements">
+                            <?php
+                            wp_nav_menu( [
+                                'theme_location' => 'header_menu',
+                            ] );
+                            ?>
+                        </div>
+                        <div class="mobileMenu__iconbox">
+                            <?php require_once __DIR__ . '/blocks/social-iconbox.php'; ?>
+                        </div>
                     </div>
                 </div>
-            </div>
+            <?php endif; ?>

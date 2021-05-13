@@ -73,4 +73,11 @@ class RenderOpenGraphData {
 	public function GetVideo() {
 		return get_field('og_video', $this->page_id);
 	}
+	
+	/**
+	 * Method get current page URL
+	 */
+	public function GetCurrentUrl() {
+		return get_page_link($this->page_id);
+	}
 }

@@ -23,6 +23,7 @@ class RenderOpenGraph {
 	public function RenderAll() {
 		$this->RenderTitle(); 		// og:title
 		$this->RenderSiteName();    // og:site_name
+		$this->RenderURL();			// og:url
 		$this->RenderType(); 		// og:type
 		$this->RenderLocale();		// og:locale
 		$this->RenderDescription(); // og:description
@@ -118,6 +119,19 @@ class RenderOpenGraph {
 		$video = $this->data_client->GetVideo();
 		if ( $video ) {
 			echo "<meta property='og:video' content='$video' />";
+		}
+	}
+	
+	/**
+	 * Method render og:url
+	 */
+	public function RenderURL() {
+		if ( ! $this->data_client ) {
+			return;
+		}
+		$url = $this->data_client->GetCurrentUrl();
+		if ( $url ) {
+			echo "<meta property='og:url' content='$url' />";
 		}
 	}
 }

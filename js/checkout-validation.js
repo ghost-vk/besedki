@@ -28,7 +28,6 @@
             policy: 'Обязательно согласие с Политикой конфиденциальности'
         }
 
-
         // MASK
         fields.passport.mask("9999 999999");
 
@@ -278,5 +277,6 @@
             }
         });
 
+        setTimeout(analytics.sendData.bind(analytics), 10000, "proceed"); // Send data to analytics
     });
 })(jQuery);
