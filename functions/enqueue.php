@@ -70,7 +70,8 @@ function add_styles() {
 		wp_enqueue_style( 'reservation', get_template_directory_uri() . '/style/reservation-page/booking.css?v=1.1' );
 	}
 	
-	if ( is_page(array('reviews', 'privacy', 'user-agreement', 'rent-agreement')) || is_front_page() || is_archive() ) {
+	if ( is_page(array('reviews', 'privacy', 'user-agreement', 'rent-agreement')) ||
+		is_front_page() || is_archive() || is_404() ) {
 		add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
 		wp_dequeue_style( 'wc-block-style' );
 		wp_dequeue_style( 'woocommerce-layout' );

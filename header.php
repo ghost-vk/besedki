@@ -1,4 +1,5 @@
 <?php
+
 do_action('store_user_key_in_cookie'); // Stores user key in COOKIE, used for identification in booking process
 $rollback_page_id = get_hide_current_page_id();
 $page_id = ( $rollback_page_id ) ? $rollback_page_id : get_the_ID();
