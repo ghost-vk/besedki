@@ -1,15 +1,17 @@
-const createAnalyticsHandler = function () {
-    return {
-        fireContentView
-    }
-}
-
+/**
+ * @namespace analytics
+ * @type {Object}
+ */
 var analytics = analytics || {};
 
 analytics.settings = {
     yandexID: 78198895
 }
 
+/**
+ * Main handler send data to analytics platforms
+ * @param action
+ */
 analytics.sendData = function (action) {
     let inThirtyMinutes = new Date(new Date().getTime() + 3 * 60 * 1000); // 3 minutes now
     switch (action) {
@@ -18,25 +20,25 @@ analytics.sendData = function (action) {
                 break;
             }
 
-            this._fireYandexEvent(action);
+            this._fireEvent(action);
 
             Cookies.set('isAlreadyView', 'true', { expires: inThirtyMinutes });
             break;
         }
         case "add": {
-            this._fireYandexEvent(action);
+            this._fireEvent(action);
             Cookies.set('isAlreadyAddToCart', 'true', { expires: inThirtyMinutes });
             break;
         }
         case "secondTimeAdd": {
-            this._fireYandexEvent(action);
+            this._fireEvent(action);
             break;
         }
         case "purchase": {
             if (Cookies.get('isPurchaseFired') === 'true') { // Already send
                 return;
             }
-            this._fireYandexEvent(action);
+            this._fireEvent(action);
             Cookies.set('isPurchaseFired', 'true', { expires: inThirtyMinutes });
             break;
         }
@@ -44,7 +46,7 @@ analytics.sendData = function (action) {
             if (Cookies.get('isLidFired') === 'true') { // Already send
                 return;
             }
-            this._fireYandexEvent(action);
+            this._fireEvent(action);
             Cookies.set('isLidFired', 'true', { expires: inThirtyMinutes });
             break;
         }
@@ -52,7 +54,7 @@ analytics.sendData = function (action) {
             if (Cookies.get('isProceedFired') === 'true') { // Already send
                 return;
             }
-            this._fireYandexEvent(action);
+            this._fireEvent(action);
             Cookies.set('isProceedFired', 'true', { expires: inThirtyMinutes });
             break;
         }
@@ -62,6 +64,12 @@ analytics.sendData = function (action) {
     }
 }
 
+/**
+ * Method returns analytics action code (event name)
+ * @param action
+ * @return {string|boolean}
+ * @private
+ */
 analytics._getActionCode = function (action) {
     switch (action) {
         case "view": {
@@ -96,19 +104,34 @@ analytics._getActionCode = function (action) {
 
 /** YANDEX */
 analytics._sendDataYandex = function (id, actionCode) {
+    if (!ym) {
+        return;
+    }
     console.log("Отправка информации в Яндекс. Действие: " + actionCode);
     ym(id, 'reachGoal', actionCode);
 }
 
-analytics._fireYandexEvent = function (action) {
-    // if (!ym) {
-    //     return;
-    // }
+/** GOOGLE ANALYTICS */
+analytics._sendDataGoogle = function (id, actionCode) {
+    if (!gtag) {
+        return;
+    }
+    console.log("Отправка информации в Google. Действие: " + actionCode);
+    gtag('event', actionCode);
+}
+
+/**
+ * Method fires event in all analytics platform
+ * @param action {String}
+ * @private
+ */
+analytics._fireEvent = function (action) {
     let actionCode = this._getActionCode(action);
     if (!actionCode) {
         return;
     }
     this._sendDataYandex(this.settings.yandexID, actionCode);
+    this._sendDataGoogle(this.settings.yandexID, actionCode);
 }
 
 /**
@@ -119,6 +142,7 @@ document.addEventListener("DOMContentLoaded", function() {
     setTimeout(analytics.sendData.bind(analytics), 4000, "view");
 });
 
+/** Purchase event */
 if (document.location.href.includes("checkout/order-received/")) {
     analytics.sendData("purchase");
 }
