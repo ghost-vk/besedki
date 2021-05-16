@@ -1,3 +1,4 @@
+<?php global $home_page_id; ?>
 <div class="footer__title">
 	<h4 class="title-1 no-select"><?php the_sub_field('title'); ?></h4>
 </div>
