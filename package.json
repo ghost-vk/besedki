@@ -16,6 +16,7 @@
     "libphonenumber-js": "^1.9.17",
     "scroll-triggers": "^4.4.0",
     "slick-carousel": "^1.8.1",
+    "terser-webpack-plugin": "^5.1.2",
     "viewport-js": "^1.0.0"
   },
   "devDependencies": {
