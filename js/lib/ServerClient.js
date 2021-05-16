@@ -43,3 +43,5 @@ class ServerClient {
         notification.init(10000);
     }
 }
+
+export default ServerClient;

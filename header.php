@@ -1,5 +1,4 @@
 <?php
-
 do_action('store_user_key_in_cookie'); // Stores user key in COOKIE, used for identification in booking process
 $rollback_page_id = get_hide_current_page_id();
 $page_id = ( $rollback_page_id ) ? $rollback_page_id : get_the_ID();
@@ -15,18 +14,6 @@ $page_id = ( $rollback_page_id ) ? $rollback_page_id : get_the_ID();
     <?php require_once __DIR__ . '/blocks/analytics/analytics.php'; ?>
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <?php if (is_archive()) : // Shop(reservation) page ?>
-        <!--    LEAFLET MAP STYLES    -->
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-              integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-              crossorigin=""
-        />
-        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-                integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-                crossorigin="">
-        </script>
-    <?php endif; ?>
 	<?php wp_head(); ?>
 </head>
 	<body class="lightBg">

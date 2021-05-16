@@ -344,6 +344,7 @@ p, a, span, h1, h2, h3, h4, h5, h6, li, pre, label, div, button, input, input::p
   position: fixed;
   top: 50px;
   left: 50px;
+  z-index: 2;
   transition: transform 0.3s ease, opacity 0.3s ease;
   border-radius: 20px;
   padding: 10px 30px;

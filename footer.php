@@ -1,6 +1,6 @@
 <?php global $home_page_id; ?>
         <footer>
-            <?php if ( !is_mobile() ) : ?>
+            <?php if ( ! is_mobile() ) : ?>
                 <?php $footer_gallery = get_field( 'footer_gallery', $home_page_id ); ?>
                 <?php if ( $footer_gallery ) : ?>
                 <div class="prefooter">
@@ -24,7 +24,6 @@
 							<?php if ( $i % 2 !== 0 ) : // Opens row ?>
                                 <div class="footer__row">
 							<?php endif; ?>
-                        
                             <div class="footer__column">
                                 <?php if ( $i === 1 ) : // First show sitemap (hard displays) ?>
                                     <?php require_once __DIR__ . '/blocks/footer/footer-sitemap.php'; ?>
@@ -32,7 +31,6 @@
                                     <?php require __DIR__ . '/blocks/footer/footer-dynamic-items.php'; ?>
                                 <?php endif; ?>
                             </div>
-                        
 							<?php if ( $i % 2 === 0 ) : // Ends row ?>
                                 </div>
 							<?php endif; ?>
@@ -45,11 +43,8 @@
                 </div>
             </div>
         </footer>
-        <!--   NOTIFICATION   -->
         <div class="notification" id="notification"></div>
-	
 	    <?php wp_footer(); ?>
-
         </div>
 	</body>
 </html>

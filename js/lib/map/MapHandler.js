@@ -1,3 +1,11 @@
+import store from "../store";
+import Loader from "../Loader";
+import ServerClient from "../ServerClient";
+import MapPopup from "./MapPopup";
+import Notification from "../Notification";
+const L = require('leaflet');
+import css from './../../../node_modules/leaflet/dist/leaflet.css'
+
 /**
  * Class used for works with map
  * Main handler for map
@@ -177,3 +185,5 @@ class MapHandler {
         notification.init(3000);
     }
 }
+
+export default MapHandler;

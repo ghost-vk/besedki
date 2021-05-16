@@ -1,3 +1,15 @@
+import Loader from "../Loader";
+import store from "../store";
+import ServerClient from "../ServerClient";
+import DatetimeHandler from "./DatetimeHandler";
+import Slider from "./Slider/Slider";
+import SliderNav from "./Slider/SliderNav";
+import SliderMain from "./Slider/SliderMain";
+import SelectDuration from "./SelectDuration";
+import Booking from "./Booking";
+import PopupError from "./PopupError";
+
+
 /**
  * Class for works with booking reservation modal window
  */
@@ -171,7 +183,7 @@ class Popup {
      * Fix document body
      */
     fixBody() {
-        jQuery("body").css("overflow", "hidden");
+        $("body").css("overflow", "hidden");
     }
 
 
@@ -179,7 +191,7 @@ class Popup {
      * Let document body scroll
      */
     unfixBody() {
-        jQuery("body").css("overflow", "auto");
+        $("body").css("overflow", "auto");
     }
 
 
@@ -209,39 +221,4 @@ class Popup {
     }
 }
 
-
-/**
- * Class for display error when not enough data to do server request
- * No datetime, no duration, no ID
- */
-class PopupError {
-    /**
-     * Constructor
-     * @param el {jQuery}
-     * @param error {String}
-     */
-    constructor(el, error=null) {
-        this.el = el;
-        this.error = error;
-    }
-
-    /**
-     * Method show error block (put HTML inside)
-     * @method show
-     */
-    show() {
-        this.el.html(`
-            <p class="popupGallery__error">
-                <i class="fas fa-exclamation-circle"></i>
-                ${this.error}
-            </p>`);
-    }
-
-    /**
-     * Method deletes content of error block
-     * @method hide
-     */
-    hide() {
-        this.el.html("");
-    }
-}
+export default Popup;

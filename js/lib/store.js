@@ -1,3 +1,6 @@
+import utils from "./utils";
+import Popup from "./popup/Popup";
+
 /**
  * Object for state management
  */
@@ -150,3 +153,5 @@ const store = {
         this._state.reservation.map.points = points;
     }
 }
+
+export default store;

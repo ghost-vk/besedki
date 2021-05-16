@@ -1,3 +1,5 @@
+import Cookies from 'js-cookie';
+
 /**
  * @namespace analytics
  * @type {Object}
@@ -13,7 +15,7 @@ analytics.settings = {
  * @param action
  */
 analytics.sendData = function (action) {
-    let inThirtyMinutes = new Date(new Date().getTime() + 3 * 60 * 1000); // 3 minutes now
+    let inThirtyMinutes = new Date(new Date().getTime() + 30 * 60 * 1000); // 3 minutes now
     switch (action) {
         case "view": {
             if (Cookies.get('isAlreadyView') === 'true') { // Already send
@@ -104,19 +106,19 @@ analytics._getActionCode = function (action) {
 
 /** YANDEX */
 analytics._sendDataYandex = function (id, actionCode) {
-    if (!ym) {
+    if (typeof ym === "undefined") {
         return;
     }
-    console.log("Отправка информации в Яндекс. Действие: " + actionCode);
+    // console.log("Отправка информации в Яндекс. Действие: " + actionCode);
     ym(id, 'reachGoal', actionCode);
 }
 
 /** GOOGLE ANALYTICS */
 analytics._sendDataGoogle = function (id, actionCode) {
-    if (!gtag) {
+    if (typeof gtag === "undefined") {
         return;
     }
-    console.log("Отправка информации в Google. Действие: " + actionCode);
+    // console.log("Отправка информации в Google. Действие: " + actionCode);
     gtag('event', actionCode);
 }
 
@@ -134,15 +136,19 @@ analytics._fireEvent = function (action) {
     this._sendDataGoogle(this.settings.yandexID, actionCode);
 }
 
-/**
- * Listener fired when page is loaded
- * Send 'viewContent' event to platforms
- */
-document.addEventListener("DOMContentLoaded", function() {
-    setTimeout(analytics.sendData.bind(analytics), 4000, "view");
-});
+analytics.startAnalytics = () => {
+    /**
+     * Listener fired when page is loaded
+     * Send 'viewContent' event to platforms
+     */
+    document.addEventListener("DOMContentLoaded", function() {
+        setTimeout(analytics.sendData.bind(analytics), 4000, "view");
+    });
 
-/** Purchase event */
-if (document.location.href.includes("checkout/order-received/")) {
-    analytics.sendData("purchase");
+    /** Purchase event */
+    if (document.location.href.includes("checkout/order-received/")) {
+        analytics.sendData("purchase");
+    }
 }
+
+export default analytics;

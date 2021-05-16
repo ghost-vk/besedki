@@ -16,3 +16,5 @@ utils.getLocalizeData = (_object, key) => {
     }
     return {};
 };
+
+export default utils;

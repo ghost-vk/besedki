@@ -51,3 +51,5 @@ class Loader {
         this.loader.html("");
     }
 }
+
+export default Loader;

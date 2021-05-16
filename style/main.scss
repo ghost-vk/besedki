@@ -292,6 +292,7 @@ p, a, span, h1, h2, h3, h4, h5, h6, li, pre, label, div, button, input, input::p
   position: fixed;
   top: 50px;
   left: 50px;
+  z-index: 2;
   @media (max-width: 1024px) {
     left: 50%;
     transform: translateX(-50%);

@@ -18,7 +18,7 @@
 		<h1 class="title-1 no-select"><?php the_field('promo_title'); ?></h1>
 	</div>
 	<div class="promo__button">
-		<a class="bigBtn bold" id="lookAtAll" href="<?php echo home_url('/reservation'); ?>">
+		<a class="bigBtn bold hidden" id="lookAtAll" href="<?php echo home_url('/reservation'); ?>">
 			<?php the_field('promo_btn_text'); ?>
 		</a>
 	</div>

@@ -56,3 +56,5 @@ class MapPopup {
             `;
     }
 }
+
+export default MapPopup;

@@ -81,3 +81,5 @@ class Notification {
         return template;
     }
 }
+
+export default Notification;

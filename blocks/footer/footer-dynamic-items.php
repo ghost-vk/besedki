@@ -18,7 +18,6 @@
 						   target="<?= $target; ?>"><?php echo wp_specialchars_decode($link['title']); ?></a>
 					<?php endif; ?>
 				<?php endif; ?>
-			
 			</div>
 		<?php endwhile; ?>
 	<?php endif; ?>

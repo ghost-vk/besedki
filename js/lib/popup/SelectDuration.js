@@ -1,3 +1,5 @@
+import store from "../store";
+
 /**
  * Class for works with selector in PopUp window
  */
@@ -87,3 +89,5 @@ class SelectDuration {
         return this.select;
     }
 }
+
+export default SelectDuration;

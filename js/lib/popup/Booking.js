@@ -1,3 +1,9 @@
+import ServerClient from "../ServerClient";
+import store from "../store";
+import Notification from "../Notification";
+import Cookies from 'js-cookie';
+import analytics from "../../analytics";
+
 /**
  * Class used for add booking to cart
  * @class Booking
@@ -62,7 +68,7 @@ class Booking {
             if (typeof callbackSuccess === "function" && response.status === true) {
                 callbackSuccess();
                 let analyticsEvent = (Cookies.get('isAlreadyAddToCart') === 'true') ? 'secondTimeAdd' : 'add';
-                window.analytics.sendData(analyticsEvent);
+                analytics.sendData(analyticsEvent);
             } else if (typeof callbackFailure === "function" && response.status === false) {
                 callbackFailure();
             }
@@ -108,7 +114,9 @@ class Booking {
             }
         }
 
-        notification = new Notification(jQuery("#notification"), notificationArgs);
+        notification = new Notification($("#notification"), notificationArgs);
         notification.init(5000);
     }
 }
+
+export default Booking;
