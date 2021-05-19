@@ -1,5 +1,6 @@
 import store from "./store";
 import * as Cookies from 'js-cookie';
+import Notification from "./Notification";
 
 /**
  * Module is responsible for show message about usage cookie
@@ -17,7 +18,7 @@ export const notifyCookies = () => {
             linkUrl: state.general.privacyUrl,
             linkTitle: 'Подробнее'
         }
-        notification = new Notification(state.general.notificationContainer, args)
+        notification = new Notification(state.general.notificationContainer, args);
         notification.init(20000);
     }
 

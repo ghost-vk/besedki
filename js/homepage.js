@@ -1,7 +1,7 @@
 import 'slick-carousel';
 import {animateHome} from "./lib/homepage/animate";
 import {stickButton} from "./lib/sticky-button";
-import analytics from "./analytics";
+import {startAnalyticsAfterLoading} from "./lib/analytics/analytics-handler";
 import {notifyCookies} from "./lib/cookies-notification";
 import {header} from "./lib/header";
 import {callback} from "./lib/callback";
@@ -12,7 +12,7 @@ import animateCss from './../node_modules/animate.css/animate.min.css';
 import homepageCss from './../style/homepage.css';
 
 header();
-analytics.startAnalytics();
+startAnalyticsAfterLoading();
 
 animateHome(); // Animations
 

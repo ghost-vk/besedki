@@ -1,3 +1,5 @@
+import store from "./store";
+
 /**
  * Class allow to get data from the server
  */
