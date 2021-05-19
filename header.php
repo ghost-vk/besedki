@@ -94,7 +94,7 @@ $page_id = ( $rollback_page_id ) ? $rollback_page_id : get_the_ID();
                 <?php endif; ?>
             </header>
             <!--     PAGE LOADER       -->
-            <?php if ( ! is_frong_page() ) : // Perfomance for google analytics ?>
+            <?php if ( ! is_front_page() ) : // Perfomance for google analytics ?>
                 <div class="pageLoader">
                     <div id="mainLoader" class="pageLoader__wrapper active z">
                         <div class="pageLoader__container">
