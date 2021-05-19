@@ -36,5 +36,8 @@ const loadGoogle = (src) => {
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'UA-196988125-1');
+        })
+        .catch(() => {
+            console.log('Analytics is not loaded');
         });
 }
