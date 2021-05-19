@@ -1,9 +1,9 @@
 <?php global $home_page_id; ?>
 <div class="callback" id="callbackForm">
     <?php
-    $background_image = get_stylesheet_directory_uri() . '/img/picture/callback_bg.jpg';
+    $background_image = get_stylesheet_directory_uri() . '/img/picture/callback-bg.jpg';
     if ( is_mobile() ) {
-        $background_image = get_stylesheet_directory_uri() . '/img/picture/callback_bg_mobile.jpg';
+        $background_image = get_stylesheet_directory_uri() . '/img/picture/callback-bg-mobile.jpg';
     }
     ?>
     <style>

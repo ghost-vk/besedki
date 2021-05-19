@@ -46,18 +46,18 @@ function dequeue_woo_scripts() {
  */
 add_action('wp_enqueue_scripts', 'add_styles');
 function add_styles() {
-	wp_enqueue_style( 'main', get_template_directory_uri() . '/dist/general.css?v=1.2' );
+	wp_enqueue_style( 'main', get_template_directory_uri() . '/dist/general.css?v=1.2.1' );
 	
 	if ( is_front_page() ) { // Homepage
-		wp_enqueue_style( 'homepage', get_template_directory_uri() . '/dist/homepage.css?v=1.2' );
+		wp_enqueue_style( 'homepage', get_template_directory_uri() . '/dist/homepage.css?v=1.2.1' );
 	} else if ( is_page('reviews') ) { // Reviews
-		wp_enqueue_style( 'reviews', get_template_directory_uri() . '/dist/reviews.css?v=1.2' );
+		wp_enqueue_style( 'reviews', get_template_directory_uri() . '/dist/reviews.css?v=1.2.1' );
 	} else if ( is_page(array('privacy', 'user-agreement', 'rent-agreement')) ) { // Documents
-		wp_enqueue_style( 'page-document', get_template_directory_uri() . '/style/page-document.css?v=1.2' );
+		wp_enqueue_style( 'page-document', get_template_directory_uri() . '/style/page-document.css?v=1.2.1' );
 	} else if ( is_page(array('cart', 'checkout')) ) { // Woocommerce cart and checkout
-		wp_enqueue_style( 'cart', get_template_directory_uri() . '/dist/checkout.css?v=1.2' );
+		wp_enqueue_style( 'cart', get_template_directory_uri() . '/dist/checkout.css?v=1.2.1' );
 	} else if ( is_shop() ) { // Booking page
-		wp_enqueue_style( 'reservation-map', get_template_directory_uri() . '/dist/reservation.css?v=1.2' );
+		wp_enqueue_style( 'reservation-map', get_template_directory_uri() . '/dist/reservation.css?v=1.2.1' );
 	}
 	
 	if ( ! is_page(array('checkout', 'cart')) ) {
@@ -79,9 +79,6 @@ function add_scripts () {
 	 */
 	wp_enqueue_script('ref', $directory . '/js/ref.js', array(), null, true);
 	
-	// https://fontawesome.com/
-	wp_enqueue_script('font-awesome', 'https://kit.fontawesome.com/519fd0f28a.js', array(), null, true);
-	
 	// Localize callback
 	wp_localize_script('ref', 'callbackText', array( 'text' => get_field('notification_callback_success', $home_page_id) ));
 	
@@ -98,7 +95,7 @@ function add_scripts () {
 	}
 	
 	if ( is_front_page() ) { // Homepage
-		wp_enqueue_script('homepage', $directory . '/dist/homepage.bundle.js?v=1.2', array('ref'), null, true);
+		wp_enqueue_script('homepage', $directory . '/dist/homepage.bundle.js?v=1.2.1', array('ref'), null, true);
 	} else if ( is_shop() ) { // Booking page
 		// Localize store to works with map
 		wp_localize_script('ref', 'mapState', array(
@@ -106,12 +103,18 @@ function add_scripts () {
 			'defaultPoints' => get_default_points_data(),
 			'cartURL' => home_url('/cart'),
 		));
-		wp_enqueue_script('reservation', $directory . '/dist/reservation.bundle.js?v=1.2', array(), null, true);
+		wp_enqueue_script('reservation', $directory . '/dist/reservation.bundle.js?v=1.2.1', array(), null, true);
 	} else if ( is_page('reviews') ) { // Reviews
-		wp_enqueue_script('reviews', $directory . '/dist/reviews.bundle.js?v=1.2', array('ref'), null, true);
+		wp_enqueue_script('reviews', $directory . '/dist/reviews.bundle.js?v=1.2.1', array('ref'), null, true);
 	} else if ( is_page('checkout') ) { // Checkout
-		wp_enqueue_script('checkout', $directory . '/dist/checkout.bundle.js?v=1.2', array(), null, true);
+		wp_enqueue_script('checkout', $directory . '/dist/checkout.bundle.js?v=1.2.1', array(), null, true);
 	} else {
-		wp_enqueue_script('general', $directory . '/dist/general.bundle.js?v=1.2', array(), null, true);
+		wp_enqueue_script('general', $directory . '/dist/general.bundle.js?v=1.2.1', array(), null, true);
 	}
 }
+
+/**
+ * Remove wp-embed script from footer
+ */
+remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
+remove_action( 'wp_head', 'wp_oembed_add_host_js' );

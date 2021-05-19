@@ -11,10 +11,10 @@ $page_id = ( $rollback_page_id ) ? $rollback_page_id : get_the_ID();
     <meta name="description" content="<?php the_field('og_description', $rollback_page_id); ?>">
     <?php do_action('render_meta_robots', $page_id); ?>
     <?php do_action('render_og'); // Render Open Graph tags ?>
-    <?php // require_once __DIR__ . '/blocks/analytics/analytics.php'; ?>
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+	<link rel="preload" as="style"
+	href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap">
 	<noscript><div><img src="https://mc.yandex.ru/watch/78198895" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+	<script src="https://kit.fontawesome.com/519fd0f28a.js" crossorigin="anonymous" async></script>
 	<?php wp_head(); ?>
 </head>
 	<body class="lightBg">

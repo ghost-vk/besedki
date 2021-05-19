@@ -141,9 +141,7 @@ analytics.startAnalytics = () => {
      * Listener fired when page is loaded
      * Send 'viewContent' event to platforms
      */
-    document.addEventListener("DOMContentLoaded", function() {
-        setTimeout(analytics.sendData.bind(analytics), 4000, "view");
-    });
+    setTimeout(analytics.sendData.bind(analytics), 10000, "view");
 
     /** Purchase event */
     if (document.location.href.includes("checkout/order-received/")) {
