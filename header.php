@@ -94,26 +94,28 @@ $page_id = ( $rollback_page_id ) ? $rollback_page_id : get_the_ID();
                 <?php endif; ?>
             </header>
             <!--     PAGE LOADER       -->
-            <div class="pageLoader">
-                <div id="mainLoader" class="pageLoader__wrapper active z">
-                    <div class="pageLoader__container">
-                        <div class="lds-spinner">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
+            <?php if ( ! is_frong_page() ) : // Perfomance for google analytics ?>
+                <div class="pageLoader">
+                    <div id="mainLoader" class="pageLoader__wrapper active z">
+                        <div class="pageLoader__container">
+                            <div class="lds-spinner">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            <?php endif; ?>
             <?php if ( is_mobile() ) : ?>
                 <!--      MOBILE MENU      -->
                 <div class="mobileMenu" id="mobileMenu">

@@ -3,7 +3,9 @@ export const loadAnalytics = () => {
     return new Promise(() => {
         let yandex, google, pixel;
         yandex = loadYandex();
-        google = loadGoogle('https://www.googletagmanager.com/gtag/js?id=UA-196988125-1');
+        if (typeof ym === "function") { // Analytics works
+            google = loadGoogle('https://www.googletagmanager.com/gtag/js?id=UA-196988125-1');
+        }
     });
 }
 
