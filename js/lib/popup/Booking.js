@@ -2,7 +2,7 @@ import ServerClient from "../ServerClient";
 import store from "../store";
 import Notification from "../Notification";
 import Cookies from 'js-cookie';
-import analytics from "../../analytics";
+import analytics from "../analytics/analytics-data";
 
 /**
  * Class used for add booking to cart

@@ -11,8 +11,8 @@ import slickCss from './../node_modules/slick-carousel/slick/slick.css';
 import animateCss from './../node_modules/animate.css/animate.min.css';
 import homepageCss from './../style/homepage.css';
 
-header();
 startAnalyticsAfterLoading();
+header();
 
 animateHome(); // Animations
 

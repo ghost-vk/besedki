@@ -1,4 +1,3 @@
-import analytics from "./analytics";
 import {notifyCookies} from "./lib/cookies-notification";
 import {header} from "./lib/header";
 import {callback} from "./lib/callback";
@@ -15,9 +14,10 @@ import slickCss from './../node_modules/slick-carousel/slick/slick.css';
 import datetimepickerCss from './../style/vendor/datetimepicker.css';
 import selectCss from './../style/vendor/select.css';
 import bookingCss from './../style/reservation-page/booking.css';
+import {startAnalyticsAfterLoading} from "./lib/analytics/analytics-handler";
 
+startAnalyticsAfterLoading();
 header();
-analytics.startAnalytics();
 
 $(document).ready(function () {
     pageLoader();

@@ -2,7 +2,7 @@ import store from './store';
 import ServerClient from "./ServerClient";
 import { isPossiblePhoneNumber, isValidPhoneNumber, parsePhoneNumber } from 'libphonenumber-js';
 import Notification from "./Notification";
-import analytics from "../analytics";
+import analytics from "./analytics/analytics-data";
 
 export const callback = function (obj) {
     var elements = {

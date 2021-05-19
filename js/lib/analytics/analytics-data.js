@@ -114,7 +114,7 @@ analytics._sendDataYandex = function (id, actionCode) {
 }
 
 /** GOOGLE ANALYTICS */
-analytics._sendDataGoogle = function (id, actionCode) {
+analytics._sendDataGoogle = function (actionCode) {
     if (typeof gtag === "undefined") {
         return;
     }
@@ -133,7 +133,7 @@ analytics._fireEvent = function (action) {
         return;
     }
     this._sendDataYandex(this.settings.yandexID, actionCode);
-    this._sendDataGoogle(this.settings.yandexID, actionCode);
+    this._sendDataGoogle(actionCode);
 }
 
 analytics.startAnalytics = () => {

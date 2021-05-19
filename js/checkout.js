@@ -1,4 +1,4 @@
-import analytics from "./analytics";
+import {startAnalyticsAfterLoading} from "./lib/analytics/analytics-handler";
 import {notifyCookies} from "./lib/cookies-notification";
 import {header} from "./lib/header";
 import {callback} from "./lib/callback";
@@ -9,8 +9,8 @@ import {validateCheckout} from "./lib/checkout-validation";
 
 import cartCss from './../style/cart.css';
 
+startAnalyticsAfterLoading();
 header();
-analytics.startAnalytics();
 
 $(document).ready(() => {
     pageLoader();
