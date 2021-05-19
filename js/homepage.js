@@ -5,7 +5,6 @@ import {startAnalyticsAfterLoading} from "./lib/analytics/analytics-handler";
 import {notifyCookies} from "./lib/cookies-notification";
 import {header} from "./lib/header";
 import {callback} from "./lib/callback";
-import {pageLoader} from "./lib/page-loader";
 
 import slickCss from './../node_modules/slick-carousel/slick/slick.css';
 import animateCss from './../node_modules/animate.css/animate.min.css';
@@ -17,7 +16,6 @@ header();
 animateHome(); // Animations
 
 $(document).ready(function () {
-    pageLoader();
     notifyCookies();
     callback($("#callbackForm"));
 
