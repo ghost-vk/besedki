@@ -9,6 +9,21 @@ const noSourceMap = [ /scroll-triggers/, /tinybounce/, /domassist/, /attrobj/ ];
 const isDev = process.env.NODE_ENV === 'development';
 const isProduction = !isDev;
 
+const activePlugins = [
+    new webpack.ProvidePlugin({
+        $: 'jquery',
+        jQuery: 'jquery',
+    }),
+    new MiniCssExtractPlugin()
+];
+if (isDev) {
+    activePlugins.push(
+      new webpack.SourceMapDevToolPlugin({
+          filename: "[file].map"
+      })
+    );
+}
+
 module.exports = {
     entry: {
         general: path.resolve(__dirname, './js/general.js'),
@@ -22,16 +37,7 @@ module.exports = {
         filename: '[name].bundle.js',
         chunkFilename: '[id].js',
     },
-    plugins: [
-        new webpack.ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery',
-        }),
-        new webpack.SourceMapDevToolPlugin({
-            filename: "[file].map"
-        }),
-        new MiniCssExtractPlugin(),
-    ],
+    plugins: activePlugins,
     optimization: {
         minimize: isProduction,
         minimizer: [

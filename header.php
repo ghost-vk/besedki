@@ -121,7 +121,11 @@ $page_id = ( $rollback_page_id ) ? $rollback_page_id : get_the_ID();
                 <div class="mobileMenu" id="mobileMenu">
                     <div class="mobileMenu__wrapper">
                         <div class="mobileMenu__reservation">
-                            <a class="greenBtn1" href="<?= home_url('/reservation'); ?>">Забронировать</a>
+                            <?php if ( ! is_shop() ) : ?>
+                                <a class="greenBtn1" href="<?php echo home_url('/reservation'); ?>">Забронировать</a>
+                            <?php else : ?>
+                                <a class="greenBtn1" href="<?php echo home_url(); ?>">На главную</a>
+                            <?php endif; ?>
                         </div>
                         <div class="mobileMenu__elements">
                             <?php

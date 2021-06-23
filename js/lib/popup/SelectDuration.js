@@ -13,9 +13,9 @@ class SelectDuration {
     constructor(el, priceBox, variations, popup) {
         this.el = el;
         this.options = [
-            { name: '1 час', value: '1' },
-            { name: '2 часа', value: '2' },
-            { name: '3 часа', value: '3' },
+            // { name: '1 час', value: '1' },
+            // { name: '2 часа', value: '2' },
+            // { name: '3 часа', value: '3' },
             { name: 'Целый день', value: 'day' }
         ];
         this.index = 3;
@@ -68,7 +68,7 @@ class SelectDuration {
      */
     _onSelectorInit() {
         this.priceBox.html(`${this.variations[3].price} &#8381;`)
-        store.setBookingDuration(this.options[3].value);
+        store.setBookingDuration(this.options[0].value); // 1,2,3 hour disabled
         store.setVariationID(this.variations[3].id);
     }
 
