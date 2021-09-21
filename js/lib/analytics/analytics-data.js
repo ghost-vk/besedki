@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie';
+import {opacity} from "../../../../../../wp-includes/js/codemirror/csslint";
 
 /**
  * @namespace analytics
@@ -122,8 +123,43 @@ analytics._sendDataGoogle = function (actionCode) {
     gtag('event', actionCode);
 }
 
+const getFbpCode = (actionCode) => {
+    if (!['contentView', 'addToCart', 'secondAdd', 'purchase', 'getLid', 'startCheckout'].includes(actionCode)) {
+        return null
+    }
+    switch (actionCode) {
+        case "contentView": {
+            return "ViewContent";
+            break;
+        }
+        case "addToCart": {
+            return "AddToCart";
+            break;
+        }
+        case "secondAdd": {
+            return "AddToCart";
+            break;
+        }
+        case "purchase": {
+            return "Purchase";
+            break;
+        }
+        case "getLid": {
+            return "Lead";
+            break;
+        }
+        case "startCheckout": {
+            return "InitiateCheckout";
+            break;
+        }
+        default: {
+            return false;
+        }
+    }
+}
+
 analytics._sendDataFbp = (actionCode) => {
-    if (typeof fbq === "undefined") {
+    if (typeof fbq === "undefined" || !actionCode) {
         return;
     }
     fbq('trackCustom', actionCode)
@@ -141,7 +177,7 @@ analytics._fireEvent = function (action) {
     }
     this._sendDataYandex(this.settings.yandexID, actionCode);
     this._sendDataGoogle(actionCode);
-    this._sendDataFbp(actionCode)
+    this._sendDataFbp(getFbpCode(actionCode))
 }
 
 analytics.startAnalytics = () => {
