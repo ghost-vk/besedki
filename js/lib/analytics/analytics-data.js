@@ -122,6 +122,13 @@ analytics._sendDataGoogle = function (actionCode) {
     gtag('event', actionCode);
 }
 
+analytics._sendDataFbp = (actionCode) => {
+    if (typeof fbq === "undefined") {
+        return;
+    }
+    fbq('track', actionCode)
+}
+
 /**
  * Method fires event in all analytics platform
  * @param action {String}
@@ -134,6 +141,7 @@ analytics._fireEvent = function (action) {
     }
     this._sendDataYandex(this.settings.yandexID, actionCode);
     this._sendDataGoogle(actionCode);
+    this._sendDataFbp(actionCode)
 }
 
 analytics.startAnalytics = () => {
