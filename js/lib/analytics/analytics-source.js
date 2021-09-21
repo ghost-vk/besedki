@@ -1,15 +1,18 @@
 import utils from "../utils";
 export const loadAnalytics = () => {
     return new Promise((resolve, reject) => {
-        try {
-            loadYandex();
-            loadGoogle('https://www.googletagmanager.com/gtag/js?id=UA-196988125-1');
-            loadFbp()
-            resolve()
-        } catch (err) {
-            console.log(err)
-            reject()
-        }
+        loadYandex()
+            .then(() => {
+                loadGoogle('https://www.googletagmanager.com/gtag/js?id=UA-196988125-1');
+            })
+            .then(() => {
+                loadFbp()
+            })
+            .then(() => resolve())
+            .catch((err) => {
+                console.log(err)
+                reject()
+            })
     });
 }
 
@@ -46,7 +49,7 @@ const loadGoogle = (src) => {
         });
 }
 
-const loadFbp = async () => {
+const loadFbp = () => {
     return new Promise((resolve, reject) => {
         try {
             !function(f,b,e,v,n,t,s)
