@@ -19,6 +19,12 @@ $page_id = ( $rollback_page_id ) ? $rollback_page_id : get_the_ID();
 	<noscript><div><img src="https://mc.yandex.ru/watch/78198895" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 	<script src="https://kit.fontawesome.com/519fd0f28a.js" crossorigin="anonymous" async></script>
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-196988125-1"></script>
+    <script>
+      window.dataLayer=window.dataLayer||[];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js',new Date());
+      gtag('config','UA-196988125-1');
+    </script>
 	<?php wp_head(); ?>
 </head>
 	<body class="lightBg">

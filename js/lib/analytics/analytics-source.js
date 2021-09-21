@@ -33,10 +33,10 @@ const loadYandex = () => {
 
 const loadGoogle = () => {
     return new Promise((resolve) => {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-196988125-1');
+        // window.dataLayer = window.dataLayer || [];
+        // function gtag(){dataLayer.push(arguments);}
+        // gtag('js', new Date());
+        // gtag('config', 'UA-196988125-1');
         resolve()
     })
 }
