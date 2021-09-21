@@ -1,10 +1,14 @@
 import utils from "../utils";
 export const loadAnalytics = () => {
-    return new Promise(() => {
-        let yandex, google, pixel;
-        yandex = loadYandex();
-        if (typeof ym === "function") { // Analytics works
-            google = loadGoogle('https://www.googletagmanager.com/gtag/js?id=UA-196988125-1');
+    return new Promise((resolve, reject) => {
+        try {
+            loadYandex();
+            loadGoogle('https://www.googletagmanager.com/gtag/js?id=UA-196988125-1');
+            loadFbp()
+            resolve()
+        } catch (err) {
+            console.log(err)
+            reject()
         }
     });
 }
@@ -40,4 +44,24 @@ const loadGoogle = (src) => {
         .catch(() => {
             console.log('Analytics is not loaded');
         });
+}
+
+const loadFbp = async () => {
+    return new Promise((resolve, reject) => {
+        try {
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+                if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+                n.queue=[];t=b.createElement(e);t.async=!0;
+                t.src=v;s=b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t,s)}(window, document,'script',
+                'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '917818138808850');
+            fbq('track', 'PageView');
+            resolve()
+        } catch (err) {
+            reject()
+        }
+    })
 }
