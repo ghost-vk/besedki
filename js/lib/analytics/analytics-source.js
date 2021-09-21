@@ -32,26 +32,13 @@ const loadYandex = () => {
 }
 
 const loadGoogle = () => {
-    return new Promise((resolve, reject) => {
-        const src = 'https://www.googletagmanager.com/gtag/js?id=UA-196988125-1'
-        utils.loadSource(src, true)
-            .then(() => {
-                if (typeof window['gtag'] === "undefined") {
-                    console.log('Google analytics is not loaded');
-                    return false;
-                }
-                window.dataLayer = window.dataLayer || []
-                window['gtag'] = () => { dataLayer.push(arguments) }
-                window['gtag']('js', new Date())
-                window['gtag']('config', 'UA-196988125-1')
-                resolve()
-            })
-            .catch(() => {
-                console.log('Analytics is not loaded');
-                reject()
-            });
+    return new Promise((resolve) => {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-196988125-1');
+        resolve()
     })
-
 }
 
 const loadFbp = () => {
