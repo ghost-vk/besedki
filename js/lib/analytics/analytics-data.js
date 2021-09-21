@@ -162,7 +162,7 @@ analytics._sendDataFbp = (actionCode) => {
     if (typeof fbq === "undefined" || !actionCode) {
         return;
     }
-    fbq('trackCustom', actionCode)
+    fbq('track', actionCode)
 }
 
 /**
