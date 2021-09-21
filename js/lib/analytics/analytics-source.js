@@ -2,12 +2,8 @@ import utils from "../utils";
 export const loadAnalytics = () => {
     return new Promise((resolve, reject) => {
         loadYandex()
-            .then(() => {
-                loadGoogle('https://www.googletagmanager.com/gtag/js?id=UA-196988125-1');
-            })
-            .then(() => {
-                loadFbp()
-            })
+            .then(loadGoogle)
+            .then(loadFbp)
             .then(() => resolve())
             .catch((err) => {
                 console.log(err)
@@ -17,36 +13,45 @@ export const loadAnalytics = () => {
 }
 
 const loadYandex = () => {
-    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-        m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    return new Promise((resolve, reject) => {
+        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
-    if (typeof ym === "undefined") {
-        return false;
-    }
+        if (typeof ym === "undefined") {
+            reject()
+        }
 
-    ym(78198895, "init", {
-        clickmap:true,
-        trackLinks:true,
-        accurateTrackBounce:true
-    });
+        ym(78198895, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true
+        });
+        resolve()
+    })
 }
 
-const loadGoogle = (src) => {
-    utils.loadSource(src, true)
-        .then(() => {
-            if (typeof gtag === "undefined") {
-                console.log('Google analytics is not loaded');
-                return false;
-            }
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'UA-196988125-1');
-        })
-        .catch(() => {
-            console.log('Analytics is not loaded');
-        });
+const loadGoogle = () => {
+    return new Promise((resolve, reject) => {
+        const src = 'https://www.googletagmanager.com/gtag/js?id=UA-196988125-1'
+        utils.loadSource(src, true)
+            .then(() => {
+                if (typeof gtag === "undefined") {
+                    console.log('Google analytics is not loaded');
+                    return false;
+                }
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'UA-196988125-1');
+                resolve()
+            })
+            .catch(() => {
+                console.log('Analytics is not loaded');
+                reject()
+            });
+    })
+
 }
 
 const loadFbp = () => {
